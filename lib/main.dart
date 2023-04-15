@@ -1,6 +1,11 @@
+
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 void main() {
+  log(const String.fromEnvironment('FLAVOR'));
   runApp(const MainApp());
 }
 
