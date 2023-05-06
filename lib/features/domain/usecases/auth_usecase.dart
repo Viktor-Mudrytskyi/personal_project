@@ -16,25 +16,26 @@ abstract class AuthUseCase {
 
 class AuthUseCaseImpl implements AuthUseCase {
   final AuthRepository _authRepository;
-  const AuthUseCaseImpl({required AuthRepository authRepository})
-      : _authRepository = authRepository;
+  const AuthUseCaseImpl({
+    required AuthRepository authRepository,
+  }) : _authRepository = authRepository;
   @override
-  Future<void> logOut() async{
-    final res=await _authRepository.logOut();
-    res.fold((error) => log(error.toString()), (_) =>null);
+  Future<void> logOut() async {
+    //TODO add trycatch
+    final res = await _authRepository.logOut();
   }
 
   @override
-  Future<void> registerUserWEmailAndPassword(
-      {required String email, required String password}) {
-    // TODO: implement registerUserWEmailAndPassword
-    throw UnimplementedError();
+  Future<void> registerUserWEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    final res = await _authRepository.logOut();
   }
 
   @override
-  Future<void> signInWEmailAndPassword(
-      {required String email, required String password}) {
-    // TODO: implement signInWEmailAndPassword
-    throw UnimplementedError();
-  }
+  Future<void> signInWEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {}
 }
