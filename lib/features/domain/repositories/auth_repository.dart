@@ -1,16 +1,14 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
-  Future<Either<FirebaseAuthException, void>> registerUserWEmailAndPassword({
+  Future<void> registerUserWEmailAndPassword({
     required String email,
     required String password,
   });
 
-  Future<Either<FirebaseAuthException, void>> signInWEmailAndPassword({
+  Future<void> signInWEmailAndPassword({
     required String email,
     required String password,
   });
 
-  Future<Either<FirebaseAuthException, void>> logOut();
+  Future<void> logOut();
 }

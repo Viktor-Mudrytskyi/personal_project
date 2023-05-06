@@ -1,47 +1,31 @@
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:personal_project/features/domain/domain.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   @override
-  Future<Either<FirebaseAuthException, void>> logOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      return const Right(null);
-    } on FirebaseAuthException catch (e) {
-      return Left(e);
-    }
+  Future<void> logOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
-  Future<Either<FirebaseAuthException, void>> registerUserWEmailAndPassword({
+  Future<void> registerUserWEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return const Right(null);
-    } on FirebaseAuthException catch (e) {
-      return Left(e);
-    }
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   @override
-  Future<Either<FirebaseAuthException, void>> signInWEmailAndPassword({
+  Future<void> signInWEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return const Right(null);
-    } on FirebaseAuthException catch (e) {
-      return Left(e);
-    }
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 }
