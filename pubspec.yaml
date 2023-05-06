@@ -15,6 +15,14 @@ dependencies:
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.1
 
+  # Di
+  get_it: ^7.4.1
+
+  # Utils
+  dartz: ^0.10.1
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
