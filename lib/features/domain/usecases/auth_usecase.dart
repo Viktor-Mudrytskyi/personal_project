@@ -1,17 +1,19 @@
-import 'dart:developer';
-
+import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:personal_project/features/domain/domain.dart';
 
 abstract class AuthUseCase {
-  Future<void> registerUserWEmailAndPassword({
+  Future<Either<FirebaseAuthException, UserCredential>>
+      registerUserWEmailAndPassword({
     required String email,
     required String password,
   });
-  Future<void> signInWEmailAndPassword({
+  Future<Either<FirebaseAuthException, UserCredential>>
+      signInWEmailAndPassword({
     required String email,
     required String password,
   });
-  Future<void> logOut();
+  Future<Either<FirebaseAuthException, void>> logOut();
 }
 
 class AuthUseCaseImpl implements AuthUseCase {
@@ -20,22 +22,47 @@ class AuthUseCaseImpl implements AuthUseCase {
     required AuthRepository authRepository,
   }) : _authRepository = authRepository;
   @override
-  Future<void> logOut() async {
-    //TODO add trycatch
-    final res = await _authRepository.logOut();
+  Future<Either<FirebaseAuthException, void>> logOut() async {
+    try {
+      await _authRepository.logOut();
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      return Left(e);
+    }
   }
 
   @override
-  Future<void> registerUserWEmailAndPassword({
+  Future<Either<FirebaseAuthException, UserCredential>>
+      registerUserWEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    final res = await _authRepository.logOut();
+    try {
+      final userCredential =
+          await _authRepository.registerUserWEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return Right(userCredential);
+    } on FirebaseAuthException catch (e) {
+      return Left(e);
+    }
   }
 
   @override
-  Future<void> signInWEmailAndPassword({
+  Future<Either<FirebaseAuthException, UserCredential>>
+      signInWEmailAndPassword({
     required String email,
     required String password,
-  }) async {}
+  }) async {
+    try {
+      final userCredential = await _authRepository.signInWEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return Right(userCredential);
+    } on FirebaseAuthException catch (e) {
+      return Left(e);
+    }
+  }
 }
