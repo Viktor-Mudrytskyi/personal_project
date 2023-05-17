@@ -82,9 +82,12 @@ class CustomShape extends CustomPainter {
 
     final bottomShadowPath = bottomPath.shift(shadowOffset);
     final topShadowPath = topPath.shift(shadowOffset);
+
+    //Draw shadows
     canvas.drawPath(topShadowPath, shadow.toPaint());
     canvas.drawPath(bottomShadowPath, shadow.toPaint());
 
+    //Draw shapes
     canvas.drawPath(topPath, paint);
     canvas.drawPath(bottomPath, paint);
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_project/core/core.dart';
 
 import '../../../features.dart';
 
@@ -7,8 +8,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const horizontalPadding = 20.0;
-    const verticalPadding = 26.0;
+    const kHorizontalPadding = 20.0;
+    const kVerticalPadding = 26.0;
+    const kInnerHorizontalPadding = 26.0;
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -25,12 +27,38 @@ class LoginScreen extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-            vertical: verticalPadding,
+            horizontal: kHorizontalPadding,
+            vertical: kVerticalPadding,
           ),
-          child: CustomPaint(
-            painter:
-                CustomShape(shadowColor: Theme.of(context).colorScheme.shadow),
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    CustomPaint(
+                      painter: CustomShape(
+                          shadowColor: Theme.of(context).colorScheme.shadow),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kInnerHorizontalPadding),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 18),
+                            Image.asset(
+                              AppImages.kLoginImage,
+                              fit: BoxFit.contain,
+                              height: 147,
+                            ),
+                            const SizedBox(height: 500),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
