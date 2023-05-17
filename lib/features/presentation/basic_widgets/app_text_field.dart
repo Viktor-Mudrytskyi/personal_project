@@ -6,7 +6,14 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(),
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(9),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
+      )),
     );
   }
 }

@@ -25,41 +25,57 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: kHorizontalPadding,
-            vertical: kVerticalPadding,
-          ),
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverList(
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kHorizontalPadding,
+                vertical: kVerticalPadding,
+              ),
+              sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   [
                     CustomPaint(
                       painter: CustomShape(
-                          shadowColor: Theme.of(context).colorScheme.shadow),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: kInnerHorizontalPadding),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 18),
-                            Image.asset(
-                              AppImages.kLoginImage,
-                              fit: BoxFit.contain,
-                              height: 147,
+                        shadowColor: Theme.of(context).colorScheme.shadow,
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 18),
+                          Image.asset(
+                            AppImages.kLoginImage,
+                            fit: BoxFit.contain,
+                            height: 147,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: kInnerHorizontalPadding,
                             ),
-                            const SizedBox(height: 500),
-                          ],
-                        ),
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Email Address',
+                                    suffixIcon: Icon(
+                                      Icons.mail_outline,
+                                      size: 24,
+                                    ),
+                                    isDense: true,
+                                  ),
+                                ),
+                                const SizedBox(height: 600),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

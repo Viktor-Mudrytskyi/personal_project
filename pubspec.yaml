@@ -31,3 +31,11 @@ flutter:
 
   assets:
     - assets/images/
+
+  fonts:
+    - family: Trebuc
+      fonts:
+        - asset: assets/fonts/Trebuchet MS/trebuc.ttf
+
+        - asset: assets/fonts/Trebuchet MS/Trebuchet-MS-Italic.ttf
+          style: italic
