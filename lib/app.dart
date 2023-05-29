@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_project/core/core.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/presentation/presentation.dart';
 
 class MainApp extends StatelessWidget {
@@ -8,10 +8,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      home: const LoginScreen(),
+    return BlocProvider(
+      create: (context) => injector<AppOptionsCubit>(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: LoginScreen(),
+      ),
     );
   }
 }

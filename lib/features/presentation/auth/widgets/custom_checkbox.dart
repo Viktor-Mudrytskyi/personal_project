@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_project/core/core_blocs/options_cubit/app_options_cubit.dart';
 
 class CustomCheckBox extends StatelessWidget {
   const CustomCheckBox({
@@ -11,7 +13,8 @@ class CustomCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final checkBoxTheme = Theme.of(context).checkboxTheme;
+    final checkBoxTheme =
+        context.watch<AppOptionsCubit>().state.appTheme.checkboxTheme;
     final borderTheme = checkBoxTheme.shape as RoundedRectangleBorder;
     return Container(
       height: 21,
@@ -23,11 +26,14 @@ class CustomCheckBox extends StatelessWidget {
           width: borderTheme.side.width,
         ),
       ),
-      child: Checkbox(
-        value: value,
-        side: BorderSide.none,
-        shape: const RoundedRectangleBorder(side: BorderSide.none),
-        onChanged: onChanged,
+      child: Theme(
+        data: ThemeData(checkboxTheme: checkBoxTheme),
+        child: Checkbox(
+          value: value,
+          side: BorderSide.none,
+          shape: const RoundedRectangleBorder(side: BorderSide.none),
+          onChanged: onChanged,
+        ),
       ),
     );
   }

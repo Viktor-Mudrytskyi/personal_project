@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_project/core/core.dart';
 
 import '../../../features.dart';
@@ -11,6 +12,7 @@ class LoginScreen extends StatelessWidget {
     const double kHorizontalPadding = 20.0;
     const double kVerticalPadding = 26.0;
     const double kInnerHorizontalPadding = 26.0;
+    final appTheme = context.watch<AppOptionsCubit>().state.appTheme;
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -20,8 +22,8 @@ class LoginScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Theme.of(context).colorScheme.primary,
-              Theme.of(context).colorScheme.secondary,
+              appTheme.colorScheme.primary,
+              appTheme.colorScheme.secondary,
             ],
           ),
         ),
@@ -38,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   [
                     CustomPaint(
                       painter: CustomShape(
-                        shadowColor: Theme.of(context).colorScheme.shadow,
+                        shadowColor: appTheme.colorScheme.shadow,
                       ),
                       child: Column(
                         children: [
@@ -58,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                             height: 35,
                             child: Text(
                               'Welcome',
-                              style: Theme.of(context).textTheme.headlineMedium,
+                              style: appTheme.authHeadline,
                             ),
                           ),
                           SizedBox(
@@ -69,14 +71,11 @@ class LoginScreen extends StatelessWidget {
                                   TextSpan(
                                     text:
                                         'By signing in you are agreeing to our\n',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
+                                    style: appTheme.authBody,
                                   ),
                                   TextSpan(
                                     text: 'Term and privacy policy',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
+                                    style: appTheme.authBodyBlue,
                                   ),
                                 ],
                               ),
@@ -90,30 +89,51 @@ class LoginScreen extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Email Address',
-                                    suffixIcon: Icon(
-                                      Icons.mail_outline,
-                                      size: 24,
+                                Theme(
+                                  data: ThemeData(
+                                    inputDecorationTheme:
+                                        appTheme.inputDecorationTheme,
+                                  ),
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Email Address',
+                                      suffixIcon: Icon(
+                                        Icons.mail_outline,
+                                        size: 24,
+                                      ),
+                                      isDense: true,
                                     ),
-                                    isDense: true,
                                   ),
                                 ),
                                 const SizedBox(height: 22),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Password',
-                                    suffixIcon: Icon(
-                                      Icons.lock_outline,
-                                      size: 24,
+                                Theme(
+                                  data: ThemeData(
+                                    inputDecorationTheme:
+                                        appTheme.inputDecorationTheme,
+                                  ),
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Password',
+                                      suffixIcon: Icon(
+                                        Icons.lock_outline,
+                                        size: 24,
+                                      ),
+                                      isDense: true,
                                     ),
-                                    isDense: true,
                                   ),
                                 ),
                                 const SizedBox(height: 20),
                                 const RememberPassCheckBox(),
-                                const SizedBox(height: 460),
+                                const SizedBox(height: 81),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Forget password',
+                                    style: appTheme.authForgotPass,
+                                  ),
+                                ),
+                                const SizedBox(height: 27),
+                                const SizedBox(height: 320),
                               ],
                             ),
                           ),

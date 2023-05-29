@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_project/core/core.dart';
 import 'package:personal_project/features/features.dart';
 
 class RememberPassCheckBox extends StatefulWidget {
@@ -12,6 +14,7 @@ class _RememberPassCheckBoxState extends State<RememberPassCheckBox> {
   bool val = false;
   @override
   Widget build(BuildContext context) {
+    final appTheme = context.watch<AppOptionsCubit>().state.appTheme;
     return Row(
       children: [
         CustomCheckBox(
@@ -24,7 +27,7 @@ class _RememberPassCheckBoxState extends State<RememberPassCheckBox> {
         const SizedBox(width: 10),
         Text(
           'Remember password',
-          style: Theme.of(context).textTheme.labelSmall,
+          style: appTheme.authRememberPass,
         )
       ],
     );
