@@ -8,9 +8,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const kHorizontalPadding = 20.0;
-    const kVerticalPadding = 26.0;
-    const kInnerHorizontalPadding = 26.0;
+    const double kHorizontalPadding = 20.0;
+    const double kVerticalPadding = 26.0;
+    const double kInnerHorizontalPadding = 26.0;
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -42,12 +42,48 @@ class LoginScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 18),
-                          Image.asset(
-                            AppImages.kLoginImage,
-                            fit: BoxFit.contain,
-                            height: 147,
+                          const SizedBox(height: 13),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Image.asset(
+                              AppImages.kLoginImage,
+                              fit: BoxFit.contain,
+                              height: 147,
+                              width: double.infinity,
+                            ),
                           ),
+                          const SizedBox(height: 18),
+                          SizedBox(
+                            height: 35,
+                            child: Text(
+                              'Welcome',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 66,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        'By signing in you are agreeing to our\n',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  TextSpan(
+                                    text: 'Term and privacy policy',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: kInnerHorizontalPadding,
@@ -64,7 +100,20 @@ class LoginScreen extends StatelessWidget {
                                     isDense: true,
                                   ),
                                 ),
-                                const SizedBox(height: 600),
+                                const SizedBox(height: 22),
+                                TextFormField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Password',
+                                    suffixIcon: Icon(
+                                      Icons.lock_outline,
+                                      size: 24,
+                                    ),
+                                    isDense: true,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                const RememberPassCheckBox(),
+                                const SizedBox(height: 460),
                               ],
                             ),
                           ),
