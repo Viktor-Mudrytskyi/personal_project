@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:personal_project/features/domain/domain.dart';
+import '../domain.dart';
 
 abstract class AuthUseCase {
   Future<Either<FirebaseAuthException, UserCredential>>

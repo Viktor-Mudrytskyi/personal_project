@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_project/core/core.dart';
-import 'package:personal_project/features/features.dart';
+import '../../../../core/core.dart';
+import '../../../features.dart';
 
 class RememberPassCheckBox extends StatefulWidget {
   const RememberPassCheckBox({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_project/core/core.dart';
+import '../../../../core/core.dart';
 
 import '../../../features.dart';
 
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   [
                     CustomPaint(
                       painter: CustomShape(
-                        shadowColor: appTheme.colorScheme.shadow,
+                        shadow: appTheme.backgroundShadow,
                       ),
                       child: Column(
                         children: [
@@ -89,37 +89,25 @@ class LoginScreen extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                Theme(
-                                  data: ThemeData(
-                                    inputDecorationTheme:
-                                        appTheme.inputDecorationTheme,
-                                  ),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      hintText: 'Email Address',
-                                      suffixIcon: Icon(
-                                        Icons.mail_outline,
-                                        size: 24,
-                                      ),
-                                      isDense: true,
+                                TextFormField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Email Address',
+                                    suffixIcon: Icon(
+                                      Icons.mail_outline,
+                                      size: 24,
                                     ),
+                                    isDense: true,
                                   ),
                                 ),
                                 const SizedBox(height: 22),
-                                Theme(
-                                  data: ThemeData(
-                                    inputDecorationTheme:
-                                        appTheme.inputDecorationTheme,
-                                  ),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      hintText: 'Password',
-                                      suffixIcon: Icon(
-                                        Icons.lock_outline,
-                                        size: 24,
-                                      ),
-                                      isDense: true,
+                                TextFormField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Password',
+                                    suffixIcon: Icon(
+                                      Icons.lock_outline,
+                                      size: 24,
                                     ),
+                                    isDense: true,
                                   ),
                                 ),
                                 const SizedBox(height: 20),
@@ -132,8 +120,25 @@ class LoginScreen extends StatelessWidget {
                                     style: appTheme.authForgotPass,
                                   ),
                                 ),
-                                const SizedBox(height: 27),
-                                const SizedBox(height: 320),
+                                const SizedBox(height: 30),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: AuthButton.fill(
+                                        onPressed: () {},
+                                        text: 'Login',
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Expanded(
+                                      child: AuthButton.border(
+                                        onPressed: () {},
+                                        text: 'Register',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 230),
                               ],
                             ),
                           ),

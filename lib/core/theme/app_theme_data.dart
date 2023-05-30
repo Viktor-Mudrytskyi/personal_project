@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
 class AppThemeData {
+  //Standart Theme
   final CheckboxThemeData checkboxTheme;
   final ColorScheme colorScheme;
   final InputDecorationTheme inputDecorationTheme;
+
+  //Text Styles
   final TextStyle authHeadline;
   final TextStyle authBody;
   final TextStyle authBodyBlue;
   final TextStyle authRememberPass;
   final TextStyle authForgotPass;
+  final TextStyle login;
+  final TextStyle register;
+
+  //Colors
+  final Color authButtonFill;
+  final Color primaryBackground;
+
+  //Shadows
+  final BoxShadow backgroundShadow;
+  final BoxShadow authButtonShadow;
 
   const AppThemeData({
     required this.authRememberPass,
@@ -19,10 +32,29 @@ class AppThemeData {
     required this.authBody,
     required this.authBodyBlue,
     required this.authForgotPass,
+    required this.primaryBackground,
+    required this.authButtonFill,
+    required this.backgroundShadow,
+    required this.authButtonShadow,
+    required this.login,
+    required this.register,
   });
 
   factory AppThemeData.light() {
     return AppThemeData(
+      //BoxShadow
+      backgroundShadow: const BoxShadow(
+        offset: Offset(0, 4),
+        blurRadius: 14,
+        color: Color(0xAA000000),
+      ),
+      authButtonShadow: const BoxShadow(
+        offset: Offset(0, 0),
+        blurRadius: 4,
+        color: Color(0x40000000),
+      ),
+
+      //CheckBox
       checkboxTheme: CheckboxThemeData(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         visualDensity: VisualDensity.compact,
@@ -40,6 +72,8 @@ class AppThemeData {
         secondary: Color(0xff3B5998),
         shadow: Color(0xAA000000),
       ),
+
+      //TextField
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(9),
@@ -70,6 +104,12 @@ class AppThemeData {
         ),
         suffixIconColor: const Color(0xFFC4C4C4),
       ),
+
+      //Colors
+      authButtonFill: const Color(0xFF0386D0),
+      primaryBackground: const Color(0xFFFFFFFF),
+
+      //TextStyles
       authHeadline: const TextStyle(
         fontFamily: 'Trebuc',
         fontSize: 21,
@@ -102,6 +142,18 @@ class AppThemeData {
         fontSize: 14,
         fontWeight: FontWeight.w400,
         color: Color(0xFF0386D0),
+      ),
+      login: const TextStyle(
+        fontFamily: 'Trebuc',
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xFFFFFFFF),
+      ),
+      register: const TextStyle(
+        fontFamily: 'Trebuc',
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xFF036BB9),
       ),
     );
   }

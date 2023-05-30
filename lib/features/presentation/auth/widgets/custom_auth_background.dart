@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CustomShape extends CustomPainter {
-  const CustomShape({required this.shadowColor});
-  final Color shadowColor;
+  const CustomShape({required this.shadow});
+  final BoxShadow shadow;
   @override
   void paint(Canvas canvas, Size size) {
     //Measurements
@@ -13,8 +13,8 @@ class CustomShape extends CustomPainter {
     final topLeft = height * 0.641;
     final topRight = height * 0.439;
     const radius = 28.0;
-    final bottomLeft = height * 0.303;
-    final bottomRight = height * 0.496;
+    final bottomLeft = height * 0.31;
+    final bottomRight = height * 0.51;
 
     final paint = Paint()
       ..color = Colors.white
@@ -73,15 +73,9 @@ class CustomShape extends CustomPainter {
       ..lineTo(width, height - bottomRight);
 
     // Apply shadows
-    const shadowOffset = Offset(0, 4);
-    final shadow = BoxShadow(
-      offset: shadowOffset,
-      blurRadius: 14,
-      color: shadowColor,
-    );
 
-    final bottomShadowPath = bottomPath.shift(shadowOffset);
-    final topShadowPath = topPath.shift(shadowOffset);
+    final bottomShadowPath = bottomPath.shift(shadow.offset);
+    final topShadowPath = topPath.shift(shadow.offset);
 
     //Draw shadows
     canvas.drawPath(topShadowPath, shadow.toPaint());

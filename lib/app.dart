@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_project/core/core.dart';
+import 'core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/presentation/presentation.dart';
 
@@ -10,9 +10,18 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => injector<AppOptionsCubit>(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+      child: BlocBuilder<AppOptionsCubit, AppOptionsState>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              inputDecorationTheme: state.appTheme.inputDecorationTheme,
+              checkboxTheme: state.appTheme.checkboxTheme,
+              colorScheme: state.appTheme.colorScheme,
+            ),
+            home: const LoginScreen(),
+          );
+        },
       ),
     );
   }

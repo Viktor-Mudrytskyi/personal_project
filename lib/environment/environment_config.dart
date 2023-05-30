@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:personal_project/dev_firebase_options.dart';
-import 'package:personal_project/prod_firebase_options.dart';
+import '../dev_firebase_options.dart';
+import '../prod_firebase_options.dart';
 
 enum EnvironmentEnum {
   dev,
