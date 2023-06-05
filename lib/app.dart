@@ -12,14 +12,9 @@ class MainApp extends StatelessWidget {
       create: (context) => injector<AppOptionsCubit>(),
       child: BlocBuilder<AppOptionsCubit, AppOptionsState>(
         builder: (context, state) {
-          return MaterialApp(
+          return const MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              inputDecorationTheme: state.appTheme.inputDecorationTheme,
-              checkboxTheme: state.appTheme.checkboxTheme,
-              colorScheme: state.appTheme.colorScheme,
-            ),
-            home: const LoginScreen(),
+            home: LoginScreen(),
           );
         },
       ),

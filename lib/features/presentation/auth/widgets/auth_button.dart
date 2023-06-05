@@ -22,16 +22,20 @@ class AuthButton extends StatelessWidget {
       width: double.infinity,
       height: 45,
       decoration: BoxDecoration(
-        color: isFill ? appTheme.authButtonFill : appTheme.primaryBackground,
+        color: isFill
+            ? appTheme.appColors.authButtonFill
+            : appTheme.appColors.primaryBackground,
         borderRadius: BorderRadius.circular(27),
-        border: Border.all(width: 1, color: appTheme.authButtonFill),
-        boxShadow: [appTheme.authButtonShadow],
+        border: Border.all(width: 1, color: appTheme.appColors.authButtonFill),
+        boxShadow: [appTheme.appShadows.authButtonShadow],
       ),
       child: Align(
         alignment: Alignment.center,
         child: Text(
           text,
-          style: isFill ? appTheme.login : appTheme.register,
+          style: isFill
+              ? appTheme.appTextStyles.login
+              : appTheme.appTextStyles.register,
         ),
       ),
     );

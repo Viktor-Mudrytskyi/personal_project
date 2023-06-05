@@ -7,4 +7,8 @@ part 'app_options_cubit.freezed.dart';
 
 class AppOptionsCubit extends Cubit<AppOptionsState> {
   AppOptionsCubit() : super(AppOptionsState(appTheme: AppTheme.light));
+
+  void changeTheme(AppThemeData data) {
+    emit(AppOptionsState(appTheme: data));
+  }
 }

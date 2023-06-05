@@ -13,24 +13,44 @@ class CustomCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final checkBoxTheme =
-        context.watch<AppOptionsCubit>().state.appTheme.checkboxTheme;
-    final borderTheme = checkBoxTheme.shape as RoundedRectangleBorder;
+    final appTheme = context.watch<AppOptionsCubit>().state.appTheme;
     return Container(
       height: 21,
       width: 21,
       decoration: BoxDecoration(
-        borderRadius: borderTheme.borderRadius,
+        borderRadius: BorderRadius.circular(2),
         border: Border.all(
-          color: borderTheme.side.color,
-          width: borderTheme.side.width,
+          color: appTheme.appColors.checkBoxBorder,
+          width: 2,
         ),
       ),
-      child: Checkbox(
-        value: value,
-        side: BorderSide.none,
-        shape: const RoundedRectangleBorder(side: BorderSide.none),
-        onChanged: onChanged,
+      child: Theme(
+        data: ThemeData(
+          checkboxTheme: CheckboxThemeData(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: VisualDensity.compact,
+            checkColor:
+                MaterialStatePropertyAll(appTheme.appColors.checkBoxBorder),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2),
+              side: BorderSide(
+                  color: appTheme.appColors.checkBoxBorder, width: 2),
+            ),
+            side:
+                BorderSide(color: appTheme.appColors.checkBoxBorder, width: 2),
+            fillColor:
+                MaterialStatePropertyAll(appTheme.appColors.checkBoxFill),
+            overlayColor:
+                MaterialStatePropertyAll(appTheme.appColors.checkBoxFill),
+            splashRadius: 0,
+          ),
+        ),
+        child: Checkbox(
+          value: value,
+          side: BorderSide.none,
+          shape: const RoundedRectangleBorder(side: BorderSide.none),
+          onChanged: onChanged,
+        ),
       ),
     );
   }

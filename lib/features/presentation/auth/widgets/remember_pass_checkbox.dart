@@ -3,31 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core.dart';
 import '../../../features.dart';
 
-class RememberPassCheckBox extends StatefulWidget {
-  const RememberPassCheckBox({super.key});
+class RememberPassCheckBox extends StatelessWidget {
+  const RememberPassCheckBox(
+      {super.key, required this.value, required this.onPressed});
+  final bool value;
+  final Function(bool? val) onPressed;
 
-  @override
-  State<RememberPassCheckBox> createState() => _RememberPassCheckBoxState();
-}
-
-class _RememberPassCheckBoxState extends State<RememberPassCheckBox> {
-  bool val = false;
   @override
   Widget build(BuildContext context) {
     final appTheme = context.watch<AppOptionsCubit>().state.appTheme;
     return Row(
       children: [
         CustomCheckBox(
-            value: val,
-            onChanged: (value) {
-              setState(() {
-                val = value!;
-              });
-            }),
+          value: value,
+          onChanged: onPressed,
+        ),
         const SizedBox(width: 10),
         Text(
           'Remember password',
-          style: appTheme.authRememberPass,
+          style: appTheme.appTextStyles.authRememberPass,
         )
       ],
     );

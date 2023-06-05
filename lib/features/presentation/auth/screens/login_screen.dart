@@ -18,14 +18,7 @@ class LoginScreen extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              appTheme.colorScheme.primary,
-              appTheme.colorScheme.secondary,
-            ],
-          ),
+          gradient: appTheme.appGradients.authBackgroundGradient,
         ),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -40,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                   [
                     CustomPaint(
                       painter: CustomShape(
-                        shadow: appTheme.backgroundShadow,
+                        shadow: appTheme.appShadows.backgroundShadow,
                       ),
                       child: Column(
                         children: [
@@ -60,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                             height: 35,
                             child: Text(
                               'Welcome',
-                              style: appTheme.authHeadline,
+                              style: appTheme.appTextStyles.authHeadline,
                             ),
                           ),
                           SizedBox(
@@ -71,11 +64,11 @@ class LoginScreen extends StatelessWidget {
                                   TextSpan(
                                     text:
                                         'By signing in you are agreeing to our\n',
-                                    style: appTheme.authBody,
+                                    style: appTheme.appTextStyles.authBody,
                                   ),
                                   TextSpan(
                                     text: 'Term and privacy policy',
-                                    style: appTheme.authBodyBlue,
+                                    style: appTheme.appTextStyles.authBodyBlue,
                                   ),
                                 ],
                               ),
@@ -89,35 +82,33 @@ class LoginScreen extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Email Address',
-                                    suffixIcon: Icon(
-                                      Icons.mail_outline,
-                                      size: 24,
-                                    ),
-                                    isDense: true,
+                                const AppTextField(
+                                  hintText: 'Email Address',
+                                  suffixIcon: Icon(
+                                    Icons.mail_outline,
+                                    size: 24,
                                   ),
                                 ),
                                 const SizedBox(height: 22),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Password',
-                                    suffixIcon: Icon(
-                                      Icons.lock_outline,
-                                      size: 24,
-                                    ),
-                                    isDense: true,
+                                const AppTextField(
+                                  hintText: 'Password',
+                                  suffixIcon: Icon(
+                                    Icons.lock_outline,
+                                    size: 24,
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                const RememberPassCheckBox(),
+                                RememberPassCheckBox(
+                                  value: false,
+                                  onPressed: (val) {},
+                                ),
                                 const SizedBox(height: 81),
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     'Forget password',
-                                    style: appTheme.authForgotPass,
+                                    style:
+                                        appTheme.appTextStyles.authForgotPass,
                                   ),
                                 ),
                                 const SizedBox(height: 30),
