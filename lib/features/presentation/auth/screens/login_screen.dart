@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core.dart';
 
 import '../../../features.dart';
 
+@RoutePage()
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -34,6 +36,7 @@ class LoginScreen extends StatelessWidget {
                     CustomPaint(
                       painter: CustomShape(
                         shadow: appTheme.appShadows.backgroundShadow,
+                        color: appTheme.appColors.primaryBackground,
                       ),
                       child: Column(
                         children: [
@@ -104,7 +107,10 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 81),
                                 Align(
-                                  alignment: Alignment.centerRight,
+                                  alignment: Directionality.of(context) ==
+                                          TextDirection.ltr
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
                                   child: Text(
                                     'Forget password',
                                     style:

@@ -9,8 +9,11 @@ enum EnvironmentEnum {
 
 class EnvironmentConfig {
   static const String _prodName = 'prod';
+
   static const String _devName = 'dev';
+
   static bool get isDev => currentEnv == EnvironmentEnum.dev ? true : false;
+
   static EnvironmentEnum get currentEnv {
     switch (const String.fromEnvironment('FLAVOR')) {
       case _prodName:

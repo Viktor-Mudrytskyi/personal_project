@@ -3,16 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../domain.dart';
 
 abstract class AuthUseCase {
+  ///Does not throw [Exception]. On success returns UserCredentials, on failure - [FirebaseAuthException]
   Future<Either<FirebaseAuthException, UserCredential>>
       registerUserWEmailAndPassword({
     required String email,
     required String password,
   });
+
+  ///Does not throw [Exception]. On success returns UserCredentials, on failure - [FirebaseAuthException]
   Future<Either<FirebaseAuthException, UserCredential>>
       signInWEmailAndPassword({
     required String email,
     required String password,
   });
+
+  ///Does not throw [Exception]. On success returns UserCredentials, on failure - [FirebaseAuthException]
   Future<Either<FirebaseAuthException, void>> logOut();
 }
 

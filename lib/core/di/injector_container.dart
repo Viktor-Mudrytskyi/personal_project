@@ -7,9 +7,12 @@ import '../../features/domain/domain.dart';
 
 ///Use this global variable for dependency injection throughout the app
 final injector = GetIt.instance;
+
+///Initializes [GetIt] [injector] variable
 Future<void> initInjector() async {
   //Core
   injector.registerLazySingleton<ApiService>(() => ApiService());
+  injector.registerLazySingleton<AppRouter>(() => AppRouter());
 
   //Repositories
   injector.registerLazySingleton<AuthRepository>(
@@ -19,7 +22,7 @@ Future<void> initInjector() async {
   injector.registerLazySingleton<AuthUseCase>(
       () => AuthUseCaseImpl(authRepository: injector<AuthRepository>()));
 
-  //Presentaton(Bloc)
-
+  //Bloc
   injector.registerFactory<AppOptionsCubit>(() => AppOptionsCubit());
+  injector.registerFactory<UserBloc>(() => UserBloc(authUseCase: injector()));
 }

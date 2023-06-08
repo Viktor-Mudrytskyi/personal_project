@@ -1,0 +1,3 @@
+enum AuthErrorEnum {
+  error1,
+}

@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CustomShape extends CustomPainter {
-  const CustomShape({required this.shadow});
+  const CustomShape({required this.color, required this.shadow});
   final BoxShadow shadow;
+  final Color color;
   @override
   void paint(Canvas canvas, Size size) {
     //Measurements
