@@ -22,6 +22,11 @@ Future<void> initInjector() async {
   injector.registerLazySingleton<AuthUseCase>(
       () => AuthUseCaseImpl(authRepository: injector<AuthRepository>()));
 
+  //Routing Guards
+  injector.registerLazySingleton<AuthGuard>(
+    () => AuthGuard(authUseCase: injector()),
+  );
+
   //Bloc
   injector.registerFactory<AppOptionsCubit>(() => AppOptionsCubit());
   injector.registerFactory<UserBloc>(() => UserBloc(authUseCase: injector()));

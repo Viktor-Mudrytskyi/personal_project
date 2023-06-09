@@ -15,4 +15,6 @@ abstract class AuthRepository {
 
   ///Throws [FirebaseAuthException] on error
   Future<void> logOut();
+
+  bool get isLoggedIn;
 }
