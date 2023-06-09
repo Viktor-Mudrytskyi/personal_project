@@ -1,9 +1,5 @@
 import '../core.dart';
 
-//TODO try to add extention on
-// extension ThemeContextExtension on BuildContext {
-//   ThemeData get theme => watch<ThemeManager>().currentTheme;
-// }
 class AppThemeData {
   final AppColors appColors;
   final AppGradients appGradients;

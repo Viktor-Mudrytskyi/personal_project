@@ -8,16 +8,17 @@ class AppColors {
   final Color textFieldHint;
   final Color checkBoxBorder;
   final Color checkBoxFill;
+  final Color spinner;
 
-  const AppColors._({
-    required this.authButtonFill,
-    required this.checkBoxBorder,
-    required this.checkBoxFill,
-    required this.primaryBackground,
-    required this.textFieldBorder,
-    required this.textFieldFill,
-    required this.textFieldHint,
-  });
+  const AppColors._(
+      {required this.authButtonFill,
+      required this.checkBoxBorder,
+      required this.checkBoxFill,
+      required this.primaryBackground,
+      required this.textFieldBorder,
+      required this.textFieldFill,
+      required this.textFieldHint,
+      required this.spinner});
 
   factory AppColors.light() {
     return const AppColors._(
@@ -28,6 +29,7 @@ class AppColors {
       textFieldHint: Color(0xFFC4C4C4),
       checkBoxBorder: Color(0xFFB4A8A8),
       checkBoxFill: Color(0xFFFAFAFA),
+      spinner: Color(0xFF0386D0),
     );
   }
 
@@ -40,6 +42,7 @@ class AppColors {
       textFieldHint: Color(0xFFC4C4C4),
       checkBoxBorder: Color(0xFFB4A8A8),
       checkBoxFill: Color(0xFFFAFAFA),
+      spinner: Color(0xFF0386D0),
     );
   }
 }

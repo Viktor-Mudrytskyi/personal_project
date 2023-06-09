@@ -1,15 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-import '../core.dart';
+import '../../features/features.dart';
 
 class AuthGuard extends AutoRouteGuard {
+  final AuthUseCase _authUseCase;
+  const AuthGuard({required AuthUseCase authUseCase})
+      : _authUseCase = authUseCase;
+
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      resolver.next();
-    } else {
-      router.replaceAll([const LoginRoute()]);
-    }
-  }
+  void onNavigation(NavigationResolver resolver, StackRouter router) async {}
 }

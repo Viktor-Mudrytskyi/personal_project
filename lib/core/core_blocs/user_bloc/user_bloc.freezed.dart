@@ -21,6 +21,7 @@ mixin _$UserEvent {
     required TResult Function(String email, String password) register,
     required TResult Function(String email, String password) logIn,
     required TResult Function() logout,
+    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$UserEvent {
     TResult? Function(String email, String password)? register,
     TResult? Function(String email, String password)? logIn,
     TResult? Function()? logout,
+    TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$UserEvent {
     TResult Function(String email, String password)? register,
     TResult Function(String email, String password)? logIn,
     TResult Function()? logout,
+    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$UserEvent {
     required TResult Function(_RegisterEvent value) register,
     required TResult Function(_LogInEvent value) logIn,
     required TResult Function(_LogOutEvent value) logout,
+    required TResult Function(_InitEvent value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$UserEvent {
     TResult? Function(_RegisterEvent value)? register,
     TResult? Function(_LogInEvent value)? logIn,
     TResult? Function(_LogOutEvent value)? logout,
+    TResult? Function(_InitEvent value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$UserEvent {
     TResult Function(_RegisterEvent value)? register,
     TResult Function(_LogInEvent value)? logIn,
     TResult Function(_LogOutEvent value)? logout,
+    TResult Function(_InitEvent value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     required TResult Function(String email, String password) register,
     required TResult Function(String email, String password) logIn,
     required TResult Function() logout,
+    required TResult Function() init,
   }) {
     return register(email, password);
   }
@@ -165,6 +172,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     TResult? Function(String email, String password)? register,
     TResult? Function(String email, String password)? logIn,
     TResult? Function()? logout,
+    TResult? Function()? init,
   }) {
     return register?.call(email, password);
   }
@@ -175,6 +183,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     TResult Function(String email, String password)? register,
     TResult Function(String email, String password)? logIn,
     TResult Function()? logout,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -189,6 +198,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     required TResult Function(_RegisterEvent value) register,
     required TResult Function(_LogInEvent value) logIn,
     required TResult Function(_LogOutEvent value) logout,
+    required TResult Function(_InitEvent value) init,
   }) {
     return register(this);
   }
@@ -199,6 +209,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     TResult? Function(_RegisterEvent value)? register,
     TResult? Function(_LogInEvent value)? logIn,
     TResult? Function(_LogOutEvent value)? logout,
+    TResult? Function(_InitEvent value)? init,
   }) {
     return register?.call(this);
   }
@@ -209,6 +220,7 @@ class _$_RegisterEvent implements _RegisterEvent {
     TResult Function(_RegisterEvent value)? register,
     TResult Function(_LogInEvent value)? logIn,
     TResult Function(_LogOutEvent value)? logout,
+    TResult Function(_InitEvent value)? init,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -306,6 +318,7 @@ class _$_LogInEvent implements _LogInEvent {
     required TResult Function(String email, String password) register,
     required TResult Function(String email, String password) logIn,
     required TResult Function() logout,
+    required TResult Function() init,
   }) {
     return logIn(email, password);
   }
@@ -316,6 +329,7 @@ class _$_LogInEvent implements _LogInEvent {
     TResult? Function(String email, String password)? register,
     TResult? Function(String email, String password)? logIn,
     TResult? Function()? logout,
+    TResult? Function()? init,
   }) {
     return logIn?.call(email, password);
   }
@@ -326,6 +340,7 @@ class _$_LogInEvent implements _LogInEvent {
     TResult Function(String email, String password)? register,
     TResult Function(String email, String password)? logIn,
     TResult Function()? logout,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (logIn != null) {
@@ -340,6 +355,7 @@ class _$_LogInEvent implements _LogInEvent {
     required TResult Function(_RegisterEvent value) register,
     required TResult Function(_LogInEvent value) logIn,
     required TResult Function(_LogOutEvent value) logout,
+    required TResult Function(_InitEvent value) init,
   }) {
     return logIn(this);
   }
@@ -350,6 +366,7 @@ class _$_LogInEvent implements _LogInEvent {
     TResult? Function(_RegisterEvent value)? register,
     TResult? Function(_LogInEvent value)? logIn,
     TResult? Function(_LogOutEvent value)? logout,
+    TResult? Function(_InitEvent value)? init,
   }) {
     return logIn?.call(this);
   }
@@ -360,6 +377,7 @@ class _$_LogInEvent implements _LogInEvent {
     TResult Function(_RegisterEvent value)? register,
     TResult Function(_LogInEvent value)? logIn,
     TResult Function(_LogOutEvent value)? logout,
+    TResult Function(_InitEvent value)? init,
     required TResult orElse(),
   }) {
     if (logIn != null) {
@@ -422,6 +440,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     required TResult Function(String email, String password) register,
     required TResult Function(String email, String password) logIn,
     required TResult Function() logout,
+    required TResult Function() init,
   }) {
     return logout();
   }
@@ -432,6 +451,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     TResult? Function(String email, String password)? register,
     TResult? Function(String email, String password)? logIn,
     TResult? Function()? logout,
+    TResult? Function()? init,
   }) {
     return logout?.call();
   }
@@ -442,6 +462,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     TResult Function(String email, String password)? register,
     TResult Function(String email, String password)? logIn,
     TResult Function()? logout,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -456,6 +477,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     required TResult Function(_RegisterEvent value) register,
     required TResult Function(_LogInEvent value) logIn,
     required TResult Function(_LogOutEvent value) logout,
+    required TResult Function(_InitEvent value) init,
   }) {
     return logout(this);
   }
@@ -466,6 +488,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     TResult? Function(_RegisterEvent value)? register,
     TResult? Function(_LogInEvent value)? logIn,
     TResult? Function(_LogOutEvent value)? logout,
+    TResult? Function(_InitEvent value)? init,
   }) {
     return logout?.call(this);
   }
@@ -476,6 +499,7 @@ class _$_LogOutEvent implements _LogOutEvent {
     TResult Function(_RegisterEvent value)? register,
     TResult Function(_LogInEvent value)? logIn,
     TResult Function(_LogOutEvent value)? logout,
+    TResult Function(_InitEvent value)? init,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -487,6 +511,120 @@ class _$_LogOutEvent implements _LogOutEvent {
 
 abstract class _LogOutEvent implements UserEvent {
   const factory _LogOutEvent() = _$_LogOutEvent;
+}
+
+/// @nodoc
+abstract class _$$_InitEventCopyWith<$Res> {
+  factory _$$_InitEventCopyWith(
+          _$_InitEvent value, $Res Function(_$_InitEvent) then) =
+      __$$_InitEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_InitEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_InitEvent>
+    implements _$$_InitEventCopyWith<$Res> {
+  __$$_InitEventCopyWithImpl(
+      _$_InitEvent _value, $Res Function(_$_InitEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_InitEvent implements _InitEvent {
+  const _$_InitEvent();
+
+  @override
+  String toString() {
+    return 'UserEvent.init()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_InitEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) register,
+    required TResult Function(String email, String password) logIn,
+    required TResult Function() logout,
+    required TResult Function() init,
+  }) {
+    return init();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? register,
+    TResult? Function(String email, String password)? logIn,
+    TResult? Function()? logout,
+    TResult? Function()? init,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? register,
+    TResult Function(String email, String password)? logIn,
+    TResult Function()? logout,
+    TResult Function()? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegisterEvent value) register,
+    required TResult Function(_LogInEvent value) logIn,
+    required TResult Function(_LogOutEvent value) logout,
+    required TResult Function(_InitEvent value) init,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegisterEvent value)? register,
+    TResult? Function(_LogInEvent value)? logIn,
+    TResult? Function(_LogOutEvent value)? logout,
+    TResult? Function(_InitEvent value)? init,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegisterEvent value)? register,
+    TResult Function(_LogInEvent value)? logIn,
+    TResult Function(_LogOutEvent value)? logout,
+    TResult Function(_InitEvent value)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InitEvent implements UserEvent {
+  const factory _InitEvent() = _$_InitEvent;
 }
 
 /// @nodoc

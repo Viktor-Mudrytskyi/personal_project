@@ -17,6 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<_RegisterEvent>(_onRegisterEvent);
     on<_LogInEvent>(_onLogInEvent);
     on<_LogOutEvent>(_onLogOutEvent);
+    on<_InitEvent>(_onInit);
   }
 
   Future<void> _onRegisterEvent(
@@ -30,8 +31,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     );
     emit(
       result.fold(
-        (l) => UserState.error(error: AuthErrorEnum.error1),
-        (r) => UserState.authenticated(),
+        (l) => const UserState.error(error: AuthErrorEnum.error1),
+        (r) => const UserState.authenticated(),
       ),
     );
   }
@@ -45,4 +46,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _LogOutEvent event,
     Emitter<UserState> emit,
   ) async {}
+
+  void _onInit(
+    _InitEvent event,
+    Emitter<UserState> emit,
+  ) {
+    emit(const UserState.loading());
+    final result = _authUseCase.isLoggedIn;
+    if (result) {
+      emit(const UserState.authenticated());
+    } else {
+      emit(const UserState.unuthenticated());
+    }
+  }
 }

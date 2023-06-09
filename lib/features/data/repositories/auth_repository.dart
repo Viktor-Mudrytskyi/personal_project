@@ -33,4 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
     );
     return userCredential;
   }
+
+  @override
+  bool get isLoggedIn => _firebaseAuth.currentUser != null;
 }
