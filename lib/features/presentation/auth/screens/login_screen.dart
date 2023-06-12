@@ -6,15 +6,18 @@ import '../../../../core/core.dart';
 import '../../../features.dart';
 
 @RoutePage()
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  Widget build(BuildContext context) {
+    return const _LoginScreen();
+  }
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool value = false;
+class _LoginScreen extends StatelessWidget {
+  const _LoginScreen();
+
   @override
   Widget build(BuildContext context) {
     const double kHorizontalPadding = 20.0;
@@ -109,12 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 const SizedBox(height: 20),
                                 RememberPassCheckBox(
-                                  value: value,
-                                  onPressed: (val) {
-                                    setState(() {
-                                      value = val ?? false;
-                                    });
-                                  },
+                                  value: true,
+                                  onPressed: (val) {},
                                 ),
                                 const SizedBox(height: 81),
                                 Align(
@@ -140,11 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const SizedBox(width: 5),
                                     Expanded(
                                       child: AuthButton.border(
-                                        onPressed: () {
-                                          context
-                                              .read<AppOptionsCubit>()
-                                              .changeTheme(AppTheme.light);
-                                        },
+                                        onPressed: () {},
                                         text: 'Register',
                                       ),
                                     ),
