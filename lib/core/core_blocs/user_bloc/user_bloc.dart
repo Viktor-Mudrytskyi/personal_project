@@ -40,7 +40,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onLogInEvent(
     _LogInEvent event,
     Emitter<UserState> emit,
-  ) async {}
+  ) async {
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const UserState.authenticated());
+  }
 
   Future<void> _onLogOutEvent(
     _LogOutEvent event,
