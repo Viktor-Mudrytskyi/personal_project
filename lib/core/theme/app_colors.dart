@@ -35,7 +35,7 @@ class AppColors {
 
   factory AppColors.dark() {
     return const AppColors._(
-      authButtonFill: Color(0xFF0386D0),
+      authButtonFill: Colors.red,
       primaryBackground: Color(0xFFFFFFFF),
       textFieldBorder: Color(0xFFCCC9C9),
       textFieldFill: Color(0xFFF9F9F9),

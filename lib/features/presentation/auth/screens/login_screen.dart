@@ -1,12 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core.dart';
 
 import '../../../features.dart';
 
-class LoginScreen extends StatelessWidget {
+@RoutePage()
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool value = false;
   @override
   Widget build(BuildContext context) {
     const double kHorizontalPadding = 20.0;
@@ -101,8 +109,12 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 20),
                                 RememberPassCheckBox(
-                                  value: false,
-                                  onPressed: (val) {},
+                                  value: value,
+                                  onPressed: (val) {
+                                    setState(() {
+                                      value = val ?? false;
+                                    });
+                                  },
                                 ),
                                 const SizedBox(height: 81),
                                 Align(
@@ -128,7 +140,11 @@ class LoginScreen extends StatelessWidget {
                                     const SizedBox(width: 5),
                                     Expanded(
                                       child: AuthButton.border(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          context
+                                              .read<AppOptionsCubit>()
+                                              .changeTheme(AppTheme.light);
+                                        },
                                         text: 'Register',
                                       ),
                                     ),
