@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 
 import '../core.dart';
 import '../../features/data/data.dart';
@@ -13,6 +14,7 @@ Future<void> initInjector() async {
   //Core
   injector.registerLazySingleton<ApiService>(() => ApiService());
   injector.registerLazySingleton<AppRouter>(() => AppRouter());
+  injector.registerLazySingleton<Logger>(() => Logger());
 
   //Repositories
   injector.registerLazySingleton<AuthRepository>(
