@@ -18,8 +18,10 @@ class AuthGuard extends AutoRouteGuard {
       resolver.next();
     } else {
       router.replaceAll([const LoginRoute()]);
-      log('Routing blocked by AuthGuard, redirected to login route',
-          name: _name);
+      log(
+        'Routing blocked by AuthGuard, redirected to login route',
+        name: _name,
+      );
     }
   }
 }
