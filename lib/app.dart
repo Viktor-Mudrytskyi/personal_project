@@ -7,6 +7,9 @@ class MainApp extends StatelessWidget {
   static final _appRouter = injector<AppRouter>();
   @override
   Widget build(BuildContext context) {
+    ///Initialize bloc observer
+    Bloc.observer = injector<AppBlocObserver>();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

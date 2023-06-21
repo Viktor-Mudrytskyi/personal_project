@@ -15,6 +15,7 @@ Future<void> initInjector() async {
   injector.registerLazySingleton<ApiService>(() => ApiService());
   injector.registerLazySingleton<AppRouter>(() => AppRouter());
   injector.registerLazySingleton<Logger>(() => Logger());
+  injector.registerLazySingleton<AppBlocObserver>(() => AppBlocObserver());
 
   //Repositories
   injector.registerLazySingleton<AuthRepository>(
