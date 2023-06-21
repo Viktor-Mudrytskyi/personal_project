@@ -41,14 +41,32 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _LogInEvent event,
     Emitter<UserState> emit,
   ) async {
-    await Future.delayed(const Duration(seconds: 2));
-    emit(const UserState.authenticated());
+    emit(const UserState.loading());
+    final result = await _authUseCase.signInWEmailAndPassword(
+      email: event.email,
+      password: event.password,
+    );
+    emit(
+      result.fold(
+        (l) => const UserState.error(error: AuthErrorEnum.error1),
+        (r) => const UserState.authenticated(),
+      ),
+    );
   }
 
   Future<void> _onLogOutEvent(
     _LogOutEvent event,
     Emitter<UserState> emit,
-  ) async {}
+  ) async {
+    emit(const UserState.loading());
+    final result = await _authUseCase.logOut();
+    emit(
+      result.fold(
+        (l) => const UserState.error(error: AuthErrorEnum.error1),
+        (r) => const UserState.authenticated(),
+      ),
+    );
+  }
 
   void _onInit(
     _InitEvent event,
