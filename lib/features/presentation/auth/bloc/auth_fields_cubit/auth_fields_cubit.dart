@@ -9,8 +9,6 @@ part 'auth_fields_cubit.freezed.dart';
 
 class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   final AuthUseCase _authUseCase;
-  static final emailRegExp = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   AuthFieldsCubit({required AuthUseCase authUseCase})
       : _authUseCase = authUseCase,
@@ -19,6 +17,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
           password: '',
           emailError: AuthErrorEnum.invalidEmail,
           passwordError: AuthErrorEnum.weakPassword,
+          firebaseError: AuthErrorEnum.valid,
           isValidating: false,
           validatingEnabled: false,
         ));
@@ -26,14 +25,16 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   void onChangeEmail(String email) {
     emit((state as AuthFieldsNormalState).copyWith(
       email: email,
-      emailError: _validateEmail(email),
+      emailError: AuthUtils.isEmailValid(email),
+      firebaseError: AuthErrorEnum.valid,
     ));
   }
 
   void onChangePassword(String password) {
     emit((state as AuthFieldsNormalState).copyWith(
       password: password,
-      passwordError: _validatePassword(password),
+      passwordError: AuthUtils.isPasswordValid(password),
+      firebaseError: AuthErrorEnum.valid,
     ));
   }
 
@@ -51,9 +52,9 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         result.fold(
           (l) {
             return (state as AuthFieldsNormalState).copyWith(
-              isValidating: false,
-              validatingEnabled: true,
-            );
+                isValidating: false,
+                validatingEnabled: true,
+                firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code));
           },
           (r) => const AuthFieldsState.authSuccessful(),
         ),
@@ -62,6 +63,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       emit((state as AuthFieldsNormalState).copyWith(
         isValidating: false,
         validatingEnabled: true,
+        firebaseError: AuthErrorEnum.valid,
       ));
     }
   }
@@ -81,9 +83,9 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         result.fold(
           (l) {
             return (state as AuthFieldsNormalState).copyWith(
-              isValidating: false,
-              validatingEnabled: true,
-            );
+                isValidating: false,
+                validatingEnabled: true,
+                firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code));
           },
           (r) => const AuthFieldsState.authSuccessful(),
         ),
@@ -92,23 +94,8 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       emit((state as AuthFieldsNormalState).copyWith(
         isValidating: false,
         validatingEnabled: true,
+        firebaseError: AuthErrorEnum.valid,
       ));
-    }
-  }
-
-  AuthErrorEnum _validateEmail(String email) {
-    if (!emailRegExp.hasMatch(email)) {
-      return AuthErrorEnum.invalidEmail;
-    } else {
-      return AuthErrorEnum.valid;
-    }
-  }
-
-  AuthErrorEnum _validatePassword(String password) {
-    if (password.length < 6) {
-      return AuthErrorEnum.weakPassword;
-    } else {
-      return AuthErrorEnum.valid;
     }
   }
 
@@ -121,12 +108,4 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       return false;
     }
   }
-
-  // AuthErrorEnum _parseAuthErrors(String code) {
-  //   switch (code) {
-  //     case 'wrong-password':
-  //       break;
-  //     default:
-  //   }
-  // }
 }

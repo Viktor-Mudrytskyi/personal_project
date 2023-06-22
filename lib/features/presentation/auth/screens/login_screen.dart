@@ -102,13 +102,22 @@ class _LoginScreen extends StatelessWidget {
                                     context.router
                                         .replaceAll([const HomeRoute()]);
                                   }
+                                  if (state is AuthFieldsNormalState) {
+                                    if ((state).firebaseError !=
+                                        AuthErrorEnum.valid) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  state.firebaseError.name)));
+                                    }
+                                  }
                                 },
                                 builder: (context, state) {
-                                  if (state is AuthFieldsNormalState) {
-                                    return _FieldsBody(currentState: state);
-                                  } else {
-                                    return const LoadingSpinner();
-                                  }
+                                  return state.map(
+                                    (state) => _FieldsBody(currentState: state),
+                                    authSuccessful: (_) =>
+                                        const LoadingSpinner(),
+                                  );
                                 },
                               ),
                             ),

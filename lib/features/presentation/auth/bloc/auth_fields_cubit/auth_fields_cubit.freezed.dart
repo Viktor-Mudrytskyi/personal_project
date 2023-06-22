@@ -23,6 +23,7 @@ mixin _$AuthFieldsState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
@@ -36,6 +37,7 @@ mixin _$AuthFieldsState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -49,6 +51,7 @@ mixin _$AuthFieldsState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -106,6 +109,7 @@ abstract class _$$AuthFieldsNormalStateCopyWith<$Res> {
       String password,
       AuthErrorEnum emailError,
       AuthErrorEnum passwordError,
+      AuthErrorEnum firebaseError,
       bool isValidating,
       bool validatingEnabled});
 }
@@ -125,6 +129,7 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? password = null,
     Object? emailError = null,
     Object? passwordError = null,
+    Object? firebaseError = null,
     Object? isValidating = null,
     Object? validatingEnabled = null,
   }) {
@@ -144,6 +149,10 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
       passwordError: null == passwordError
           ? _value.passwordError
           : passwordError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      firebaseError: null == firebaseError
+          ? _value.firebaseError
+          : firebaseError // ignore: cast_nullable_to_non_nullable
               as AuthErrorEnum,
       isValidating: null == isValidating
           ? _value.isValidating
@@ -165,6 +174,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
       required this.password,
       required this.emailError,
       required this.passwordError,
+      required this.firebaseError,
       required this.isValidating,
       required this.validatingEnabled});
 
@@ -177,13 +187,20 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   @override
   final AuthErrorEnum passwordError;
   @override
+  final AuthErrorEnum firebaseError;
+
+  ///Is true when user clicked on login/register
+  ///and prevents user from clicking on them again and changing text fields
+  @override
   final bool isValidating;
+
+  ///Is true after user clicked on login/register
   @override
   final bool validatingEnabled;
 
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
   }
 
   @override
@@ -198,6 +215,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
                 other.emailError == emailError) &&
             (identical(other.passwordError, passwordError) ||
                 other.passwordError == passwordError) &&
+            (identical(other.firebaseError, firebaseError) ||
+                other.firebaseError == firebaseError) &&
             (identical(other.isValidating, isValidating) ||
                 other.isValidating == isValidating) &&
             (identical(other.validatingEnabled, validatingEnabled) ||
@@ -206,7 +225,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
 
   @override
   int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, isValidating, validatingEnabled);
+      passwordError, firebaseError, isValidating, validatingEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -223,13 +242,14 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
     required TResult Function() authSuccessful,
   }) {
-    return $default(email, password, emailError, passwordError, isValidating,
-        validatingEnabled);
+    return $default(email, password, emailError, passwordError, firebaseError,
+        isValidating, validatingEnabled);
   }
 
   @override
@@ -240,13 +260,14 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
     TResult? Function()? authSuccessful,
   }) {
     return $default?.call(email, password, emailError, passwordError,
-        isValidating, validatingEnabled);
+        firebaseError, isValidating, validatingEnabled);
   }
 
   @override
@@ -257,6 +278,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -264,8 +286,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(email, password, emailError, passwordError, isValidating,
-          validatingEnabled);
+      return $default(email, password, emailError, passwordError, firebaseError,
+          isValidating, validatingEnabled);
     }
     return orElse();
   }
@@ -308,6 +330,7 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
       required final String password,
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
+      required final AuthErrorEnum firebaseError,
       required final bool isValidating,
       required final bool validatingEnabled}) = _$AuthFieldsNormalState;
 
@@ -315,7 +338,13 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
   String get password;
   AuthErrorEnum get emailError;
   AuthErrorEnum get passwordError;
+  AuthErrorEnum get firebaseError;
+
+  ///Is true when user clicked on login/register
+  ///and prevents user from clicking on them again and changing text fields
   bool get isValidating;
+
+  ///Is true after user clicked on login/register
   bool get validatingEnabled;
   @JsonKey(ignore: true)
   _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
@@ -365,6 +394,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
@@ -381,6 +411,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -397,6 +428,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             String password,
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {

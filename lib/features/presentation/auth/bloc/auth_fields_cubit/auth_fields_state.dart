@@ -7,6 +7,7 @@ class AuthFieldsState with _$AuthFieldsState {
     required String password,
     required AuthErrorEnum emailError,
     required AuthErrorEnum passwordError,
+    required AuthErrorEnum firebaseError,
 
     ///Is true when user clicked on login/register
     ///and prevents user from clicking on them again and changing text fields
