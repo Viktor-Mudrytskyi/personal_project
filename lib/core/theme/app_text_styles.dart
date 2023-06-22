@@ -9,6 +9,7 @@ class AppTextStyles {
   final TextStyle login;
   final TextStyle register;
   final TextStyle hint;
+  final TextStyle error;
 
   const AppTextStyles._({
     required this.authBody,
@@ -19,6 +20,7 @@ class AppTextStyles {
     required this.login,
     required this.register,
     required this.hint,
+    required this.error,
   });
 
   factory AppTextStyles.light() {
@@ -73,6 +75,12 @@ class AppTextStyles {
         fontWeight: FontWeight.w400,
         fontSize: 15,
         color: Color(0xFFC4C4C4),
+      ),
+      error: TextStyle(
+        fontFamily: 'Trebuc',
+        fontWeight: FontWeight.w400,
+        fontSize: 15,
+        color: Color.fromARGB(255, 160, 25, 25),
       ),
     );
   }

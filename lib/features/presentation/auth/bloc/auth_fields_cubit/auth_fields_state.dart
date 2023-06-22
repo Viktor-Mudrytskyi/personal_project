@@ -5,5 +5,16 @@ class AuthFieldsState with _$AuthFieldsState {
   const factory AuthFieldsState({
     required String email,
     required String password,
-  }) = _AuthFieldsState;
+    required AuthErrorEnum emailError,
+    required AuthErrorEnum passwordError,
+
+    ///Is true when user clicked on login/register
+    ///and prevents user from clicking on them again and changing text fields
+    required bool isValidating,
+
+    ///Is true after user clicked on login/register
+    required bool validatingEnabled,
+  }) = AuthFieldsNormalState;
+
+  const factory AuthFieldsState.authSuccessful() = AuthSuccessful;
 }

@@ -17,4 +17,7 @@ abstract class AuthRepository {
   Future<void> logOut();
 
   bool get isLoggedIn;
+
+  ///Returns null if not logged in
+  User? get userInfo;
 }

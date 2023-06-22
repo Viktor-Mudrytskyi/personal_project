@@ -16,11 +16,64 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthFieldsState {
-  String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $AuthFieldsStateCopyWith<AuthFieldsState> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)
+        $default, {
+    required TResult Function() authSuccessful,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult? Function()? authSuccessful,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult Function()? authSuccessful,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value) $default, {
+    required TResult Function(AuthSuccessful value) authSuccessful,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(AuthFieldsNormalState value)? $default, {
+    TResult? Function(AuthSuccessful value)? authSuccessful,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value)? $default, {
+    TResult Function(AuthSuccessful value)? authSuccessful,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -29,8 +82,6 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
   factory $AuthFieldsStateCopyWith(
           AuthFieldsState value, $Res Function(AuthFieldsState) then) =
       _$AuthFieldsStateCopyWithImpl<$Res, AuthFieldsState>;
-  @useResult
-  $Res call({String email, String password});
 }
 
 /// @nodoc
@@ -42,43 +93,29 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-  }) {
-    return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AuthFieldsStateCopyWith<$Res>
-    implements $AuthFieldsStateCopyWith<$Res> {
-  factory _$$_AuthFieldsStateCopyWith(
-          _$_AuthFieldsState value, $Res Function(_$_AuthFieldsState) then) =
-      __$$_AuthFieldsStateCopyWithImpl<$Res>;
-  @override
+abstract class _$$AuthFieldsNormalStateCopyWith<$Res> {
+  factory _$$AuthFieldsNormalStateCopyWith(_$AuthFieldsNormalState value,
+          $Res Function(_$AuthFieldsNormalState) then) =
+      __$$AuthFieldsNormalStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call(
+      {String email,
+      String password,
+      AuthErrorEnum emailError,
+      AuthErrorEnum passwordError,
+      bool isValidating,
+      bool validatingEnabled});
 }
 
 /// @nodoc
-class __$$_AuthFieldsStateCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$_AuthFieldsState>
-    implements _$$_AuthFieldsStateCopyWith<$Res> {
-  __$$_AuthFieldsStateCopyWithImpl(
-      _$_AuthFieldsState _value, $Res Function(_$_AuthFieldsState) _then)
+class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
+    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthFieldsNormalState>
+    implements _$$AuthFieldsNormalStateCopyWith<$Res> {
+  __$$AuthFieldsNormalStateCopyWithImpl(_$AuthFieldsNormalState _value,
+      $Res Function(_$AuthFieldsNormalState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -86,8 +123,12 @@ class __$$_AuthFieldsStateCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? emailError = null,
+    Object? passwordError = null,
+    Object? isValidating = null,
+    Object? validatingEnabled = null,
   }) {
-    return _then(_$_AuthFieldsState(
+    return _then(_$AuthFieldsNormalState(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -96,56 +137,310 @@ class __$$_AuthFieldsStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      emailError: null == emailError
+          ? _value.emailError
+          : emailError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      passwordError: null == passwordError
+          ? _value.passwordError
+          : passwordError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      isValidating: null == isValidating
+          ? _value.isValidating
+          : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      validatingEnabled: null == validatingEnabled
+          ? _value.validatingEnabled
+          : validatingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AuthFieldsState implements _AuthFieldsState {
-  const _$_AuthFieldsState({required this.email, required this.password});
+class _$AuthFieldsNormalState implements AuthFieldsNormalState {
+  const _$AuthFieldsNormalState(
+      {required this.email,
+      required this.password,
+      required this.emailError,
+      required this.passwordError,
+      required this.isValidating,
+      required this.validatingEnabled});
 
   @override
   final String email;
   @override
   final String password;
+  @override
+  final AuthErrorEnum emailError;
+  @override
+  final AuthErrorEnum passwordError;
+  @override
+  final bool isValidating;
+  @override
+  final bool validatingEnabled;
 
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AuthFieldsState &&
+            other is _$AuthFieldsNormalState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.emailError, emailError) ||
+                other.emailError == emailError) &&
+            (identical(other.passwordError, passwordError) ||
+                other.passwordError == passwordError) &&
+            (identical(other.isValidating, isValidating) ||
+                other.isValidating == isValidating) &&
+            (identical(other.validatingEnabled, validatingEnabled) ||
+                other.validatingEnabled == validatingEnabled));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType, email, password, emailError,
+      passwordError, isValidating, validatingEnabled);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AuthFieldsStateCopyWith<_$_AuthFieldsState> get copyWith =>
-      __$$_AuthFieldsStateCopyWithImpl<_$_AuthFieldsState>(this, _$identity);
+  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
+      __$$AuthFieldsNormalStateCopyWithImpl<_$AuthFieldsNormalState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)
+        $default, {
+    required TResult Function() authSuccessful,
+  }) {
+    return $default(email, password, emailError, passwordError, isValidating,
+        validatingEnabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult? Function()? authSuccessful,
+  }) {
+    return $default?.call(email, password, emailError, passwordError,
+        isValidating, validatingEnabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult Function()? authSuccessful,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(email, password, emailError, passwordError, isValidating,
+          validatingEnabled);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value) $default, {
+    required TResult Function(AuthSuccessful value) authSuccessful,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(AuthFieldsNormalState value)? $default, {
+    TResult? Function(AuthSuccessful value)? authSuccessful,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value)? $default, {
+    TResult Function(AuthSuccessful value)? authSuccessful,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _AuthFieldsState implements AuthFieldsState {
-  const factory _AuthFieldsState(
+abstract class AuthFieldsNormalState implements AuthFieldsState {
+  const factory AuthFieldsNormalState(
       {required final String email,
-      required final String password}) = _$_AuthFieldsState;
+      required final String password,
+      required final AuthErrorEnum emailError,
+      required final AuthErrorEnum passwordError,
+      required final bool isValidating,
+      required final bool validatingEnabled}) = _$AuthFieldsNormalState;
+
+  String get email;
+  String get password;
+  AuthErrorEnum get emailError;
+  AuthErrorEnum get passwordError;
+  bool get isValidating;
+  bool get validatingEnabled;
+  @JsonKey(ignore: true)
+  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AuthSuccessfulCopyWith<$Res> {
+  factory _$$AuthSuccessfulCopyWith(
+          _$AuthSuccessful value, $Res Function(_$AuthSuccessful) then) =
+      __$$AuthSuccessfulCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AuthSuccessfulCopyWithImpl<$Res>
+    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthSuccessful>
+    implements _$$AuthSuccessfulCopyWith<$Res> {
+  __$$AuthSuccessfulCopyWithImpl(
+      _$AuthSuccessful _value, $Res Function(_$AuthSuccessful) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AuthSuccessful implements AuthSuccessful {
+  const _$AuthSuccessful();
 
   @override
-  String get email;
+  String toString() {
+    return 'AuthFieldsState.authSuccessful()';
+  }
+
   @override
-  String get password;
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AuthSuccessful);
+  }
+
   @override
-  @JsonKey(ignore: true)
-  _$$_AuthFieldsStateCopyWith<_$_AuthFieldsState> get copyWith =>
-      throw _privateConstructorUsedError;
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)
+        $default, {
+    required TResult Function() authSuccessful,
+  }) {
+    return authSuccessful();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult? Function()? authSuccessful,
+  }) {
+    return authSuccessful?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            bool isValidating,
+            bool validatingEnabled)?
+        $default, {
+    TResult Function()? authSuccessful,
+    required TResult orElse(),
+  }) {
+    if (authSuccessful != null) {
+      return authSuccessful();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value) $default, {
+    required TResult Function(AuthSuccessful value) authSuccessful,
+  }) {
+    return authSuccessful(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(AuthFieldsNormalState value)? $default, {
+    TResult? Function(AuthSuccessful value)? authSuccessful,
+  }) {
+    return authSuccessful?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(AuthFieldsNormalState value)? $default, {
+    TResult Function(AuthSuccessful value)? authSuccessful,
+    required TResult orElse(),
+  }) {
+    if (authSuccessful != null) {
+      return authSuccessful(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AuthSuccessful implements AuthFieldsState {
+  const factory AuthSuccessful() = _$AuthSuccessful;
 }

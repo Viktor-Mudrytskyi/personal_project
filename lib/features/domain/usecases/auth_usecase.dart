@@ -21,6 +21,8 @@ abstract class AuthUseCase {
   Future<Either<FirebaseAuthException, void>> logOut();
 
   bool get isLoggedIn;
+
+  User? get userInfo;
 }
 
 class AuthUseCaseImpl implements AuthUseCase {
@@ -75,4 +77,7 @@ class AuthUseCaseImpl implements AuthUseCase {
 
   @override
   bool get isLoggedIn => _authRepository.isLoggedIn;
+
+  @override
+  User? get userInfo => _authRepository.userInfo;
 }
