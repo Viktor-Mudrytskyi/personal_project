@@ -7,4 +7,9 @@ enum AuthErrorEnum {
   operationNotAllowed,
   weakPassword,
   valid,
+  androidPackageMustBeProvided,
+  missingContinueUri,
+  missingIosBundle,
+  invalidContinueUri,
+  unauthorizedContinueUri,
 }

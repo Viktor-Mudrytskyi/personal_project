@@ -36,8 +36,35 @@ class AuthUtils {
         return AuthErrorEnum.invalidEmail;
       case 'weak-password':
         return AuthErrorEnum.invalidEmail;
+      case 'auth/invalid-email':
+        return AuthErrorEnum.invalidEmail;
+      case 'auth/missing-android-pkg-name':
+        return AuthErrorEnum.androidPackageMustBeProvided;
+      case 'auth/missing-continue-uri':
+        return AuthErrorEnum.missingContinueUri;
+      case 'auth/missing-ios-bundle-id':
+        return AuthErrorEnum.missingIosBundle;
+      case 'auth/invalid-continue-uri':
+        return AuthErrorEnum.invalidContinueUri;
+      case 'auth/unauthorized-continue-uri':
+        return AuthErrorEnum.unauthorizedContinueUri;
+      case 'auth/user-not-found':
+        return AuthErrorEnum.userNotFound;
       default:
         return AuthErrorEnum.valid;
+    }
+  }
+
+  static String? parseAuthErrors(AuthErrorEnum error) {
+    switch (error) {
+      case AuthErrorEnum.invalidEmail:
+        return 'Invalid email';
+      case AuthErrorEnum.weakPassword:
+        return 'Password is too weak';
+      case AuthErrorEnum.valid:
+        return null;
+      default:
+        return 'Unknown error occured';
     }
   }
 }

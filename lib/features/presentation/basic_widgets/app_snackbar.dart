@@ -4,8 +4,10 @@ SnackBar getCustomSnackBar({
   required Widget child,
   Function()? callback,
   Color? backgroundColor,
+  EdgeInsets? margin,
 }) {
   return SnackBar(
+    margin: margin,
     content: child,
     backgroundColor: backgroundColor,
     shape: const StadiumBorder(),

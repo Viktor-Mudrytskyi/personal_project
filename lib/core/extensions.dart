@@ -5,4 +5,8 @@ import 'core.dart';
 
 extension AppThemeFromContext on BuildContext {
   AppThemeData get appTheme => watch<AppOptionsCubit>().state.appTheme;
+
+  void removeFocus() {
+    FocusScope.of(this).unfocus();
+  }
 }

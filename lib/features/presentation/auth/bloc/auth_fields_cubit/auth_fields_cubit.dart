@@ -12,15 +12,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
   AuthFieldsCubit({required AuthUseCase authUseCase})
       : _authUseCase = authUseCase,
-        super(const AuthFieldsState(
-          email: '',
-          password: '',
-          emailError: AuthErrorEnum.invalidEmail,
-          passwordError: AuthErrorEnum.weakPassword,
-          firebaseError: AuthErrorEnum.valid,
-          isValidating: false,
-          validatingEnabled: false,
-        ));
+        super(empty);
 
   void onChangeEmail(String email) {
     emit((state as AuthFieldsNormalState).copyWith(
@@ -43,20 +35,14 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String password,
   ) async {
     if (_isEverythingValid()) {
-      emit((state as AuthFieldsNormalState).copyWith(
-        isValidating: true,
-        firebaseError: AuthErrorEnum.valid,
-      ));
+      _emitLoading();
       final result = await _authUseCase.registerUserWEmailAndPassword(
         email: email,
         password: password,
       );
       result.fold(
         (l) {
-          emit((state as AuthFieldsNormalState).copyWith(
-              isValidating: false,
-              validatingEnabled: true,
-              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code)));
+          _emitFirebaseError(l.code);
         },
         (r) async {
           emit(const AuthFieldsState.authSuccessful());
@@ -64,11 +50,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         },
       );
     } else {
-      emit((state as AuthFieldsNormalState).copyWith(
-        isValidating: false,
-        validatingEnabled: true,
-        firebaseError: AuthErrorEnum.valid,
-      ));
+      _enableValidation();
     }
   }
 
@@ -77,10 +59,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String password,
   ) async {
     if (_isEverythingValid()) {
-      emit((state as AuthFieldsNormalState).copyWith(
-        isValidating: true,
-        firebaseError: AuthErrorEnum.valid,
-      ));
+      _emitLoading();
       final result = await _authUseCase.signInWEmailAndPassword(
         email: email,
         password: password,
@@ -88,19 +67,12 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
       result.fold(
         (l) {
-          emit((state as AuthFieldsNormalState).copyWith(
-              isValidating: false,
-              validatingEnabled: true,
-              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code)));
+          _emitFirebaseError(l.code);
         },
         (r) => emit(const AuthFieldsState.authSuccessful()),
       );
     } else {
-      emit((state as AuthFieldsNormalState).copyWith(
-        isValidating: false,
-        validatingEnabled: true,
-        firebaseError: AuthErrorEnum.valid,
-      ));
+      _enableValidation();
     }
   }
 
@@ -113,4 +85,37 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       return false;
     }
   }
+
+  void _emitLoading() {
+    emit((state as AuthFieldsNormalState).copyWith(
+      isValidating: true,
+      firebaseError: AuthErrorEnum.valid,
+    ));
+  }
+
+  void _enableValidation() {
+    emit((state as AuthFieldsNormalState).copyWith(
+      isValidating: false,
+      validatingEnabled: true,
+      firebaseError: AuthErrorEnum.valid,
+    ));
+  }
+
+  void _emitFirebaseError(String code) {
+    emit((state as AuthFieldsNormalState).copyWith(
+      isValidating: false,
+      validatingEnabled: true,
+      firebaseError: AuthUtils.parseFirebaseAuthErrors(code),
+    ));
+  }
+
+  static AuthFieldsState get empty => const AuthFieldsState(
+        email: '',
+        password: '',
+        emailError: AuthErrorEnum.invalidEmail,
+        passwordError: AuthErrorEnum.weakPassword,
+        firebaseError: AuthErrorEnum.valid,
+        isValidating: false,
+        validatingEnabled: false,
+      );
 }

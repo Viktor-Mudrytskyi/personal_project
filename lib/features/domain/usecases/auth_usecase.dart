@@ -24,7 +24,8 @@ abstract class AuthUseCase {
   Future<void> sendEmailVerification();
 
   ///Sends email for password restoration
-  Future<void> sendForgotPasswordEmail(String email);
+  Future<Either<FirebaseAuthException, void>> sendForgotPasswordEmail(
+      String email);
 
   bool get isLoggedIn;
 
@@ -99,7 +100,13 @@ class AuthUseCaseImpl implements AuthUseCase {
   }
 
   @override
-  Future<void> sendForgotPasswordEmail(String email) async {
-    await _authRepository.sendForgotPasswordEmail(email);
+  Future<Either<FirebaseAuthException, void>> sendForgotPasswordEmail(
+      String email) async {
+    try {
+      await _authRepository.sendForgotPasswordEmail(email);
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      return Left(e);
+    }
   }
 }
