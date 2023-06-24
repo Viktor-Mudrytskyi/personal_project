@@ -23,12 +23,21 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(FirebaseAuth.instance.currentUser!.email!),
+                      Text(FirebaseAuth.instance.currentUser!.emailVerified
+                          .toString()),
                       ElevatedButton(
-                          onPressed: () async {
-                            context.router.replaceAll([const LoginRoute()]);
-                            await injector<AuthUseCase>().logOut();
-                          },
-                          child: const Text('LOGOUT'))
+                        onPressed: () async {
+                          context.router.replaceAll([const LoginRoute()]);
+                          await injector<AuthUseCase>().logOut();
+                        },
+                        child: const Text('LOGOUT'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await FirebaseAuth.instance.currentUser!.reload();
+                        },
+                        child: const Text('RELOAD'),
+                      ),
                     ],
                   ),
                 ),

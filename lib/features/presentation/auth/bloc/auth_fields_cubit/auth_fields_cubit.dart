@@ -43,21 +43,25 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String password,
   ) async {
     if (_isEverythingValid()) {
-      emit((state as AuthFieldsNormalState).copyWith(isValidating: true));
+      emit((state as AuthFieldsNormalState).copyWith(
+        isValidating: true,
+        firebaseError: AuthErrorEnum.valid,
+      ));
       final result = await _authUseCase.registerUserWEmailAndPassword(
         email: email,
         password: password,
       );
-      emit(
-        result.fold(
-          (l) {
-            return (state as AuthFieldsNormalState).copyWith(
-                isValidating: false,
-                validatingEnabled: true,
-                firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code));
-          },
-          (r) => const AuthFieldsState.authSuccessful(),
-        ),
+      result.fold(
+        (l) {
+          emit((state as AuthFieldsNormalState).copyWith(
+              isValidating: false,
+              validatingEnabled: true,
+              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code)));
+        },
+        (r) async {
+          emit(const AuthFieldsState.authSuccessful());
+          await _authUseCase.sendEmailVerification();
+        },
       );
     } else {
       emit((state as AuthFieldsNormalState).copyWith(
@@ -73,22 +77,23 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String password,
   ) async {
     if (_isEverythingValid()) {
-      emit((state as AuthFieldsNormalState).copyWith(isValidating: true));
+      emit((state as AuthFieldsNormalState).copyWith(
+        isValidating: true,
+        firebaseError: AuthErrorEnum.valid,
+      ));
       final result = await _authUseCase.signInWEmailAndPassword(
         email: email,
         password: password,
       );
-      await Future.delayed(const Duration(seconds: 1));
-      emit(
-        result.fold(
-          (l) {
-            return (state as AuthFieldsNormalState).copyWith(
-                isValidating: false,
-                validatingEnabled: true,
-                firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code));
-          },
-          (r) => const AuthFieldsState.authSuccessful(),
-        ),
+
+      result.fold(
+        (l) {
+          emit((state as AuthFieldsNormalState).copyWith(
+              isValidating: false,
+              validatingEnabled: true,
+              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code)));
+        },
+        (r) => emit(const AuthFieldsState.authSuccessful()),
       );
     } else {
       emit((state as AuthFieldsNormalState).copyWith(

@@ -15,45 +15,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({required AuthUseCase authUseCase})
       : _authUseCase = authUseCase,
         super(const UserState.unuthenticated()) {
-    // on<_RegisterEvent>(_onRegisterEvent);
-    // on<_LogInEvent>(_onLogInEvent);
     on<_LogOutEvent>(_onLogOutEvent);
     on<_InitEvent>(_onInit);
   }
-
-  // Future<void> _onRegisterEvent(
-  //   _RegisterEvent event,
-  //   Emitter<UserState> emit,
-  // ) async {
-  //   emit(const UserState.loading());
-  //   final result = await _authUseCase.registerUserWEmailAndPassword(
-  //     email: event.email,
-  //     password: event.password,
-  //   );
-  //   emit(
-  //     result.fold(
-  //       (l) => const UserState.error(error: AuthErrorEnum.error1),
-  //       (r) => const UserState.authenticated(),
-  //     ),
-  //   );
-  // }
-
-  // Future<void> _onLogInEvent(
-  //   _LogInEvent event,
-  //   Emitter<UserState> emit,
-  // ) async {
-  //   emit(const UserState.loading());
-  //   final result = await _authUseCase.signInWEmailAndPassword(
-  //     email: event.email,
-  //     password: event.password,
-  //   );
-  //   emit(
-  //     result.fold(
-  //       (l) => const UserState.error(error: AuthErrorEnum.error1),
-  //       (r) => const UserState.authenticated(),
-  //     ),
-  //   );
-  // }
 
   Future<void> _onLogOutEvent(
     _LogOutEvent event,
