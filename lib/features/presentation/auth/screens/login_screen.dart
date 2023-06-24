@@ -99,6 +99,7 @@ class _LoginScreen extends StatelessWidget {
                                   AuthFieldsState>(
                                 listener: (context, state) {
                                   if (state is AuthSuccessful) {
+                                    context.removeFocus();
                                     context.router
                                         .replaceAll([const HomeRoute()]);
                                   }
@@ -155,7 +156,7 @@ class _FieldsBody extends StatelessWidget {
           enabled: !currentState.isValidating,
           isError: currentState.validatingEnabled,
           initialValue: currentState.email,
-          errorText: _parseErrors(currentState.emailError),
+          errorText: AuthUtils.parseAuthErrors(currentState.emailError),
           hintText: 'Email Address',
           suffixIcon: const Icon(
             Icons.mail_outline,
@@ -169,7 +170,7 @@ class _FieldsBody extends StatelessWidget {
           obscureText: true,
           enabled: !currentState.isValidating,
           isError: currentState.validatingEnabled,
-          errorText: _parseErrors(currentState.passwordError),
+          errorText: AuthUtils.parseAuthErrors(currentState.passwordError),
           initialValue: currentState.password,
           hintText: 'Password',
           suffixIcon: const Icon(
@@ -189,9 +190,17 @@ class _FieldsBody extends StatelessWidget {
           alignment: Directionality.of(context) == TextDirection.ltr
               ? Alignment.centerRight
               : Alignment.centerLeft,
-          child: Text(
-            'Forget password',
-            style: appTheme.appTextStyles.authForgotPass,
+          child: InkWell(
+            onTap: () async {
+              await showModalBottomSheet(
+                context: context,
+                builder: (modalContext) => const ResetPasswordBottomSheet(),
+              );
+            },
+            child: Text(
+              'Forget password',
+              style: appTheme.appTextStyles.authForgotPass,
+            ),
           ),
         ),
         const SizedBox(height: 30),
@@ -200,8 +209,9 @@ class _FieldsBody extends StatelessWidget {
             Expanded(
               child: AuthButton.fill(
                 enabled: !currentState.isValidating,
-                onPressed: () {
-                  authFieldsCubit.logInUserWithEmailAndPassword(
+                onPressed: () async {
+                  context.removeFocus();
+                  await authFieldsCubit.logInUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
                   );
@@ -213,8 +223,9 @@ class _FieldsBody extends StatelessWidget {
             Expanded(
               child: AuthButton.border(
                 enabled: !currentState.isValidating,
-                onPressed: () {
-                  authFieldsCubit.registerUserWithEmailAndPassword(
+                onPressed: () async {
+                  context.removeFocus();
+                  await authFieldsCubit.registerUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
                   );
@@ -227,18 +238,5 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 230),
       ],
     );
-  }
-
-  String? _parseErrors(AuthErrorEnum error) {
-    switch (error) {
-      case AuthErrorEnum.invalidEmail:
-        return 'Invalid email';
-      case AuthErrorEnum.weakPassword:
-        return 'Password is too weak';
-      case AuthErrorEnum.valid:
-        return null;
-      default:
-        return 'Unknown error occured';
-    }
   }
 }

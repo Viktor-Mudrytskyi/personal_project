@@ -20,16 +20,10 @@ class MainApp extends StatelessWidget {
           create: (context) => injector<AppOptionsCubit>(),
         ),
       ],
-
-      ///This empty listener is here because, for some reason, UserBloc is not initialized
-      ///unless it encounters builder/listener etc, this seems to have fixed this.
-      child: BlocListener<UserBloc, UserState>(
-        listener: (context, state) {},
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig:
-              _appRouter.config(navigatorObservers: () => [RouterObserver()]),
-        ),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig:
+            _appRouter.config(navigatorObservers: () => [RouterObserver()]),
       ),
     );
   }
