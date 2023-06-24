@@ -38,7 +38,7 @@ class AppBlocObserver extends BlocObserver {
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
 
-    logger.d('A new event has been added to ${bloc.runtimeType}');
+    logger.d('A ${event.runtimeType} has been added to ${bloc.runtimeType}');
   }
 
   //TODO maybe overwrite in future

@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
+import '../../features/features.dart';
 import '../core.dart';
-import '../../features/data/data.dart';
-import '../../features/domain/domain.dart';
 
 ///Use this global variable for dependency injection throughout the app
 final injector = GetIt.instance;
@@ -37,4 +36,6 @@ Future<void> initInjector() async {
   //Bloc
   injector.registerFactory<AppOptionsCubit>(() => AppOptionsCubit());
   injector.registerFactory<UserBloc>(() => UserBloc(authUseCase: injector()));
+  injector.registerFactory<AuthFieldsCubit>(
+      () => AuthFieldsCubit(authUseCase: injector()));
 }

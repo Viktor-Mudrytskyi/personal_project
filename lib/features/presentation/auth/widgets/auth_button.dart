@@ -10,6 +10,7 @@ class AuthButton extends StatelessWidget {
     required this.text,
     this.width,
     this.height,
+    this.enabled,
   }) : isFill = true;
   const AuthButton.border({
     super.key,
@@ -17,11 +18,13 @@ class AuthButton extends StatelessWidget {
     required this.text,
     this.width,
     this.height,
+    this.enabled,
   }) : isFill = false;
 
   final Function() onPressed;
   final String text;
   final bool isFill;
+  final bool? enabled;
   final double? width;
   final double? height;
 
@@ -31,7 +34,7 @@ class AuthButton extends StatelessWidget {
     return Material(
       color: appTheme.appColors.primaryBackground,
       child: InkWell(
-        onTap: onPressed,
+        onTap: enabled ?? true ? onPressed : null,
         borderRadius: BorderRadius.circular(27),
         child: Ink(
           width: width ?? double.infinity,

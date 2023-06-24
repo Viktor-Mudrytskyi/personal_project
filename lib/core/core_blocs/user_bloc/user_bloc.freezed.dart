@@ -631,7 +631,7 @@ abstract class _InitEvent implements UserEvent {
 mixin _$UserState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() authenticated,
+    required TResult Function(User userInfo) authenticated,
     required TResult Function() unuthenticated,
     required TResult Function() loading,
     required TResult Function(AuthErrorEnum error) error,
@@ -639,7 +639,7 @@ mixin _$UserState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? authenticated,
+    TResult? Function(User userInfo)? authenticated,
     TResult? Function()? unuthenticated,
     TResult? Function()? loading,
     TResult? Function(AuthErrorEnum error)? error,
@@ -647,7 +647,7 @@ mixin _$UserState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? authenticated,
+    TResult Function(User userInfo)? authenticated,
     TResult Function()? unuthenticated,
     TResult Function()? loading,
     TResult Function(AuthErrorEnum error)? error,
@@ -703,6 +703,8 @@ abstract class _$$_AuthenticatedStateCopyWith<$Res> {
   factory _$$_AuthenticatedStateCopyWith(_$_AuthenticatedState value,
           $Res Function(_$_AuthenticatedState) then) =
       __$$_AuthenticatedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({User userInfo});
 }
 
 /// @nodoc
@@ -712,60 +714,86 @@ class __$$_AuthenticatedStateCopyWithImpl<$Res>
   __$$_AuthenticatedStateCopyWithImpl(
       _$_AuthenticatedState _value, $Res Function(_$_AuthenticatedState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userInfo = null,
+  }) {
+    return _then(_$_AuthenticatedState(
+      userInfo: null == userInfo
+          ? _value.userInfo
+          : userInfo // ignore: cast_nullable_to_non_nullable
+              as User,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_AuthenticatedState implements _AuthenticatedState {
-  const _$_AuthenticatedState();
+  const _$_AuthenticatedState({required this.userInfo});
+
+  @override
+  final User userInfo;
 
   @override
   String toString() {
-    return 'UserState.authenticated()';
+    return 'UserState.authenticated(userInfo: $userInfo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_AuthenticatedState);
+        (other.runtimeType == runtimeType &&
+            other is _$_AuthenticatedState &&
+            (identical(other.userInfo, userInfo) ||
+                other.userInfo == userInfo));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, userInfo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
+      __$$_AuthenticatedStateCopyWithImpl<_$_AuthenticatedState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() authenticated,
+    required TResult Function(User userInfo) authenticated,
     required TResult Function() unuthenticated,
     required TResult Function() loading,
     required TResult Function(AuthErrorEnum error) error,
   }) {
-    return authenticated();
+    return authenticated(userInfo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? authenticated,
+    TResult? Function(User userInfo)? authenticated,
     TResult? Function()? unuthenticated,
     TResult? Function()? loading,
     TResult? Function(AuthErrorEnum error)? error,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(userInfo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? authenticated,
+    TResult Function(User userInfo)? authenticated,
     TResult Function()? unuthenticated,
     TResult Function()? loading,
     TResult Function(AuthErrorEnum error)? error,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(userInfo);
     }
     return orElse();
   }
@@ -809,7 +837,13 @@ class _$_AuthenticatedState implements _AuthenticatedState {
 }
 
 abstract class _AuthenticatedState implements UserState {
-  const factory _AuthenticatedState() = _$_AuthenticatedState;
+  const factory _AuthenticatedState({required final User userInfo}) =
+      _$_AuthenticatedState;
+
+  User get userInfo;
+  @JsonKey(ignore: true)
+  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -850,7 +884,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() authenticated,
+    required TResult Function(User userInfo) authenticated,
     required TResult Function() unuthenticated,
     required TResult Function() loading,
     required TResult Function(AuthErrorEnum error) error,
@@ -861,7 +895,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? authenticated,
+    TResult? Function(User userInfo)? authenticated,
     TResult? Function()? unuthenticated,
     TResult? Function()? loading,
     TResult? Function(AuthErrorEnum error)? error,
@@ -872,7 +906,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? authenticated,
+    TResult Function(User userInfo)? authenticated,
     TResult Function()? unuthenticated,
     TResult Function()? loading,
     TResult Function(AuthErrorEnum error)? error,
@@ -964,7 +998,7 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() authenticated,
+    required TResult Function(User userInfo) authenticated,
     required TResult Function() unuthenticated,
     required TResult Function() loading,
     required TResult Function(AuthErrorEnum error) error,
@@ -975,7 +1009,7 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? authenticated,
+    TResult? Function(User userInfo)? authenticated,
     TResult? Function()? unuthenticated,
     TResult? Function()? loading,
     TResult? Function(AuthErrorEnum error)? error,
@@ -986,7 +1020,7 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? authenticated,
+    TResult Function(User userInfo)? authenticated,
     TResult Function()? unuthenticated,
     TResult Function()? loading,
     TResult Function(AuthErrorEnum error)? error,
@@ -1104,7 +1138,7 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() authenticated,
+    required TResult Function(User userInfo) authenticated,
     required TResult Function() unuthenticated,
     required TResult Function() loading,
     required TResult Function(AuthErrorEnum error) error,
@@ -1115,7 +1149,7 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? authenticated,
+    TResult? Function(User userInfo)? authenticated,
     TResult? Function()? unuthenticated,
     TResult? Function()? loading,
     TResult? Function(AuthErrorEnum error)? error,
@@ -1126,7 +1160,7 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? authenticated,
+    TResult Function(User userInfo)? authenticated,
     TResult Function()? unuthenticated,
     TResult Function()? loading,
     TResult Function(AuthErrorEnum error)? error,

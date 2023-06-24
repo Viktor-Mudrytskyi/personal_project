@@ -20,7 +20,18 @@ abstract class AuthUseCase {
   ///Does not throw [Exception]. On success returns UserCredentials, on failure - [FirebaseAuthException]
   Future<Either<FirebaseAuthException, void>> logOut();
 
+  ///Sends verification to user's email
+  Future<void> sendEmailVerification();
+
+  ///Sends email for password restoration
+  Future<void> sendForgotPasswordEmail(String email);
+
   bool get isLoggedIn;
+
+  User? get userInfo;
+
+  ///Returns [false] if user is not logged in
+  bool get isEmailVerified;
 }
 
 class AuthUseCaseImpl implements AuthUseCase {
@@ -75,4 +86,20 @@ class AuthUseCaseImpl implements AuthUseCase {
 
   @override
   bool get isLoggedIn => _authRepository.isLoggedIn;
+
+  @override
+  User? get userInfo => _authRepository.userInfo;
+
+  @override
+  bool get isEmailVerified => _authRepository.isEmailVerified;
+
+  @override
+  Future<void> sendEmailVerification() async {
+    await _authRepository.sendEmailVerification();
+  }
+
+  @override
+  Future<void> sendForgotPasswordEmail(String email) async {
+    await _authRepository.sendForgotPasswordEmail(email);
+  }
 }

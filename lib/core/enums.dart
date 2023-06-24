@@ -1,3 +1,10 @@
 enum AuthErrorEnum {
-  error1,
+  wrongPassword,
+  invalidEmail,
+  userDisabled,
+  userNotFound,
+  emailAlreadyInUse,
+  operationNotAllowed,
+  weakPassword,
+  valid,
 }
