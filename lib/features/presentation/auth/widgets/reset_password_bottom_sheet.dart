@@ -22,20 +22,19 @@ class ResetPasswordBottomSheet extends StatelessWidget {
           }
           if (state is MyResetPasswordState) {
             if (state.firebaseError != AuthErrorEnum.valid) {
-              //TODO snackbar is shown behind modal sheet
-              ScaffoldMessenger.of(context).showSnackBar(
-                getCustomSnackBar(
-                  child: Text(state.firebaseError.name),
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height - 100),
-                  backgroundColor: appTheme.appColors.authButtonFill,
+              UiUtils.showOverlaySnackBar(
+                context: context,
+                content: Text(
+                  state.firebaseError.name,
+                  style: appTheme.appTextStyles.login
+                      .copyWith(decoration: TextDecoration.none),
                 ),
               );
             }
           }
         },
         builder: (context, state) {
-          return _Dialog(
+          return _ModalBottomSheet(
             email: state.email,
             isValidating: state.isValidating,
             validatingEnabled: state.validatingEnabled,
@@ -47,8 +46,8 @@ class ResetPasswordBottomSheet extends StatelessWidget {
   }
 }
 
-class _Dialog extends StatelessWidget {
-  const _Dialog({
+class _ModalBottomSheet extends StatelessWidget {
+  const _ModalBottomSheet({
     required this.email,
     required this.isValidating,
     required this.validatingEnabled,

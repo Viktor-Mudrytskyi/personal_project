@@ -104,15 +104,16 @@ class _LoginScreen extends StatelessWidget {
                                         .replaceAll([const HomeRoute()]);
                                   }
                                   if (state is AuthFieldsNormalState) {
-                                    if ((state).firebaseError !=
+                                    if (state.firebaseError !=
                                         AuthErrorEnum.valid) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        getCustomSnackBar(
-                                          // Yeah, too lazy to change the message )
-                                          child: Text(state.firebaseError.name),
-                                          backgroundColor:
-                                              appTheme.appColors.authButtonFill,
+                                      UiUtils.showOverlaySnackBar(
+                                        context: context,
+                                        content: Text(
+                                          state.firebaseError.name,
+                                          style: appTheme.appTextStyles.login
+                                              .copyWith(
+                                                  decoration:
+                                                      TextDecoration.none),
                                         ),
                                       );
                                     }
