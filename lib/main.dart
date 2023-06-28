@@ -26,6 +26,6 @@ Future<void> _configureSystemUI() async {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top]);
+  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  //     overlays: [SystemUiOverlay.top]);
 }

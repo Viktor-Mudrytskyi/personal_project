@@ -65,21 +65,24 @@ class CustomSnackBarState extends State<CustomSnackBar>
       },
       child: Theme(
         data: ThemeData.light(),
-        child: Builder(builder: (context) {
-          return Container(
-            //There is something inherently wrong with the set width and height.
-            //But margin works for some reason, well, anyway, its sunday
-            // width: widget.screenSize.width,
-            // height: 60,
-            margin: EdgeInsets.symmetric(
-                horizontal: 18, vertical: (widget.screenSize.height - 50) / 2),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: appTheme.appColors.authButtonFill,
-                boxShadow: [appTheme.appShadows.backgroundShadow]),
-            child: Center(child: widget.child),
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            return Container(
+              //There is something inherently wrong with the set width and height.
+              //But margin works for some reason, well, anyway, its sunday
+              // width: widget.screenSize.width,
+              // height: 60,
+              margin: EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: (widget.screenSize.height - 50) / 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: appTheme.appColors.authButtonFill,
+                  boxShadow: [appTheme.appShadows.backgroundShadow]),
+              child: Center(child: widget.child),
+            );
+          },
+        ),
       ),
     );
   }
