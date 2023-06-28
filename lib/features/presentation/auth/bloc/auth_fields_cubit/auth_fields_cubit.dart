@@ -12,10 +12,10 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
   AuthFieldsCubit({required AuthUseCase authUseCase})
       : _authUseCase = authUseCase,
-        super(empty);
+        super(_empty);
 
   void onChangeEmail(String email) {
-    emit((state as AuthFieldsNormalState).copyWith(
+    emit(state.copyWith(
       email: email,
       emailError: AuthUtils.isEmailValid(email),
       firebaseError: AuthErrorEnum.valid,
@@ -23,7 +23,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void onChangePassword(String password) {
-    emit((state as AuthFieldsNormalState).copyWith(
+    emit(state.copyWith(
       password: password,
       passwordError: AuthUtils.isPasswordValid(password),
       firebaseError: AuthErrorEnum.valid,
@@ -45,7 +45,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
           _emitFirebaseError(l.code);
         },
         (r) async {
-          emit(const AuthFieldsState.authSuccessful());
+          emit(_authSuccess);
           await _authUseCase.sendEmailVerification();
         },
       );
@@ -69,7 +69,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         (l) {
           _emitFirebaseError(l.code);
         },
-        (r) => emit(const AuthFieldsState.authSuccessful()),
+        (r) => emit(_authSuccess),
       );
     } else {
       _enableValidation();
@@ -77,9 +77,8 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   bool _isEverythingValid() {
-    final currentState = (state as AuthFieldsNormalState);
-    if (currentState.emailError == AuthErrorEnum.valid &&
-        currentState.passwordError == AuthErrorEnum.valid) {
+    if (state.emailError == AuthErrorEnum.valid &&
+        state.passwordError == AuthErrorEnum.valid) {
       return true;
     } else {
       return false;
@@ -87,14 +86,14 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void _emitLoading() {
-    emit((state as AuthFieldsNormalState).copyWith(
+    emit(state.copyWith(
       isValidating: true,
       firebaseError: AuthErrorEnum.valid,
     ));
   }
 
   void _enableValidation() {
-    emit((state as AuthFieldsNormalState).copyWith(
+    emit(state.copyWith(
       isValidating: false,
       validatingEnabled: true,
       firebaseError: AuthErrorEnum.valid,
@@ -102,14 +101,14 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void _emitFirebaseError(String code) {
-    emit((state as AuthFieldsNormalState).copyWith(
+    emit(state.copyWith(
       isValidating: false,
       validatingEnabled: true,
       firebaseError: AuthUtils.parseFirebaseAuthErrors(code),
     ));
   }
 
-  static AuthFieldsState get empty => const AuthFieldsState(
+  static AuthFieldsState get _empty => const AuthFieldsState(
         email: '',
         password: '',
         emailError: AuthErrorEnum.invalidEmail,
@@ -117,5 +116,14 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         firebaseError: AuthErrorEnum.valid,
         isValidating: false,
         validatingEnabled: false,
+      );
+  AuthSuccessful get _authSuccess => AuthSuccessful(
+        email: state.email,
+        emailError: state.emailError,
+        firebaseError: state.firebaseError,
+        isValidating: state.isValidating,
+        password: state.password,
+        passwordError: state.passwordError,
+        validatingEnabled: state.validatingEnabled,
       );
 }

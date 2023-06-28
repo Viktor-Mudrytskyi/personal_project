@@ -10,11 +10,17 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         ///Auth guard ensures that logged in user is directed to home.
         ///Otherwise to login screen
-        AutoRoute(
+        CustomRoute(
           page: HomeRoute.page,
           guards: [injector<AuthGuard>()],
           initial: true,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 100,
         ),
-        AutoRoute(page: LoginRoute.page),
+        CustomRoute(
+          page: LoginRoute.page,
+          transitionsBuilder: TransitionsBuilders.slideRight,
+          durationInMilliseconds: 100,
+        ),
       ];
 }

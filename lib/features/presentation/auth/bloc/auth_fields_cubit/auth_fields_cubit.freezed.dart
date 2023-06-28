@@ -16,6 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthFieldsState {
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+  AuthErrorEnum get emailError => throw _privateConstructorUsedError;
+  AuthErrorEnum get passwordError => throw _privateConstructorUsedError;
+  AuthErrorEnum get firebaseError => throw _privateConstructorUsedError;
+
+  ///Is true when user clicked on login/register
+  ///and prevents user from clicking on them again and changing text fields
+  bool get isValidating => throw _privateConstructorUsedError;
+
+  ///Is true after user clicked on login/register
+  bool get validatingEnabled => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
@@ -27,7 +39,15 @@ mixin _$AuthFieldsState {
             bool isValidating,
             bool validatingEnabled)
         $default, {
-    required TResult Function() authSuccessful,
+    required TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)
+        authSuccessful,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,7 +61,15 @@ mixin _$AuthFieldsState {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult? Function()? authSuccessful,
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,7 +83,15 @@ mixin _$AuthFieldsState {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult Function()? authSuccessful,
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -78,6 +114,10 @@ mixin _$AuthFieldsState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AuthFieldsStateCopyWith<AuthFieldsState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -85,6 +125,15 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
   factory $AuthFieldsStateCopyWith(
           AuthFieldsState value, $Res Function(AuthFieldsState) then) =
       _$AuthFieldsStateCopyWithImpl<$Res, AuthFieldsState>;
+  @useResult
+  $Res call(
+      {String email,
+      String password,
+      AuthErrorEnum emailError,
+      AuthErrorEnum passwordError,
+      AuthErrorEnum firebaseError,
+      bool isValidating,
+      bool validatingEnabled});
 }
 
 /// @nodoc
@@ -96,13 +145,58 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+    Object? emailError = null,
+    Object? passwordError = null,
+    Object? firebaseError = null,
+    Object? isValidating = null,
+    Object? validatingEnabled = null,
+  }) {
+    return _then(_value.copyWith(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      emailError: null == emailError
+          ? _value.emailError
+          : emailError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      passwordError: null == passwordError
+          ? _value.passwordError
+          : passwordError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      firebaseError: null == firebaseError
+          ? _value.firebaseError
+          : firebaseError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      isValidating: null == isValidating
+          ? _value.isValidating
+          : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      validatingEnabled: null == validatingEnabled
+          ? _value.validatingEnabled
+          : validatingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$AuthFieldsNormalStateCopyWith<$Res> {
+abstract class _$$AuthFieldsNormalStateCopyWith<$Res>
+    implements $AuthFieldsStateCopyWith<$Res> {
   factory _$$AuthFieldsNormalStateCopyWith(_$AuthFieldsNormalState value,
           $Res Function(_$AuthFieldsNormalState) then) =
       __$$AuthFieldsNormalStateCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String email,
@@ -246,7 +340,15 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             bool isValidating,
             bool validatingEnabled)
         $default, {
-    required TResult Function() authSuccessful,
+    required TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)
+        authSuccessful,
   }) {
     return $default(email, password, emailError, passwordError, firebaseError,
         isValidating, validatingEnabled);
@@ -264,7 +366,15 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult? Function()? authSuccessful,
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
   }) {
     return $default?.call(email, password, emailError, passwordError,
         firebaseError, isValidating, validatingEnabled);
@@ -282,7 +392,15 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult Function()? authSuccessful,
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -334,28 +452,47 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
       required final bool isValidating,
       required final bool validatingEnabled}) = _$AuthFieldsNormalState;
 
+  @override
   String get email;
+  @override
   String get password;
+  @override
   AuthErrorEnum get emailError;
+  @override
   AuthErrorEnum get passwordError;
+  @override
   AuthErrorEnum get firebaseError;
+  @override
 
   ///Is true when user clicked on login/register
   ///and prevents user from clicking on them again and changing text fields
   bool get isValidating;
+  @override
 
   ///Is true after user clicked on login/register
   bool get validatingEnabled;
+  @override
   @JsonKey(ignore: true)
   _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AuthSuccessfulCopyWith<$Res> {
+abstract class _$$AuthSuccessfulCopyWith<$Res>
+    implements $AuthFieldsStateCopyWith<$Res> {
   factory _$$AuthSuccessfulCopyWith(
           _$AuthSuccessful value, $Res Function(_$AuthSuccessful) then) =
       __$$AuthSuccessfulCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String email,
+      String password,
+      AuthErrorEnum emailError,
+      AuthErrorEnum passwordError,
+      AuthErrorEnum firebaseError,
+      bool isValidating,
+      bool validatingEnabled});
 }
 
 /// @nodoc
@@ -365,26 +502,117 @@ class __$$AuthSuccessfulCopyWithImpl<$Res>
   __$$AuthSuccessfulCopyWithImpl(
       _$AuthSuccessful _value, $Res Function(_$AuthSuccessful) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+    Object? emailError = null,
+    Object? passwordError = null,
+    Object? firebaseError = null,
+    Object? isValidating = null,
+    Object? validatingEnabled = null,
+  }) {
+    return _then(_$AuthSuccessful(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      emailError: null == emailError
+          ? _value.emailError
+          : emailError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      passwordError: null == passwordError
+          ? _value.passwordError
+          : passwordError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      firebaseError: null == firebaseError
+          ? _value.firebaseError
+          : firebaseError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      isValidating: null == isValidating
+          ? _value.isValidating
+          : isValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      validatingEnabled: null == validatingEnabled
+          ? _value.validatingEnabled
+          : validatingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthSuccessful implements AuthSuccessful {
-  const _$AuthSuccessful();
+  const _$AuthSuccessful(
+      {required this.email,
+      required this.password,
+      required this.emailError,
+      required this.passwordError,
+      required this.firebaseError,
+      required this.isValidating,
+      required this.validatingEnabled});
+
+  @override
+  final String email;
+  @override
+  final String password;
+  @override
+  final AuthErrorEnum emailError;
+  @override
+  final AuthErrorEnum passwordError;
+  @override
+  final AuthErrorEnum firebaseError;
+
+  ///Is true when user clicked on login/register
+  ///and prevents user from clicking on them again and changing text fields
+  @override
+  final bool isValidating;
+
+  ///Is true after user clicked on login/register
+  @override
+  final bool validatingEnabled;
 
   @override
   String toString() {
-    return 'AuthFieldsState.authSuccessful()';
+    return 'AuthFieldsState.authSuccessful(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthSuccessful);
+        (other.runtimeType == runtimeType &&
+            other is _$AuthSuccessful &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.emailError, emailError) ||
+                other.emailError == emailError) &&
+            (identical(other.passwordError, passwordError) ||
+                other.passwordError == passwordError) &&
+            (identical(other.firebaseError, firebaseError) ||
+                other.firebaseError == firebaseError) &&
+            (identical(other.isValidating, isValidating) ||
+                other.isValidating == isValidating) &&
+            (identical(other.validatingEnabled, validatingEnabled) ||
+                other.validatingEnabled == validatingEnabled));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password, emailError,
+      passwordError, firebaseError, isValidating, validatingEnabled);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthSuccessfulCopyWith<_$AuthSuccessful> get copyWith =>
+      __$$AuthSuccessfulCopyWithImpl<_$AuthSuccessful>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -398,9 +626,18 @@ class _$AuthSuccessful implements AuthSuccessful {
             bool isValidating,
             bool validatingEnabled)
         $default, {
-    required TResult Function() authSuccessful,
+    required TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)
+        authSuccessful,
   }) {
-    return authSuccessful();
+    return authSuccessful(email, password, emailError, passwordError,
+        firebaseError, isValidating, validatingEnabled);
   }
 
   @override
@@ -415,9 +652,18 @@ class _$AuthSuccessful implements AuthSuccessful {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult? Function()? authSuccessful,
+    TResult? Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
   }) {
-    return authSuccessful?.call();
+    return authSuccessful?.call(email, password, emailError, passwordError,
+        firebaseError, isValidating, validatingEnabled);
   }
 
   @override
@@ -432,11 +678,20 @@ class _$AuthSuccessful implements AuthSuccessful {
             bool isValidating,
             bool validatingEnabled)?
         $default, {
-    TResult Function()? authSuccessful,
+    TResult Function(
+            String email,
+            String password,
+            AuthErrorEnum emailError,
+            AuthErrorEnum passwordError,
+            AuthErrorEnum firebaseError,
+            bool isValidating,
+            bool validatingEnabled)?
+        authSuccessful,
     required TResult orElse(),
   }) {
     if (authSuccessful != null) {
-      return authSuccessful();
+      return authSuccessful(email, password, emailError, passwordError,
+          firebaseError, isValidating, validatingEnabled);
     }
     return orElse();
   }
@@ -474,5 +729,36 @@ class _$AuthSuccessful implements AuthSuccessful {
 }
 
 abstract class AuthSuccessful implements AuthFieldsState {
-  const factory AuthSuccessful() = _$AuthSuccessful;
+  const factory AuthSuccessful(
+      {required final String email,
+      required final String password,
+      required final AuthErrorEnum emailError,
+      required final AuthErrorEnum passwordError,
+      required final AuthErrorEnum firebaseError,
+      required final bool isValidating,
+      required final bool validatingEnabled}) = _$AuthSuccessful;
+
+  @override
+  String get email;
+  @override
+  String get password;
+  @override
+  AuthErrorEnum get emailError;
+  @override
+  AuthErrorEnum get passwordError;
+  @override
+  AuthErrorEnum get firebaseError;
+  @override
+
+  ///Is true when user clicked on login/register
+  ///and prevents user from clicking on them again and changing text fields
+  bool get isValidating;
+  @override
+
+  ///Is true after user clicked on login/register
+  bool get validatingEnabled;
+  @override
+  @JsonKey(ignore: true)
+  _$$AuthSuccessfulCopyWith<_$AuthSuccessful> get copyWith =>
+      throw _privateConstructorUsedError;
 }

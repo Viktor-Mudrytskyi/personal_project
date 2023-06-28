@@ -36,6 +36,8 @@ class AuthButton extends StatelessWidget {
       child: InkWell(
         onTap: enabled ?? true ? onPressed : null,
         borderRadius: BorderRadius.circular(27),
+        splashColor: appTheme.appColors.splashColor,
+        highlightColor: appTheme.appColors.highlight,
         child: Ink(
           width: width ?? double.infinity,
           height: height ?? 45,

@@ -166,7 +166,7 @@ class _FieldsBody extends StatelessWidget {
           onChanged: authFieldsCubit.onChangeEmail,
           keyboardType: TextInputType.emailAddress,
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 7),
         AppTextField(
           obscureText: true,
           enabled: !currentState.isValidating,
@@ -181,7 +181,7 @@ class _FieldsBody extends StatelessWidget {
           onChanged: authFieldsCubit.onChangePassword,
           keyboardType: TextInputType.visiblePassword,
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 5),
         RememberPassCheckBox(
           value: true,
           onPressed: (val) {},
@@ -195,6 +195,7 @@ class _FieldsBody extends StatelessWidget {
             onTap: () async {
               await showModalBottomSheet(
                 context: context,
+                isScrollControlled: true,
                 builder: (modalContext) => const ResetPasswordBottomSheet(),
               );
             },
@@ -236,7 +237,22 @@ class _FieldsBody extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 230),
+        const SizedBox(height: 21),
+        Text(
+          'Login wit touch ID',
+          style: appTheme.appTextStyles.authSmall,
+        ),
+        const SizedBox(height: 18),
+        FingerPrintButton(
+          onTap: () {},
+        ),
+        const SizedBox(height: 11),
+        Text(
+          'or connect with',
+          style: appTheme.appTextStyles.authSmall,
+        ),
+        const SizedBox(height: 61),
+        const SizedBox(height: 30),
       ],
     );
   }

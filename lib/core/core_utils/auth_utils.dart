@@ -62,7 +62,7 @@ class AuthUtils {
       case AuthErrorEnum.weakPassword:
         return 'Password is too weak';
       case AuthErrorEnum.valid:
-        return null;
+        return '';
       default:
         return 'Unknown error occured';
     }

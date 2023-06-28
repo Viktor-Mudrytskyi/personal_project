@@ -14,7 +14,8 @@ void main() async {
   await initInjector();
   await Firebase.initializeApp(options: EnvironmentConfig.firebaseOptions);
 
-  log(const String.fromEnvironment('FLAVOR'));
+  log(EnvironmentConfig.currentEnv.name);
+
   runApp(const MainApp());
 }
 
@@ -24,8 +25,9 @@ Future<void> _configureSystemUI() async {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: true,
     ),
   );
-  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-  //     overlays: [SystemUiOverlay.top]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+      overlays: [SystemUiOverlay.top]);
 }
