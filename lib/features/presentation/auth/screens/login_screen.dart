@@ -112,8 +112,8 @@ class _LoginScreen extends StatelessWidget {
                                           state.firebaseError.name,
                                           style: appTheme.appTextStyles.login
                                               .copyWith(
-                                                  decoration:
-                                                      TextDecoration.none),
+                                            decoration: TextDecoration.none,
+                                          ),
                                         ),
                                       );
                                     }

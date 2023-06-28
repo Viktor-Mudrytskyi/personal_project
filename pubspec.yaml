@@ -15,10 +15,13 @@ dependencies:
   firebase_core: ^2.13.1
   firebase_auth: ^4.6.2
 
+  # Biometrics
+  local_auth: ^2.1.6
+
   # Di
   get_it: ^7.4.1
 
-  # Roter
+  # Router
   auto_route: ^7.4.0
 
   # Utils

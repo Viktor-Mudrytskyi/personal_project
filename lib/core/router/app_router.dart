@@ -15,12 +15,12 @@ class AppRouter extends _$AppRouter {
           guards: [injector<AuthGuard>()],
           initial: true,
           transitionsBuilder: TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 100,
+          durationInMilliseconds: 200,
         ),
         CustomRoute(
           page: LoginRoute.page,
           transitionsBuilder: TransitionsBuilders.slideRight,
-          durationInMilliseconds: 100,
+          durationInMilliseconds: 200,
         ),
       ];
 }
