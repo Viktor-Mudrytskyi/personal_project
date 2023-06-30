@@ -8,6 +8,7 @@ class AuthFieldsState with _$AuthFieldsState {
     required AuthErrorEnum emailError,
     required AuthErrorEnum passwordError,
     required AuthErrorEnum firebaseError,
+    required AuthErrorEnum biometricsError,
 
     ///Is true when user clicked on login/register
     ///and prevents user from clicking on them again and changing text fields
@@ -23,6 +24,7 @@ class AuthFieldsState with _$AuthFieldsState {
     required AuthErrorEnum emailError,
     required AuthErrorEnum passwordError,
     required AuthErrorEnum firebaseError,
+    required AuthErrorEnum biometricsError,
 
     ///Is true when user clicked on login/register
     ///and prevents user from clicking on them again and changing text fields

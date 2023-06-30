@@ -6,3 +6,4 @@ export './core_blocs/core_blocs.dart';
 export 'enums.dart';
 export './router/router.dart';
 export './core_utils/core_utils.dart';
+export './services/services.dart';

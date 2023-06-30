@@ -34,7 +34,6 @@ class _LoginScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => injector<AuthFieldsCubit>(),
           child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverPadding(
                 padding: const EdgeInsets.symmetric(
@@ -98,26 +97,11 @@ class _LoginScreen extends StatelessWidget {
                               child: BlocConsumer<AuthFieldsCubit,
                                   AuthFieldsState>(
                                 listener: (context, state) {
-                                  if (state is AuthSuccessful) {
-                                    context.removeFocus();
-                                    context.router
-                                        .replaceAll([const HomeRoute()]);
-                                  }
-                                  if (state is AuthFieldsNormalState) {
-                                    if (state.firebaseError !=
-                                        AuthErrorEnum.valid) {
-                                      UiUtils.showOverlaySnackBar(
-                                        context: context,
-                                        content: Text(
-                                          state.firebaseError.name,
-                                          style: appTheme.appTextStyles.login
-                                              .copyWith(
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  }
+                                  _stateListener(
+                                    context: context,
+                                    state: state,
+                                    appTheme: appTheme,
+                                  );
                                 },
                                 builder: (context, state) {
                                   return state.map(
@@ -140,6 +124,38 @@ class _LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _stateListener({
+    required BuildContext context,
+    required AuthFieldsState state,
+    required AppThemeData appTheme,
+  }) {
+    if (state is AuthSuccessful) {
+      context.removeFocus();
+      context.router.replaceAll([const HomeRoute()]);
+    }
+    if (state is AuthFieldsNormalState) {
+      if (state.firebaseError != AuthErrorEnum.valid) {
+        UiUtils.showOverlaySnackBar(
+          context: context,
+          content: Text(
+            state.firebaseError.name,
+            style: appTheme.appTextStyles.login.copyWith(
+              decoration: TextDecoration.none,
+            ),
+          ),
+        );
+      }
+      if (state.biometricsError != AuthErrorEnum.valid) {
+        showDialog(
+          context: context,
+          builder: (context) => StandartDialog.info(
+            label: AuthUtils.parseAuthErrors(state.biometricsError),
+          ),
+        );
+      }
+    }
   }
 }
 
@@ -244,7 +260,15 @@ class _FieldsBody extends StatelessWidget {
         ),
         const SizedBox(height: 18),
         FingerPrintButton(
-          onTap: () {},
+          onTap: () async {
+            await authFieldsCubit.attemptFingerprint();
+
+            // showDialog(
+            //     context: context,
+            //     builder: (context) => const StandartDialog.info(
+            //           label: 'Dialog',
+            //         ));
+          },
         ),
         const SizedBox(height: 11),
         Text(

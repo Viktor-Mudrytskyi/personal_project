@@ -90,7 +90,7 @@ class _ModalBottomSheet extends StatelessWidget {
                   onChanged: cubit.onChangeEmail,
                   keyboardType: TextInputType.emailAddress,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 AuthButton.fill(
                   onPressed: () async {
                     context.removeFocus();

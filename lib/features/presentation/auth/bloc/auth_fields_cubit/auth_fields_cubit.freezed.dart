@@ -21,6 +21,7 @@ mixin _$AuthFieldsState {
   AuthErrorEnum get emailError => throw _privateConstructorUsedError;
   AuthErrorEnum get passwordError => throw _privateConstructorUsedError;
   AuthErrorEnum get firebaseError => throw _privateConstructorUsedError;
+  AuthErrorEnum get biometricsError => throw _privateConstructorUsedError;
 
   ///Is true when user clicked on login/register
   ///and prevents user from clicking on them again and changing text fields
@@ -36,6 +37,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
@@ -45,6 +47,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         authSuccessful,
@@ -58,6 +61,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -67,6 +71,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
@@ -80,6 +85,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -89,6 +95,7 @@ mixin _$AuthFieldsState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
@@ -132,6 +139,7 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
       AuthErrorEnum emailError,
       AuthErrorEnum passwordError,
       AuthErrorEnum firebaseError,
+      AuthErrorEnum biometricsError,
       bool isValidating,
       bool validatingEnabled});
 }
@@ -154,6 +162,7 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
     Object? emailError = null,
     Object? passwordError = null,
     Object? firebaseError = null,
+    Object? biometricsError = null,
     Object? isValidating = null,
     Object? validatingEnabled = null,
   }) {
@@ -177,6 +186,10 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
       firebaseError: null == firebaseError
           ? _value.firebaseError
           : firebaseError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      biometricsError: null == biometricsError
+          ? _value.biometricsError
+          : biometricsError // ignore: cast_nullable_to_non_nullable
               as AuthErrorEnum,
       isValidating: null == isValidating
           ? _value.isValidating
@@ -204,6 +217,7 @@ abstract class _$$AuthFieldsNormalStateCopyWith<$Res>
       AuthErrorEnum emailError,
       AuthErrorEnum passwordError,
       AuthErrorEnum firebaseError,
+      AuthErrorEnum biometricsError,
       bool isValidating,
       bool validatingEnabled});
 }
@@ -224,6 +238,7 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? emailError = null,
     Object? passwordError = null,
     Object? firebaseError = null,
+    Object? biometricsError = null,
     Object? isValidating = null,
     Object? validatingEnabled = null,
   }) {
@@ -248,6 +263,10 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
           ? _value.firebaseError
           : firebaseError // ignore: cast_nullable_to_non_nullable
               as AuthErrorEnum,
+      biometricsError: null == biometricsError
+          ? _value.biometricsError
+          : biometricsError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
       isValidating: null == isValidating
           ? _value.isValidating
           : isValidating // ignore: cast_nullable_to_non_nullable
@@ -269,6 +288,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
       required this.emailError,
       required this.passwordError,
       required this.firebaseError,
+      required this.biometricsError,
       required this.isValidating,
       required this.validatingEnabled});
 
@@ -282,6 +302,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   final AuthErrorEnum passwordError;
   @override
   final AuthErrorEnum firebaseError;
+  @override
+  final AuthErrorEnum biometricsError;
 
   ///Is true when user clicked on login/register
   ///and prevents user from clicking on them again and changing text fields
@@ -294,7 +316,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
 
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
   }
 
   @override
@@ -311,6 +333,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
                 other.passwordError == passwordError) &&
             (identical(other.firebaseError, firebaseError) ||
                 other.firebaseError == firebaseError) &&
+            (identical(other.biometricsError, biometricsError) ||
+                other.biometricsError == biometricsError) &&
             (identical(other.isValidating, isValidating) ||
                 other.isValidating == isValidating) &&
             (identical(other.validatingEnabled, validatingEnabled) ||
@@ -318,8 +342,16 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, firebaseError, isValidating, validatingEnabled);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      password,
+      emailError,
+      passwordError,
+      firebaseError,
+      biometricsError,
+      isValidating,
+      validatingEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -337,6 +369,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
@@ -346,12 +379,13 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         authSuccessful,
   }) {
     return $default(email, password, emailError, passwordError, firebaseError,
-        isValidating, validatingEnabled);
+        biometricsError, isValidating, validatingEnabled);
   }
 
   @override
@@ -363,6 +397,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -372,12 +407,13 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
   }) {
     return $default?.call(email, password, emailError, passwordError,
-        firebaseError, isValidating, validatingEnabled);
+        firebaseError, biometricsError, isValidating, validatingEnabled);
   }
 
   @override
@@ -389,6 +425,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -398,6 +435,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
@@ -405,7 +443,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   }) {
     if ($default != null) {
       return $default(email, password, emailError, passwordError, firebaseError,
-          isValidating, validatingEnabled);
+          biometricsError, isValidating, validatingEnabled);
     }
     return orElse();
   }
@@ -449,6 +487,7 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
+      required final AuthErrorEnum biometricsError,
       required final bool isValidating,
       required final bool validatingEnabled}) = _$AuthFieldsNormalState;
 
@@ -462,6 +501,8 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
   AuthErrorEnum get passwordError;
   @override
   AuthErrorEnum get firebaseError;
+  @override
+  AuthErrorEnum get biometricsError;
   @override
 
   ///Is true when user clicked on login/register
@@ -491,6 +532,7 @@ abstract class _$$AuthSuccessfulCopyWith<$Res>
       AuthErrorEnum emailError,
       AuthErrorEnum passwordError,
       AuthErrorEnum firebaseError,
+      AuthErrorEnum biometricsError,
       bool isValidating,
       bool validatingEnabled});
 }
@@ -511,6 +553,7 @@ class __$$AuthSuccessfulCopyWithImpl<$Res>
     Object? emailError = null,
     Object? passwordError = null,
     Object? firebaseError = null,
+    Object? biometricsError = null,
     Object? isValidating = null,
     Object? validatingEnabled = null,
   }) {
@@ -535,6 +578,10 @@ class __$$AuthSuccessfulCopyWithImpl<$Res>
           ? _value.firebaseError
           : firebaseError // ignore: cast_nullable_to_non_nullable
               as AuthErrorEnum,
+      biometricsError: null == biometricsError
+          ? _value.biometricsError
+          : biometricsError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
       isValidating: null == isValidating
           ? _value.isValidating
           : isValidating // ignore: cast_nullable_to_non_nullable
@@ -556,6 +603,7 @@ class _$AuthSuccessful implements AuthSuccessful {
       required this.emailError,
       required this.passwordError,
       required this.firebaseError,
+      required this.biometricsError,
       required this.isValidating,
       required this.validatingEnabled});
 
@@ -569,6 +617,8 @@ class _$AuthSuccessful implements AuthSuccessful {
   final AuthErrorEnum passwordError;
   @override
   final AuthErrorEnum firebaseError;
+  @override
+  final AuthErrorEnum biometricsError;
 
   ///Is true when user clicked on login/register
   ///and prevents user from clicking on them again and changing text fields
@@ -581,7 +631,7 @@ class _$AuthSuccessful implements AuthSuccessful {
 
   @override
   String toString() {
-    return 'AuthFieldsState.authSuccessful(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
+    return 'AuthFieldsState.authSuccessful(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
   }
 
   @override
@@ -598,6 +648,8 @@ class _$AuthSuccessful implements AuthSuccessful {
                 other.passwordError == passwordError) &&
             (identical(other.firebaseError, firebaseError) ||
                 other.firebaseError == firebaseError) &&
+            (identical(other.biometricsError, biometricsError) ||
+                other.biometricsError == biometricsError) &&
             (identical(other.isValidating, isValidating) ||
                 other.isValidating == isValidating) &&
             (identical(other.validatingEnabled, validatingEnabled) ||
@@ -605,8 +657,16 @@ class _$AuthSuccessful implements AuthSuccessful {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, firebaseError, isValidating, validatingEnabled);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      password,
+      emailError,
+      passwordError,
+      firebaseError,
+      biometricsError,
+      isValidating,
+      validatingEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -623,6 +683,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         $default, {
@@ -632,12 +693,13 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)
         authSuccessful,
   }) {
     return authSuccessful(email, password, emailError, passwordError,
-        firebaseError, isValidating, validatingEnabled);
+        firebaseError, biometricsError, isValidating, validatingEnabled);
   }
 
   @override
@@ -649,6 +711,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -658,12 +721,13 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
   }) {
     return authSuccessful?.call(email, password, emailError, passwordError,
-        firebaseError, isValidating, validatingEnabled);
+        firebaseError, biometricsError, isValidating, validatingEnabled);
   }
 
   @override
@@ -675,6 +739,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         $default, {
@@ -684,6 +749,7 @@ class _$AuthSuccessful implements AuthSuccessful {
             AuthErrorEnum emailError,
             AuthErrorEnum passwordError,
             AuthErrorEnum firebaseError,
+            AuthErrorEnum biometricsError,
             bool isValidating,
             bool validatingEnabled)?
         authSuccessful,
@@ -691,7 +757,7 @@ class _$AuthSuccessful implements AuthSuccessful {
   }) {
     if (authSuccessful != null) {
       return authSuccessful(email, password, emailError, passwordError,
-          firebaseError, isValidating, validatingEnabled);
+          firebaseError, biometricsError, isValidating, validatingEnabled);
     }
     return orElse();
   }
@@ -735,6 +801,7 @@ abstract class AuthSuccessful implements AuthFieldsState {
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
+      required final AuthErrorEnum biometricsError,
       required final bool isValidating,
       required final bool validatingEnabled}) = _$AuthSuccessful;
 
@@ -748,6 +815,8 @@ abstract class AuthSuccessful implements AuthFieldsState {
   AuthErrorEnum get passwordError;
   @override
   AuthErrorEnum get firebaseError;
+  @override
+  AuthErrorEnum get biometricsError;
   @override
 
   ///Is true when user clicked on login/register
