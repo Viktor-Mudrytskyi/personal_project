@@ -166,12 +166,12 @@ class _FieldsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = context.appTheme;
-    final authFieldsCubit = context.read<AuthFieldsCubit>();
+    final authFieldsCubit = context.watch<AuthFieldsCubit>();
     return Column(
       children: [
         AppTextField(
-          enabled: !currentState.isValidating,
-          isError: currentState.validatingEnabled,
+          enabled: !authFieldsCubit.isCurrentlyValidating,
+          showError: authFieldsCubit.isValidatingEnabled,
           initialValue: currentState.email,
           errorText: AuthUtils.parseAuthErrors(currentState.emailError),
           hintText: 'Email Address',
@@ -185,8 +185,8 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 7),
         AppTextField(
           obscureText: true,
-          enabled: !currentState.isValidating,
-          isError: currentState.validatingEnabled,
+          enabled: !authFieldsCubit.isCurrentlyValidating,
+          showError: authFieldsCubit.isValidatingEnabled,
           errorText: AuthUtils.parseAuthErrors(currentState.passwordError),
           initialValue: currentState.password,
           hintText: 'Password',
@@ -226,7 +226,7 @@ class _FieldsBody extends StatelessWidget {
           children: [
             Expanded(
               child: AuthButton.fill(
-                enabled: !currentState.isValidating,
+                enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeFocus();
                   await authFieldsCubit.logInUserWithEmailAndPassword(
@@ -240,7 +240,7 @@ class _FieldsBody extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: AuthButton.border(
-                enabled: !currentState.isValidating,
+                enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeFocus();
                   await authFieldsCubit.registerUserWithEmailAndPassword(
@@ -261,6 +261,7 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 18),
         FingerPrintButton(
           onTap: () async {
+            context.removeFocus();
             await authFieldsCubit.attemptFingerprint();
 
             // showDialog(

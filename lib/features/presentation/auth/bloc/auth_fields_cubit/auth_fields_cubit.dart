@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/core.dart';
@@ -18,15 +19,28 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         _biometricsService = biometricsService,
         super(_empty);
 
+  bool _isValidatingEnabled = false;
+
+  bool _isCurrentlyValidating = false;
+
+  ///Whether error is shown below text fields
+  bool get isValidatingEnabled => _isValidatingEnabled;
+
+  ///Whether user clicked on login/register etc, in other words whether some async
+  ///check is happening
+  bool get isCurrentlyValidating => _isCurrentlyValidating;
+
   void onChangeEmail(String email) {
-    emit(_stateNoErrors.copyWith(
+    _removeErrors();
+    emit(state.copyWith(
       email: email,
       emailError: AuthUtils.isEmailValid(email),
     ));
   }
 
   void onChangePassword(String password) {
-    emit(_stateNoErrors.copyWith(
+    _removeErrors();
+    emit(state.copyWith(
       password: password,
       passwordError: AuthUtils.isPasswordValid(password),
     ));
@@ -36,22 +50,31 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String email,
     String password,
   ) async {
-    if (_isEverythingValid()) {
+    if (_isLoginPasswordValid()) {
       _emitLoading();
+
       final result = await _authUseCase.registerUserWEmailAndPassword(
         email: email,
         password: password,
       );
+
       result.fold(
         (l) {
-          _emitFirebaseError(l.code);
+          _removeErrors();
+          _endLoading();
+          emit(state.copyWith(
+            firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
+          ));
         },
         (r) async {
+          _removeErrors();
+          _endLoading();
           emit(_authSuccess);
           await _authUseCase.sendEmailVerification();
         },
       );
     } else {
+      _removeErrors();
       _enableValidation();
     }
   }
@@ -60,7 +83,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     String email,
     String password,
   ) async {
-    if (_isEverythingValid()) {
+    if (_isLoginPasswordValid()) {
       _emitLoading();
       final result = await _authUseCase.signInWEmailAndPassword(
         email: email,
@@ -69,29 +92,47 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
       result.fold(
         (l) {
-          _emitFirebaseError(l.code);
+          _removeErrors();
+          _endLoading();
+          emit(state.copyWith(
+            firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
+          ));
         },
-        (r) => emit(_authSuccess),
+        (r) {
+          _removeErrors();
+          _endLoading();
+          emit(_authSuccess);
+        },
       );
     } else {
+      _removeErrors();
       _enableValidation();
     }
   }
 
   Future<void> attemptFingerprint() async {
     _emitLoading();
-    if (await _biometricsService.isDeviceSupported) {
-      try {
-        await _biometricsService.authenticateWithFingerPrint();
-      } catch (_) {}
-    } else {
-      emit(_stateNoErrors.copyWith(
-        biometricsError: AuthErrorEnum.fingerPrintNotSupported,
-      ));
+
+    try {
+      final result = await _biometricsService.authenticateWithFingerPrint();
+      if (result) {
+        _removeErrors();
+        _endLoading();
+        emit(_authSuccess);
+      } else {
+        _removeErrors();
+        _endLoading();
+      }
+    } on PlatformException catch (e) {
+      _removeErrors();
+      _endLoading();
+      print(e.message);
+      emit(state.copyWith(
+          biometricsError: AuthErrorEnum.fingerPrintNotSupported));
     }
   }
 
-  bool _isEverythingValid() {
+  bool _isLoginPasswordValid() {
     if (state.emailError == AuthErrorEnum.valid &&
         state.passwordError == AuthErrorEnum.valid) {
       return true;
@@ -101,25 +142,38 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void _emitLoading() {
-    emit(_stateNoErrors.copyWith(
-      isValidating: true,
-    ));
+    _isCurrentlyValidating = true;
+  }
+
+  void _endLoading() {
+    _isCurrentlyValidating = false;
   }
 
   void _enableValidation() {
-    emit(_stateNoErrors.copyWith(
-      isValidating: false,
-      validatingEnabled: true,
-    ));
+    if (!isValidatingEnabled) {
+      _isValidatingEnabled = true;
+    }
   }
 
-  void _emitFirebaseError(String code) {
-    emit(state.copyWith(
-      isValidating: false,
-      validatingEnabled: true,
-      firebaseError: AuthUtils.parseFirebaseAuthErrors(code),
-    ));
+  ///if state contains any error that is shown on snack bar,
+  ///changes them to [AuthErrorEnum.valid]
+  void _removeErrors() {
+    if (state.biometricsError != AuthErrorEnum.valid ||
+        state.firebaseError != AuthErrorEnum.valid) {
+      emit(state.copyWith(
+        biometricsError: AuthErrorEnum.valid,
+        firebaseError: AuthErrorEnum.valid,
+      ));
+    }
   }
+
+  // void _emitFirebaseError(String code) {
+  // emit(state.copyWith(
+  //   isValidating: false,
+  //   validatingEnabled: true,
+  //   firebaseError: AuthUtils.parseFirebaseAuthErrors(code),
+  // ));
+  // }
 
   static AuthFieldsState get _empty => const AuthFieldsState(
         email: '',
@@ -127,22 +181,14 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         emailError: AuthErrorEnum.invalidEmail,
         passwordError: AuthErrorEnum.weakPassword,
         firebaseError: AuthErrorEnum.valid,
-        isValidating: false,
-        validatingEnabled: false,
         biometricsError: AuthErrorEnum.valid,
       );
   AuthSuccessful get _authSuccess => AuthSuccessful(
         email: state.email,
         emailError: state.emailError,
         firebaseError: state.firebaseError,
-        isValidating: state.isValidating,
         password: state.password,
         passwordError: state.passwordError,
-        validatingEnabled: state.validatingEnabled,
         biometricsError: state.biometricsError,
-      );
-  AuthFieldsState get _stateNoErrors => state.copyWith(
-        firebaseError: AuthErrorEnum.valid,
-        biometricsError: AuthErrorEnum.valid,
       );
 }

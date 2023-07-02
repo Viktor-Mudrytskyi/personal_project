@@ -14,7 +14,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.enabled = true,
     this.errorText,
-    this.isError = false,
+    this.showError = false,
     this.keyboardType,
     this.obscureText = false,
   });
@@ -24,8 +24,8 @@ class AppTextField extends StatelessWidget {
   final bool enabled;
   final bool obscureText;
 
-  ///If false will not show [errorText]
-  final bool isError;
+  ///If false will not show [errorText] even id its provided
+  final bool showError;
   final String? initialValue;
 
   ///Takes space
@@ -81,7 +81,7 @@ class AppTextField extends StatelessWidget {
           onChanged: onChanged,
           keyboardType: keyboardType,
         ),
-        (errorText != null && isError)
+        (errorText != null && showError)
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(

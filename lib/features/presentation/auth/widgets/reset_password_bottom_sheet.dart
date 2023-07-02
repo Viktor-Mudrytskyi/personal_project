@@ -78,7 +78,7 @@ class _ModalBottomSheet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 AppTextField(
-                  isError: validatingEnabled,
+                  showError: validatingEnabled,
                   enabled: !isValidating,
                   errorText: AuthUtils.parseAuthErrors(emailError),
                   initialValue: email,
