@@ -14,7 +14,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox.expand(
-        child: BlocBuilder<UserBloc, UserState>(
+        child: BlocConsumer<UserBloc, UserState>(
+          listener: (context, state) {
+            state.when(
+              authenticated: (state) => null,
+              unuthenticated: () =>
+                  context.router.replaceAll([const LoginRoute()]),
+              loading: () => null,
+              error: (state) => null,
+            );
+          },
           builder: (context, state) {
             return state.map(
               authenticated: (state) => Container(
@@ -30,7 +39,6 @@ class HomeScreen extends StatelessWidget {
                           context
                               .read<UserBloc>()
                               .add(const UserEvent.logout());
-                          context.router.replaceAll([const LoginRoute()]);
                         },
                         child: const Text('LOGOUT'),
                       ),

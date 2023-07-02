@@ -20,7 +20,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         _preferncesService = preferncesService,
         super(const UserState.unuthenticated()) {
     on<_UserLogOutEvent>(_onLogOutEvent);
-    on<_UserInitEvent>(_onInit);
     on<_UserFigureStateEvent>(_onUserFigureState);
   }
 
@@ -50,27 +49,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     if (_authUseCase.isLoggedIn) {
       emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
-    } else {
-      emit(const UserState.unuthenticated());
-    }
-  }
-
-  void _onInit(
-    _UserInitEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(const UserState.loading());
-    await Future.delayed(const Duration(seconds: 2));
-    if (_authUseCase.isLoggedIn) {
-      if (_preferncesService.getIsRememberMe() == true) {
-        emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
-      } else {
-        final result = await _authUseCase.logOut();
-        result.fold(
-          (l) => emit(const UserState.error(error: AuthErrorEnum.invalidEmail)),
-          (r) => emit(const UserState.unuthenticated()),
-        );
-      }
     } else {
       emit(const UserState.unuthenticated());
     }

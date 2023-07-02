@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../../core/core.dart';
 import '../domain.dart';
 
 abstract class AuthUseCase {
@@ -33,13 +34,18 @@ abstract class AuthUseCase {
 
   ///Returns [false] if user is not logged in
   bool get isEmailVerified;
+
+  Future<void> onAppInit();
 }
 
 class AuthUseCaseImpl implements AuthUseCase {
   final AuthRepository _authRepository;
+  final PreferncesService _preferncesService;
   const AuthUseCaseImpl({
     required AuthRepository authRepository,
-  }) : _authRepository = authRepository;
+    required PreferncesService preferncesService,
+  })  : _authRepository = authRepository,
+        _preferncesService = preferncesService;
   @override
   Future<Either<FirebaseAuthException, void>> logOut() async {
     try {
@@ -107,6 +113,19 @@ class AuthUseCaseImpl implements AuthUseCase {
       return const Right(null);
     } on FirebaseAuthException catch (e) {
       return Left(e);
+    }
+  }
+
+  @override
+  Future<void> onAppInit() async {
+    if (isLoggedIn) {
+      if (!_preferncesService.getIsRememberMe() == true) {
+        final result = await logOut();
+        result.fold(
+          (l) => throw l,
+          (r) {},
+        );
+      }
     }
   }
 }

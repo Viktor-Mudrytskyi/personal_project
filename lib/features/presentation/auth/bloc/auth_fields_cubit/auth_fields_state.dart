@@ -10,15 +10,6 @@ class AuthFieldsState with _$AuthFieldsState {
     required AuthErrorEnum firebaseError,
     required AuthErrorEnum biometricsError,
     required bool isRememberMe,
+    required bool isAuthSuccessful,
   }) = _AuthFieldsNormalState;
-
-  const factory AuthFieldsState.authSuccessful({
-    required String email,
-    required String password,
-    required AuthErrorEnum emailError,
-    required AuthErrorEnum passwordError,
-    required AuthErrorEnum firebaseError,
-    required AuthErrorEnum biometricsError,
-    required bool isRememberMe,
-  }) = _AuthSuccessful;
 }

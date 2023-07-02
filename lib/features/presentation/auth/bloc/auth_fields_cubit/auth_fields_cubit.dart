@@ -34,7 +34,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   bool get isCurrentlyValidating => _isCurrentlyValidating;
 
   void onChangeEmail(String email) {
-    _removeErrors();
     emit(state.copyWith(
       email: email,
       emailError: AuthUtils.isEmailValid(email),
@@ -42,7 +41,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void onChangePassword(String password) {
-    _removeErrors();
     emit(state.copyWith(
       password: password,
       passwordError: AuthUtils.isPasswordValid(password),
@@ -50,7 +48,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void onRememberMeChange(bool value) {
-    _removeErrors();
     emit(state.copyWith(
       isRememberMe: value,
     ));
@@ -70,23 +67,21 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
       result.fold(
         (l) {
-          _removeErrors();
           _endLoading();
           emit(state.copyWith(
             firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
           ));
+          _removeErrors();
         },
         (r) async {
           _setDataInPrefs();
-          _removeErrors();
           _endLoading();
 
-          emit(_authSuccess);
+          emit(state.copyWith(isAuthSuccessful: true));
           await _authUseCase.sendEmailVerification();
         },
       );
     } else {
-      _removeErrors();
       _enableValidation();
     }
   }
@@ -104,45 +99,52 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
 
       result.fold(
         (l) {
-          _removeErrors();
           _endLoading();
           emit(state.copyWith(
             firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
           ));
+          _removeErrors();
         },
         (r) async {
           _setDataInPrefs();
-          _removeErrors();
           _endLoading();
 
-          emit(_authSuccess);
+          emit(state.copyWith(isAuthSuccessful: true));
         },
       );
     } else {
-      _removeErrors();
       _enableValidation();
     }
   }
 
   Future<void> attemptFingerprint() async {
-    _emitLoading();
+    if (_preferences.getLogin().isNotEmpty) {
+      _emitLoading();
 
-    try {
-      final result = await _biometricsService.authenticateWithFingerPrint();
-      if (result) {
-        _removeErrors();
+      try {
+        final result = await _biometricsService.authenticateWithFingerPrint();
+        if (result) {
+          _endLoading();
+          final login = _preferences.getLogin();
+          final password = _preferences.getPassword();
+          onChangeEmail(login);
+          onChangePassword(password);
+          await logInUserWithEmailAndPassword(login, password);
+        } else {
+          _endLoading();
+        }
+      } on PlatformException catch (_) {
         _endLoading();
-        emit(_authSuccess);
-      } else {
+        emit(state.copyWith(
+          biometricsError: AuthErrorEnum.fingerPrintError,
+        ));
         _removeErrors();
-        _endLoading();
       }
-    } on PlatformException catch (e) {
-      _removeErrors();
-      _endLoading();
-      print(e.message);
+    } else {
       emit(state.copyWith(
-          biometricsError: AuthErrorEnum.fingerPrintNotSupported));
+        biometricsError: AuthErrorEnum.firstLoginFingerprint,
+      ));
+      _removeErrors();
     }
   }
 
@@ -195,15 +197,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         firebaseError: AuthErrorEnum.valid,
         biometricsError: AuthErrorEnum.valid,
         isRememberMe: false,
-      );
-
-  _AuthSuccessful get _authSuccess => _AuthSuccessful(
-        email: state.email,
-        emailError: state.emailError,
-        firebaseError: state.firebaseError,
-        password: state.password,
-        passwordError: state.passwordError,
-        biometricsError: state.biometricsError,
-        isRememberMe: state.isRememberMe,
+        isAuthSuccessful: false,
       );
 }

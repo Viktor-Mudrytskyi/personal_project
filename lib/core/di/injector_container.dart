@@ -31,8 +31,10 @@ Future<void> initInjector() async {
       () => AuthRepositoryImpl(firebaseAuth: FirebaseAuth.instance));
 
   //UseCases
-  injector.registerLazySingleton<AuthUseCase>(
-      () => AuthUseCaseImpl(authRepository: injector<AuthRepository>()));
+  injector.registerLazySingleton<AuthUseCase>(() => AuthUseCaseImpl(
+        authRepository: injector<AuthRepository>(),
+        preferncesService: injector(),
+      ));
 
   //Routing
   injector.registerLazySingleton<AuthGuard>(

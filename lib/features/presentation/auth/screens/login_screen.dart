@@ -11,24 +11,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserBloc, UserState>(
-      listener: (context, state) {
-        state.map(
-          authenticated: (state) => context.router.replace(const HomeRoute()),
-          unuthenticated: (state) => null,
-          loading: (state) => null,
-          error: (state) => null,
-        );
-      },
-      builder: (context, state) {
-        return state.map(
-          authenticated: (state) => const _LoginScreen(),
-          unuthenticated: (state) => const _LoginScreen(),
-          loading: (state) => const LoadingSpinner(),
-          error: (error) => Text(error.error.name),
-        );
-      },
-    );
+    return const _LoginScreen();
   }
 }
 
@@ -49,7 +32,8 @@ class _LoginScreen extends StatelessWidget {
           gradient: appTheme.appGradients.authBackgroundGradient,
         ),
         child: BlocProvider(
-          create: (context) => injector<AuthFieldsCubit>(),
+          create: (context) =>
+              injector<AuthFieldsCubit>()..attemptFingerprint(),
           child: CustomScrollView(
             slivers: [
               SliverPadding(
@@ -144,33 +128,30 @@ class _LoginScreen extends StatelessWidget {
     required AuthFieldsState state,
     required AppThemeData appTheme,
   }) {
-    state.map(
-      (state) {
-        if (state.firebaseError != AuthErrorEnum.valid) {
-          UiUtils.showOverlaySnackBar(
-            context: context,
-            content: Text(
-              state.firebaseError.name,
-              style: appTheme.appTextStyles.login.copyWith(
-                decoration: TextDecoration.none,
-              ),
-            ),
-          );
-        }
-        if (state.biometricsError != AuthErrorEnum.valid) {
-          showDialog(
-            context: context,
-            builder: (context) => StandartDialog.info(
-              label: AuthUtils.parseAuthErrors(state.biometricsError),
-            ),
-          );
-        }
-      },
-      authSuccessful: (state) {
-        context.removeFocus();
-        context.read<UserBloc>().add(const UserEvent.figureCurrentState());
-      },
-    );
+    if (state.firebaseError != AuthErrorEnum.valid) {
+      UiUtils.showOverlaySnackBar(
+        context: context,
+        content: Text(
+          state.firebaseError.name,
+          style: appTheme.appTextStyles.login.copyWith(
+            decoration: TextDecoration.none,
+          ),
+        ),
+      );
+    }
+    if (state.biometricsError != AuthErrorEnum.valid) {
+      showDialog(
+        context: context,
+        builder: (context) => StandartDialog.info(
+          label: AuthUtils.parseAuthErrors(state.biometricsError),
+        ),
+      );
+    }
+    if (state.isAuthSuccessful) {
+      context.removeFocus();
+      context.read<UserBloc>().add(const UserEvent.figureCurrentState());
+      context.router.replace(const HomeRoute());
+    }
   }
 }
 
@@ -281,12 +262,6 @@ class _FieldsBody extends StatelessWidget {
           onTap: () async {
             context.removeFocus();
             await authFieldsCubit.attemptFingerprint();
-
-            // showDialog(
-            //     context: context,
-            //     builder: (context) => const StandartDialog.info(
-            //           label: 'Dialog',
-            //         ));
           },
         ),
         const SizedBox(height: 11),

@@ -17,18 +17,27 @@ class RememberPassCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = context.watch<AppOptionsCubit>().state.appTheme;
-    return Row(
-      children: [
-        CustomCheckBox(
-          value: value,
-          onChanged: isActive ? onPressed : null,
+    return GestureDetector(
+      onTap: isActive
+          ? () {
+              onPressed(!value);
+            }
+          : null,
+      child: SizedBox(
+        child: Row(
+          children: [
+            CustomCheckBox(
+              value: value,
+              onChanged: isActive ? onPressed : null,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'Remember me',
+              style: appTheme.appTextStyles.authRememberPass,
+            )
+          ],
         ),
-        const SizedBox(width: 10),
-        Text(
-          'Remember password',
-          style: appTheme.appTextStyles.authRememberPass,
-        )
-      ],
+      ),
     );
   }
 }

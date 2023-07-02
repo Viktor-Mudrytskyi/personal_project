@@ -19,7 +19,7 @@ class BiometricsService {
 
   Future<bool> authenticateWithFingerPrint() async {
     return await _localAuthentication.authenticate(
-      localizedReason: 'Bruh',
+      localizedReason: ' ',
       options: const AuthenticationOptions(
         biometricOnly: true,
         stickyAuth: true,

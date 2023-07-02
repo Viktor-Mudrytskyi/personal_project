@@ -23,92 +23,7 @@ mixin _$AuthFieldsState {
   AuthErrorEnum get firebaseError => throw _privateConstructorUsedError;
   AuthErrorEnum get biometricsError => throw _privateConstructorUsedError;
   bool get isRememberMe => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        $default, {
-    required TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value) $default, {
-    required TResult Function(_AuthSuccessful value) authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_AuthFieldsNormalState value)? $default, {
-    TResult? Function(_AuthSuccessful value)? authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value)? $default, {
-    TResult Function(_AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  bool get isAuthSuccessful => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthFieldsStateCopyWith<AuthFieldsState> get copyWith =>
@@ -128,7 +43,8 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
       AuthErrorEnum passwordError,
       AuthErrorEnum firebaseError,
       AuthErrorEnum biometricsError,
-      bool isRememberMe});
+      bool isRememberMe,
+      bool isAuthSuccessful});
 }
 
 /// @nodoc
@@ -151,6 +67,7 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
     Object? firebaseError = null,
     Object? biometricsError = null,
     Object? isRememberMe = null,
+    Object? isAuthSuccessful = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -181,6 +98,10 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
           ? _value.isRememberMe
           : isRememberMe // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAuthSuccessful: null == isAuthSuccessful
+          ? _value.isAuthSuccessful
+          : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -200,7 +121,8 @@ abstract class _$$_AuthFieldsNormalStateCopyWith<$Res>
       AuthErrorEnum passwordError,
       AuthErrorEnum firebaseError,
       AuthErrorEnum biometricsError,
-      bool isRememberMe});
+      bool isRememberMe,
+      bool isAuthSuccessful});
 }
 
 /// @nodoc
@@ -221,6 +143,7 @@ class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? firebaseError = null,
     Object? biometricsError = null,
     Object? isRememberMe = null,
+    Object? isAuthSuccessful = null,
   }) {
     return _then(_$_AuthFieldsNormalState(
       email: null == email
@@ -251,6 +174,10 @@ class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
           ? _value.isRememberMe
           : isRememberMe // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAuthSuccessful: null == isAuthSuccessful
+          ? _value.isAuthSuccessful
+          : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -265,7 +192,8 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
       required this.passwordError,
       required this.firebaseError,
       required this.biometricsError,
-      required this.isRememberMe});
+      required this.isRememberMe,
+      required this.isAuthSuccessful});
 
   @override
   final String email;
@@ -281,10 +209,12 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
   final AuthErrorEnum biometricsError;
   @override
   final bool isRememberMe;
+  @override
+  final bool isAuthSuccessful;
 
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe, isAuthSuccessful: $isAuthSuccessful)';
   }
 
   @override
@@ -304,12 +234,22 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
             (identical(other.biometricsError, biometricsError) ||
                 other.biometricsError == biometricsError) &&
             (identical(other.isRememberMe, isRememberMe) ||
-                other.isRememberMe == isRememberMe));
+                other.isRememberMe == isRememberMe) &&
+            (identical(other.isAuthSuccessful, isAuthSuccessful) ||
+                other.isAuthSuccessful == isAuthSuccessful));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, firebaseError, biometricsError, isRememberMe);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      password,
+      emailError,
+      passwordError,
+      firebaseError,
+      biometricsError,
+      isRememberMe,
+      isAuthSuccessful);
 
   @JsonKey(ignore: true)
   @override
@@ -317,119 +257,6 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
   _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
       __$$_AuthFieldsNormalStateCopyWithImpl<_$_AuthFieldsNormalState>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        $default, {
-    required TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        authSuccessful,
-  }) {
-    return $default(email, password, emailError, passwordError, firebaseError,
-        biometricsError, isRememberMe);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-  }) {
-    return $default?.call(email, password, emailError, passwordError,
-        firebaseError, biometricsError, isRememberMe);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(email, password, emailError, passwordError, firebaseError,
-          biometricsError, isRememberMe);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value) $default, {
-    required TResult Function(_AuthSuccessful value) authSuccessful,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_AuthFieldsNormalState value)? $default, {
-    TResult? Function(_AuthSuccessful value)? authSuccessful,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value)? $default, {
-    TResult Function(_AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _AuthFieldsNormalState implements AuthFieldsState {
@@ -440,7 +267,8 @@ abstract class _AuthFieldsNormalState implements AuthFieldsState {
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
       required final AuthErrorEnum biometricsError,
-      required final bool isRememberMe}) = _$_AuthFieldsNormalState;
+      required final bool isRememberMe,
+      required final bool isAuthSuccessful}) = _$_AuthFieldsNormalState;
 
   @override
   String get email;
@@ -456,284 +284,10 @@ abstract class _AuthFieldsNormalState implements AuthFieldsState {
   AuthErrorEnum get biometricsError;
   @override
   bool get isRememberMe;
+  @override
+  bool get isAuthSuccessful;
   @override
   @JsonKey(ignore: true)
   _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_AuthSuccessfulCopyWith<$Res>
-    implements $AuthFieldsStateCopyWith<$Res> {
-  factory _$$_AuthSuccessfulCopyWith(
-          _$_AuthSuccessful value, $Res Function(_$_AuthSuccessful) then) =
-      __$$_AuthSuccessfulCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String email,
-      String password,
-      AuthErrorEnum emailError,
-      AuthErrorEnum passwordError,
-      AuthErrorEnum firebaseError,
-      AuthErrorEnum biometricsError,
-      bool isRememberMe});
-}
-
-/// @nodoc
-class __$$_AuthSuccessfulCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$_AuthSuccessful>
-    implements _$$_AuthSuccessfulCopyWith<$Res> {
-  __$$_AuthSuccessfulCopyWithImpl(
-      _$_AuthSuccessful _value, $Res Function(_$_AuthSuccessful) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? emailError = null,
-    Object? passwordError = null,
-    Object? firebaseError = null,
-    Object? biometricsError = null,
-    Object? isRememberMe = null,
-  }) {
-    return _then(_$_AuthSuccessful(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      emailError: null == emailError
-          ? _value.emailError
-          : emailError // ignore: cast_nullable_to_non_nullable
-              as AuthErrorEnum,
-      passwordError: null == passwordError
-          ? _value.passwordError
-          : passwordError // ignore: cast_nullable_to_non_nullable
-              as AuthErrorEnum,
-      firebaseError: null == firebaseError
-          ? _value.firebaseError
-          : firebaseError // ignore: cast_nullable_to_non_nullable
-              as AuthErrorEnum,
-      biometricsError: null == biometricsError
-          ? _value.biometricsError
-          : biometricsError // ignore: cast_nullable_to_non_nullable
-              as AuthErrorEnum,
-      isRememberMe: null == isRememberMe
-          ? _value.isRememberMe
-          : isRememberMe // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_AuthSuccessful implements _AuthSuccessful {
-  const _$_AuthSuccessful(
-      {required this.email,
-      required this.password,
-      required this.emailError,
-      required this.passwordError,
-      required this.firebaseError,
-      required this.biometricsError,
-      required this.isRememberMe});
-
-  @override
-  final String email;
-  @override
-  final String password;
-  @override
-  final AuthErrorEnum emailError;
-  @override
-  final AuthErrorEnum passwordError;
-  @override
-  final AuthErrorEnum firebaseError;
-  @override
-  final AuthErrorEnum biometricsError;
-  @override
-  final bool isRememberMe;
-
-  @override
-  String toString() {
-    return 'AuthFieldsState.authSuccessful(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AuthSuccessful &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.emailError, emailError) ||
-                other.emailError == emailError) &&
-            (identical(other.passwordError, passwordError) ||
-                other.passwordError == passwordError) &&
-            (identical(other.firebaseError, firebaseError) ||
-                other.firebaseError == firebaseError) &&
-            (identical(other.biometricsError, biometricsError) ||
-                other.biometricsError == biometricsError) &&
-            (identical(other.isRememberMe, isRememberMe) ||
-                other.isRememberMe == isRememberMe));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, firebaseError, biometricsError, isRememberMe);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthSuccessfulCopyWith<_$_AuthSuccessful> get copyWith =>
-      __$$_AuthSuccessfulCopyWithImpl<_$_AuthSuccessful>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        $default, {
-    required TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)
-        authSuccessful,
-  }) {
-    return authSuccessful(email, password, emailError, passwordError,
-        firebaseError, biometricsError, isRememberMe);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-  }) {
-    return authSuccessful?.call(email, password, emailError, passwordError,
-        firebaseError, biometricsError, isRememberMe);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        $default, {
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            AuthErrorEnum biometricsError,
-            bool isRememberMe)?
-        authSuccessful,
-    required TResult orElse(),
-  }) {
-    if (authSuccessful != null) {
-      return authSuccessful(email, password, emailError, passwordError,
-          firebaseError, biometricsError, isRememberMe);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value) $default, {
-    required TResult Function(_AuthSuccessful value) authSuccessful,
-  }) {
-    return authSuccessful(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_AuthFieldsNormalState value)? $default, {
-    TResult? Function(_AuthSuccessful value)? authSuccessful,
-  }) {
-    return authSuccessful?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_AuthFieldsNormalState value)? $default, {
-    TResult Function(_AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if (authSuccessful != null) {
-      return authSuccessful(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _AuthSuccessful implements AuthFieldsState {
-  const factory _AuthSuccessful(
-      {required final String email,
-      required final String password,
-      required final AuthErrorEnum emailError,
-      required final AuthErrorEnum passwordError,
-      required final AuthErrorEnum firebaseError,
-      required final AuthErrorEnum biometricsError,
-      required final bool isRememberMe}) = _$_AuthSuccessful;
-
-  @override
-  String get email;
-  @override
-  String get password;
-  @override
-  AuthErrorEnum get emailError;
-  @override
-  AuthErrorEnum get passwordError;
-  @override
-  AuthErrorEnum get firebaseError;
-  @override
-  AuthErrorEnum get biometricsError;
-  @override
-  bool get isRememberMe;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AuthSuccessfulCopyWith<_$_AuthSuccessful> get copyWith =>
       throw _privateConstructorUsedError;
 }

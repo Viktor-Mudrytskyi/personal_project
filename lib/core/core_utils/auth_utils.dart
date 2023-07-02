@@ -61,10 +61,12 @@ class AuthUtils {
         return 'Invalid email';
       case AuthErrorEnum.weakPassword:
         return 'Password is too weak';
-      case AuthErrorEnum.fingerPrintNotSupported:
-        return 'FingerPrintNotSupported';
+      case AuthErrorEnum.fingerPrintError:
+        return 'FingerPrintSomeError';
       case AuthErrorEnum.valid:
         return '';
+      case AuthErrorEnum.firstLoginFingerprint:
+        return 'First log in to use fingerprint';
       default:
         return 'Unknown error occured';
     }
