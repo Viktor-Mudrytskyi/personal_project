@@ -39,7 +39,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async {
     emit(const UserState.loading());
     final result = _authUseCase.isLoggedIn;
-    await Future.delayed(const Duration(milliseconds: 500));
     if (result) {
       emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
     } else {

@@ -11,12 +11,15 @@ part 'auth_fields_cubit.freezed.dart';
 class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   final AuthUseCase _authUseCase;
   final BiometricsService _biometricsService;
+  final PreferncesService _preferences;
 
   AuthFieldsCubit({
     required AuthUseCase authUseCase,
     required BiometricsService biometricsService,
+    required PreferncesService preferences,
   })  : _authUseCase = authUseCase,
         _biometricsService = biometricsService,
+        _preferences = preferences,
         super(_empty);
 
   bool _isValidatingEnabled = false;
@@ -46,6 +49,13 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     ));
   }
 
+  void onRememberMeChange(bool value) {
+    _removeErrors();
+    emit(state.copyWith(
+      isRememberMe: value,
+    ));
+  }
+
   Future<void> registerUserWithEmailAndPassword(
     String email,
     String password,
@@ -67,8 +77,10 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
           ));
         },
         (r) async {
+          _setDataInPrefs();
           _removeErrors();
           _endLoading();
+
           emit(_authSuccess);
           await _authUseCase.sendEmailVerification();
         },
@@ -98,9 +110,11 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
             firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
           ));
         },
-        (r) {
+        (r) async {
+          _setDataInPrefs();
           _removeErrors();
           _endLoading();
+
           emit(_authSuccess);
         },
       );
@@ -167,13 +181,11 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     }
   }
 
-  // void _emitFirebaseError(String code) {
-  // emit(state.copyWith(
-  //   isValidating: false,
-  //   validatingEnabled: true,
-  //   firebaseError: AuthUtils.parseFirebaseAuthErrors(code),
-  // ));
-  // }
+  Future<void> _setDataInPrefs() async {
+    await _preferences.setLogin(state.email);
+    await _preferences.setPassword(state.password);
+    await _preferences.setIsRememberMe(state.isRememberMe);
+  }
 
   static AuthFieldsState get _empty => const AuthFieldsState(
         email: '',
@@ -182,7 +194,9 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         passwordError: AuthErrorEnum.weakPassword,
         firebaseError: AuthErrorEnum.valid,
         biometricsError: AuthErrorEnum.valid,
+        isRememberMe: false,
       );
+
   AuthSuccessful get _authSuccess => AuthSuccessful(
         email: state.email,
         emailError: state.emailError,
@@ -190,5 +204,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         password: state.password,
         passwordError: state.passwordError,
         biometricsError: state.biometricsError,
+        isRememberMe: state.isRememberMe,
       );
 }

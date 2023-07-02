@@ -23,8 +23,8 @@ Future<void> initInjector() async {
   injector.registerLazySingleton<AppBlocObserver>(() => AppBlocObserver());
   injector.registerLazySingleton<BiometricsService>(
       () => BiometricsService(localAuthentication: LocalAuthentication()));
-  injector.registerLazySingleton<LocalStorageService>(
-      () => LocalStorageService(prefs: injector()));
+  injector.registerLazySingleton<PreferncesService>(
+      () => PreferncesService(prefs: injector()));
 
   //Repositories
   injector.registerLazySingleton<AuthRepository>(
@@ -49,6 +49,7 @@ Future<void> initInjector() async {
   injector.registerFactory<AuthFieldsCubit>(() => AuthFieldsCubit(
         authUseCase: injector(),
         biometricsService: injector(),
+        preferences: injector(),
       ));
   injector.registerFactory<ResetPasswordCubit>(
       () => ResetPasswordCubit(authUseCase: injector()));

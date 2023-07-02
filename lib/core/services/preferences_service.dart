@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorageService {
+class PreferncesService {
   final SharedPreferences _prefs;
 
-  LocalStorageService({required SharedPreferences prefs}) : _prefs = prefs;
+  PreferncesService({required SharedPreferences prefs}) : _prefs = prefs;
 
   static const String _loginKey = 'loginKey';
   static const String _passwordKey = 'passwordKey';
@@ -18,11 +18,11 @@ class LocalStorageService {
     await _prefs.setString(_passwordKey, password);
   }
 
-  Future<void> isUseFingerprint(bool value) async {
+  Future<void> setUseFingerprint(bool value) async {
     await _prefs.setBool(_useFingerprint, value);
   }
 
-  Future<void> isRememberMe(bool value) async {
+  Future<void> setIsRememberMe(bool value) async {
     await _prefs.setBool(_rememberMe, value);
   }
 
@@ -33,4 +33,8 @@ class LocalStorageService {
   bool getIsUseFingerprint() => _prefs.getBool(_useFingerprint) ?? false;
 
   bool getIsRememberMe() => _prefs.getBool(_rememberMe) ?? false;
+
+  Future<void> clearAll() async {
+    await _prefs.clear();
+  }
 }

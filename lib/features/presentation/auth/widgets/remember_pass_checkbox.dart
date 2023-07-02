@@ -4,10 +4,15 @@ import '../../../../core/core.dart';
 import '../../../features.dart';
 
 class RememberPassCheckBox extends StatelessWidget {
-  const RememberPassCheckBox(
-      {super.key, required this.value, required this.onPressed});
+  const RememberPassCheckBox({
+    super.key,
+    required this.value,
+    required this.onPressed,
+    this.isActive = true,
+  });
   final bool value;
   final Function(bool? val) onPressed;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class RememberPassCheckBox extends StatelessWidget {
       children: [
         CustomCheckBox(
           value: value,
-          onChanged: onPressed,
+          onChanged: isActive ? onPressed : null,
         ),
         const SizedBox(width: 10),
         Text(

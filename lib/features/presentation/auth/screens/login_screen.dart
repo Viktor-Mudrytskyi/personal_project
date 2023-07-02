@@ -199,8 +199,11 @@ class _FieldsBody extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         RememberPassCheckBox(
-          value: true,
-          onPressed: (val) {},
+          value: currentState.isRememberMe,
+          isActive: !authFieldsCubit.isCurrentlyValidating,
+          onPressed: (val) {
+            authFieldsCubit.onRememberMeChange(val!);
+          },
         ),
         const SizedBox(height: 81),
         Align(
