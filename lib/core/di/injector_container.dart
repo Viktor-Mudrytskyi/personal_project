@@ -45,7 +45,10 @@ Future<void> initInjector() async {
 
   //Bloc
   injector.registerFactory<AppOptionsCubit>(() => AppOptionsCubit());
-  injector.registerFactory<UserBloc>(() => UserBloc(authUseCase: injector()));
+  injector.registerFactory<UserBloc>(() => UserBloc(
+        authUseCase: injector(),
+        preferncesService: injector(),
+      ));
   injector.registerFactory<AuthFieldsCubit>(() => AuthFieldsCubit(
         authUseCase: injector(),
         biometricsService: injector(),
