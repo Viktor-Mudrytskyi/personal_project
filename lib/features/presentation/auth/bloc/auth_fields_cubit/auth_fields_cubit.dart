@@ -197,7 +197,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         isRememberMe: false,
       );
 
-  AuthSuccessful get _authSuccess => AuthSuccessful(
+  _AuthSuccessful get _authSuccess => _AuthSuccessful(
         email: state.email,
         emailError: state.emailError,
         firebaseError: state.firebaseError,

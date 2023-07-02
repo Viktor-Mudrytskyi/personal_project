@@ -92,20 +92,20 @@ mixin _$AuthFieldsState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
+    TResult Function(_AuthFieldsNormalState value) $default, {
+    required TResult Function(_AuthSuccessful value) authSuccessful,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
+    TResult? Function(_AuthFieldsNormalState value)? $default, {
+    TResult? Function(_AuthSuccessful value)? authSuccessful,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
+    TResult Function(_AuthFieldsNormalState value)? $default, {
+    TResult Function(_AuthSuccessful value)? authSuccessful,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -186,11 +186,11 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
 }
 
 /// @nodoc
-abstract class _$$AuthFieldsNormalStateCopyWith<$Res>
+abstract class _$$_AuthFieldsNormalStateCopyWith<$Res>
     implements $AuthFieldsStateCopyWith<$Res> {
-  factory _$$AuthFieldsNormalStateCopyWith(_$AuthFieldsNormalState value,
-          $Res Function(_$AuthFieldsNormalState) then) =
-      __$$AuthFieldsNormalStateCopyWithImpl<$Res>;
+  factory _$$_AuthFieldsNormalStateCopyWith(_$_AuthFieldsNormalState value,
+          $Res Function(_$_AuthFieldsNormalState) then) =
+      __$$_AuthFieldsNormalStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -204,11 +204,11 @@ abstract class _$$AuthFieldsNormalStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthFieldsNormalState>
-    implements _$$AuthFieldsNormalStateCopyWith<$Res> {
-  __$$AuthFieldsNormalStateCopyWithImpl(_$AuthFieldsNormalState _value,
-      $Res Function(_$AuthFieldsNormalState) _then)
+class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
+    extends _$AuthFieldsStateCopyWithImpl<$Res, _$_AuthFieldsNormalState>
+    implements _$$_AuthFieldsNormalStateCopyWith<$Res> {
+  __$$_AuthFieldsNormalStateCopyWithImpl(_$_AuthFieldsNormalState _value,
+      $Res Function(_$_AuthFieldsNormalState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -222,7 +222,7 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? biometricsError = null,
     Object? isRememberMe = null,
   }) {
-    return _then(_$AuthFieldsNormalState(
+    return _then(_$_AuthFieldsNormalState(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -257,8 +257,8 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AuthFieldsNormalState implements AuthFieldsNormalState {
-  const _$AuthFieldsNormalState(
+class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
+  const _$_AuthFieldsNormalState(
       {required this.email,
       required this.password,
       required this.emailError,
@@ -291,7 +291,7 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthFieldsNormalState &&
+            other is _$_AuthFieldsNormalState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -314,8 +314,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
-      __$$AuthFieldsNormalStateCopyWithImpl<_$AuthFieldsNormalState>(
+  _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
+      __$$_AuthFieldsNormalStateCopyWithImpl<_$_AuthFieldsNormalState>(
           this, _$identity);
 
   @override
@@ -403,8 +403,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
+    TResult Function(_AuthFieldsNormalState value) $default, {
+    required TResult Function(_AuthSuccessful value) authSuccessful,
   }) {
     return $default(this);
   }
@@ -412,8 +412,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
+    TResult? Function(_AuthFieldsNormalState value)? $default, {
+    TResult? Function(_AuthSuccessful value)? authSuccessful,
   }) {
     return $default?.call(this);
   }
@@ -421,8 +421,8 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
+    TResult Function(_AuthFieldsNormalState value)? $default, {
+    TResult Function(_AuthSuccessful value)? authSuccessful,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -432,15 +432,15 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   }
 }
 
-abstract class AuthFieldsNormalState implements AuthFieldsState {
-  const factory AuthFieldsNormalState(
+abstract class _AuthFieldsNormalState implements AuthFieldsState {
+  const factory _AuthFieldsNormalState(
       {required final String email,
       required final String password,
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
       required final AuthErrorEnum biometricsError,
-      required final bool isRememberMe}) = _$AuthFieldsNormalState;
+      required final bool isRememberMe}) = _$_AuthFieldsNormalState;
 
   @override
   String get email;
@@ -458,16 +458,16 @@ abstract class AuthFieldsNormalState implements AuthFieldsState {
   bool get isRememberMe;
   @override
   @JsonKey(ignore: true)
-  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
+  _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AuthSuccessfulCopyWith<$Res>
+abstract class _$$_AuthSuccessfulCopyWith<$Res>
     implements $AuthFieldsStateCopyWith<$Res> {
-  factory _$$AuthSuccessfulCopyWith(
-          _$AuthSuccessful value, $Res Function(_$AuthSuccessful) then) =
-      __$$AuthSuccessfulCopyWithImpl<$Res>;
+  factory _$$_AuthSuccessfulCopyWith(
+          _$_AuthSuccessful value, $Res Function(_$_AuthSuccessful) then) =
+      __$$_AuthSuccessfulCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -481,11 +481,11 @@ abstract class _$$AuthSuccessfulCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AuthSuccessfulCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthSuccessful>
-    implements _$$AuthSuccessfulCopyWith<$Res> {
-  __$$AuthSuccessfulCopyWithImpl(
-      _$AuthSuccessful _value, $Res Function(_$AuthSuccessful) _then)
+class __$$_AuthSuccessfulCopyWithImpl<$Res>
+    extends _$AuthFieldsStateCopyWithImpl<$Res, _$_AuthSuccessful>
+    implements _$$_AuthSuccessfulCopyWith<$Res> {
+  __$$_AuthSuccessfulCopyWithImpl(
+      _$_AuthSuccessful _value, $Res Function(_$_AuthSuccessful) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -499,7 +499,7 @@ class __$$AuthSuccessfulCopyWithImpl<$Res>
     Object? biometricsError = null,
     Object? isRememberMe = null,
   }) {
-    return _then(_$AuthSuccessful(
+    return _then(_$_AuthSuccessful(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -534,8 +534,8 @@ class __$$AuthSuccessfulCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AuthSuccessful implements AuthSuccessful {
-  const _$AuthSuccessful(
+class _$_AuthSuccessful implements _AuthSuccessful {
+  const _$_AuthSuccessful(
       {required this.email,
       required this.password,
       required this.emailError,
@@ -568,7 +568,7 @@ class _$AuthSuccessful implements AuthSuccessful {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthSuccessful &&
+            other is _$_AuthSuccessful &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -591,8 +591,8 @@ class _$AuthSuccessful implements AuthSuccessful {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthSuccessfulCopyWith<_$AuthSuccessful> get copyWith =>
-      __$$AuthSuccessfulCopyWithImpl<_$AuthSuccessful>(this, _$identity);
+  _$$_AuthSuccessfulCopyWith<_$_AuthSuccessful> get copyWith =>
+      __$$_AuthSuccessfulCopyWithImpl<_$_AuthSuccessful>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -679,8 +679,8 @@ class _$AuthSuccessful implements AuthSuccessful {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
+    TResult Function(_AuthFieldsNormalState value) $default, {
+    required TResult Function(_AuthSuccessful value) authSuccessful,
   }) {
     return authSuccessful(this);
   }
@@ -688,8 +688,8 @@ class _$AuthSuccessful implements AuthSuccessful {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
+    TResult? Function(_AuthFieldsNormalState value)? $default, {
+    TResult? Function(_AuthSuccessful value)? authSuccessful,
   }) {
     return authSuccessful?.call(this);
   }
@@ -697,8 +697,8 @@ class _$AuthSuccessful implements AuthSuccessful {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
+    TResult Function(_AuthFieldsNormalState value)? $default, {
+    TResult Function(_AuthSuccessful value)? authSuccessful,
     required TResult orElse(),
   }) {
     if (authSuccessful != null) {
@@ -708,15 +708,15 @@ class _$AuthSuccessful implements AuthSuccessful {
   }
 }
 
-abstract class AuthSuccessful implements AuthFieldsState {
-  const factory AuthSuccessful(
+abstract class _AuthSuccessful implements AuthFieldsState {
+  const factory _AuthSuccessful(
       {required final String email,
       required final String password,
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
       required final AuthErrorEnum biometricsError,
-      required final bool isRememberMe}) = _$AuthSuccessful;
+      required final bool isRememberMe}) = _$_AuthSuccessful;
 
   @override
   String get email;
@@ -734,6 +734,6 @@ abstract class AuthSuccessful implements AuthFieldsState {
   bool get isRememberMe;
   @override
   @JsonKey(ignore: true)
-  _$$AuthSuccessfulCopyWith<_$AuthSuccessful> get copyWith =>
+  _$$_AuthSuccessfulCopyWith<_$_AuthSuccessful> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -18,24 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) register,
-    required TResult Function(String email, String password) logIn,
+    required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
     required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? register,
-    TResult? Function(String email, String password)? logIn,
+    TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
     TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? register,
-    TResult Function(String email, String password)? logIn,
+    TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
     TResult Function()? init,
     required TResult orElse(),
@@ -43,26 +40,23 @@ mixin _$UserEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RegisterEvent value) register,
-    required TResult Function(_LogInEvent value) logIn,
-    required TResult Function(_LogOutEvent value) logout,
-    required TResult Function(_InitEvent value) init,
+    required TResult Function(_UserFigureStateEvent value) figureCurrentState,
+    required TResult Function(_UserLogOutEvent value) logout,
+    required TResult Function(_UserInitEvent value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegisterEvent value)? register,
-    TResult? Function(_LogInEvent value)? logIn,
-    TResult? Function(_LogOutEvent value)? logout,
-    TResult? Function(_InitEvent value)? init,
+    TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult? Function(_UserLogOutEvent value)? logout,
+    TResult? Function(_UserInitEvent value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegisterEvent value)? register,
-    TResult Function(_LogInEvent value)? logIn,
-    TResult Function(_LogOutEvent value)? logout,
-    TResult Function(_InitEvent value)? init,
+    TResult Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult Function(_UserLogOutEvent value)? logout,
+    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,108 +80,99 @@ class _$UserEventCopyWithImpl<$Res, $Val extends UserEvent>
 }
 
 /// @nodoc
-abstract class _$$_RegisterEventCopyWith<$Res> {
-  factory _$$_RegisterEventCopyWith(
-          _$_RegisterEvent value, $Res Function(_$_RegisterEvent) then) =
-      __$$_RegisterEventCopyWithImpl<$Res>;
+abstract class _$$_UserFigureStateEventCopyWith<$Res> {
+  factory _$$_UserFigureStateEventCopyWith(_$_UserFigureStateEvent value,
+          $Res Function(_$_UserFigureStateEvent) then) =
+      __$$_UserFigureStateEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({bool showSpinner});
 }
 
 /// @nodoc
-class __$$_RegisterEventCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$_RegisterEvent>
-    implements _$$_RegisterEventCopyWith<$Res> {
-  __$$_RegisterEventCopyWithImpl(
-      _$_RegisterEvent _value, $Res Function(_$_RegisterEvent) _then)
+class __$$_UserFigureStateEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_UserFigureStateEvent>
+    implements _$$_UserFigureStateEventCopyWith<$Res> {
+  __$$_UserFigureStateEventCopyWithImpl(_$_UserFigureStateEvent _value,
+      $Res Function(_$_UserFigureStateEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
+    Object? showSpinner = null,
   }) {
-    return _then(_$_RegisterEvent(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$_UserFigureStateEvent(
+      showSpinner: null == showSpinner
+          ? _value.showSpinner
+          : showSpinner // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_RegisterEvent implements _RegisterEvent {
-  const _$_RegisterEvent({required this.email, required this.password});
+class _$_UserFigureStateEvent implements _UserFigureStateEvent {
+  const _$_UserFigureStateEvent({this.showSpinner = true});
 
   @override
-  final String email;
-  @override
-  final String password;
+  @JsonKey()
+  final bool showSpinner;
 
   @override
   String toString() {
-    return 'UserEvent.register(email: $email, password: $password)';
+    return 'UserEvent.figureCurrentState(showSpinner: $showSpinner)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegisterEvent &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
+            other is _$_UserFigureStateEvent &&
+            (identical(other.showSpinner, showSpinner) ||
+                other.showSpinner == showSpinner));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType, showSpinner);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegisterEventCopyWith<_$_RegisterEvent> get copyWith =>
-      __$$_RegisterEventCopyWithImpl<_$_RegisterEvent>(this, _$identity);
+  _$$_UserFigureStateEventCopyWith<_$_UserFigureStateEvent> get copyWith =>
+      __$$_UserFigureStateEventCopyWithImpl<_$_UserFigureStateEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) register,
-    required TResult Function(String email, String password) logIn,
+    required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
     required TResult Function() init,
   }) {
-    return register(email, password);
+    return figureCurrentState(showSpinner);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? register,
-    TResult? Function(String email, String password)? logIn,
+    TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
     TResult? Function()? init,
   }) {
-    return register?.call(email, password);
+    return figureCurrentState?.call(showSpinner);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? register,
-    TResult Function(String email, String password)? logIn,
+    TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
     TResult Function()? init,
     required TResult orElse(),
   }) {
-    if (register != null) {
-      return register(email, password);
+    if (figureCurrentState != null) {
+      return figureCurrentState(showSpinner);
     }
     return orElse();
   }
@@ -195,230 +180,68 @@ class _$_RegisterEvent implements _RegisterEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RegisterEvent value) register,
-    required TResult Function(_LogInEvent value) logIn,
-    required TResult Function(_LogOutEvent value) logout,
-    required TResult Function(_InitEvent value) init,
+    required TResult Function(_UserFigureStateEvent value) figureCurrentState,
+    required TResult Function(_UserLogOutEvent value) logout,
+    required TResult Function(_UserInitEvent value) init,
   }) {
-    return register(this);
+    return figureCurrentState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegisterEvent value)? register,
-    TResult? Function(_LogInEvent value)? logIn,
-    TResult? Function(_LogOutEvent value)? logout,
-    TResult? Function(_InitEvent value)? init,
+    TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult? Function(_UserLogOutEvent value)? logout,
+    TResult? Function(_UserInitEvent value)? init,
   }) {
-    return register?.call(this);
+    return figureCurrentState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegisterEvent value)? register,
-    TResult Function(_LogInEvent value)? logIn,
-    TResult Function(_LogOutEvent value)? logout,
-    TResult Function(_InitEvent value)? init,
+    TResult Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult Function(_UserLogOutEvent value)? logout,
+    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) {
-    if (register != null) {
-      return register(this);
+    if (figureCurrentState != null) {
+      return figureCurrentState(this);
     }
     return orElse();
   }
 }
 
-abstract class _RegisterEvent implements UserEvent {
-  const factory _RegisterEvent(
-      {required final String email,
-      required final String password}) = _$_RegisterEvent;
+abstract class _UserFigureStateEvent implements UserEvent {
+  const factory _UserFigureStateEvent({final bool showSpinner}) =
+      _$_UserFigureStateEvent;
 
-  String get email;
-  String get password;
+  bool get showSpinner;
   @JsonKey(ignore: true)
-  _$$_RegisterEventCopyWith<_$_RegisterEvent> get copyWith =>
+  _$$_UserFigureStateEventCopyWith<_$_UserFigureStateEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LogInEventCopyWith<$Res> {
-  factory _$$_LogInEventCopyWith(
-          _$_LogInEvent value, $Res Function(_$_LogInEvent) then) =
-      __$$_LogInEventCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String email, String password});
+abstract class _$$_UserLogOutEventCopyWith<$Res> {
+  factory _$$_UserLogOutEventCopyWith(
+          _$_UserLogOutEvent value, $Res Function(_$_UserLogOutEvent) then) =
+      __$$_UserLogOutEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LogInEventCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$_LogInEvent>
-    implements _$$_LogInEventCopyWith<$Res> {
-  __$$_LogInEventCopyWithImpl(
-      _$_LogInEvent _value, $Res Function(_$_LogInEvent) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-  }) {
-    return _then(_$_LogInEvent(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_LogInEvent implements _LogInEvent {
-  const _$_LogInEvent({required this.email, required this.password});
-
-  @override
-  final String email;
-  @override
-  final String password;
-
-  @override
-  String toString() {
-    return 'UserEvent.logIn(email: $email, password: $password)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_LogInEvent &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, email, password);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_LogInEventCopyWith<_$_LogInEvent> get copyWith =>
-      __$$_LogInEventCopyWithImpl<_$_LogInEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) register,
-    required TResult Function(String email, String password) logIn,
-    required TResult Function() logout,
-    required TResult Function() init,
-  }) {
-    return logIn(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? register,
-    TResult? Function(String email, String password)? logIn,
-    TResult? Function()? logout,
-    TResult? Function()? init,
-  }) {
-    return logIn?.call(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? register,
-    TResult Function(String email, String password)? logIn,
-    TResult Function()? logout,
-    TResult Function()? init,
-    required TResult orElse(),
-  }) {
-    if (logIn != null) {
-      return logIn(email, password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegisterEvent value) register,
-    required TResult Function(_LogInEvent value) logIn,
-    required TResult Function(_LogOutEvent value) logout,
-    required TResult Function(_InitEvent value) init,
-  }) {
-    return logIn(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegisterEvent value)? register,
-    TResult? Function(_LogInEvent value)? logIn,
-    TResult? Function(_LogOutEvent value)? logout,
-    TResult? Function(_InitEvent value)? init,
-  }) {
-    return logIn?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegisterEvent value)? register,
-    TResult Function(_LogInEvent value)? logIn,
-    TResult Function(_LogOutEvent value)? logout,
-    TResult Function(_InitEvent value)? init,
-    required TResult orElse(),
-  }) {
-    if (logIn != null) {
-      return logIn(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LogInEvent implements UserEvent {
-  const factory _LogInEvent(
-      {required final String email,
-      required final String password}) = _$_LogInEvent;
-
-  String get email;
-  String get password;
-  @JsonKey(ignore: true)
-  _$$_LogInEventCopyWith<_$_LogInEvent> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_LogOutEventCopyWith<$Res> {
-  factory _$$_LogOutEventCopyWith(
-          _$_LogOutEvent value, $Res Function(_$_LogOutEvent) then) =
-      __$$_LogOutEventCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_LogOutEventCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$_LogOutEvent>
-    implements _$$_LogOutEventCopyWith<$Res> {
-  __$$_LogOutEventCopyWithImpl(
-      _$_LogOutEvent _value, $Res Function(_$_LogOutEvent) _then)
+class __$$_UserLogOutEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_UserLogOutEvent>
+    implements _$$_UserLogOutEventCopyWith<$Res> {
+  __$$_UserLogOutEventCopyWithImpl(
+      _$_UserLogOutEvent _value, $Res Function(_$_UserLogOutEvent) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LogOutEvent implements _LogOutEvent {
-  const _$_LogOutEvent();
+class _$_UserLogOutEvent implements _UserLogOutEvent {
+  const _$_UserLogOutEvent();
 
   @override
   String toString() {
@@ -428,7 +251,7 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LogOutEvent);
+        (other.runtimeType == runtimeType && other is _$_UserLogOutEvent);
   }
 
   @override
@@ -437,8 +260,7 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) register,
-    required TResult Function(String email, String password) logIn,
+    required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
     required TResult Function() init,
   }) {
@@ -448,8 +270,7 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? register,
-    TResult? Function(String email, String password)? logIn,
+    TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
     TResult? Function()? init,
   }) {
@@ -459,8 +280,7 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? register,
-    TResult Function(String email, String password)? logIn,
+    TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
     TResult Function()? init,
     required TResult orElse(),
@@ -474,10 +294,9 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RegisterEvent value) register,
-    required TResult Function(_LogInEvent value) logIn,
-    required TResult Function(_LogOutEvent value) logout,
-    required TResult Function(_InitEvent value) init,
+    required TResult Function(_UserFigureStateEvent value) figureCurrentState,
+    required TResult Function(_UserLogOutEvent value) logout,
+    required TResult Function(_UserInitEvent value) init,
   }) {
     return logout(this);
   }
@@ -485,10 +304,9 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegisterEvent value)? register,
-    TResult? Function(_LogInEvent value)? logIn,
-    TResult? Function(_LogOutEvent value)? logout,
-    TResult? Function(_InitEvent value)? init,
+    TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult? Function(_UserLogOutEvent value)? logout,
+    TResult? Function(_UserInitEvent value)? init,
   }) {
     return logout?.call(this);
   }
@@ -496,10 +314,9 @@ class _$_LogOutEvent implements _LogOutEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegisterEvent value)? register,
-    TResult Function(_LogInEvent value)? logIn,
-    TResult Function(_LogOutEvent value)? logout,
-    TResult Function(_InitEvent value)? init,
+    TResult Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult Function(_UserLogOutEvent value)? logout,
+    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -509,30 +326,30 @@ class _$_LogOutEvent implements _LogOutEvent {
   }
 }
 
-abstract class _LogOutEvent implements UserEvent {
-  const factory _LogOutEvent() = _$_LogOutEvent;
+abstract class _UserLogOutEvent implements UserEvent {
+  const factory _UserLogOutEvent() = _$_UserLogOutEvent;
 }
 
 /// @nodoc
-abstract class _$$_InitEventCopyWith<$Res> {
-  factory _$$_InitEventCopyWith(
-          _$_InitEvent value, $Res Function(_$_InitEvent) then) =
-      __$$_InitEventCopyWithImpl<$Res>;
+abstract class _$$_UserInitEventCopyWith<$Res> {
+  factory _$$_UserInitEventCopyWith(
+          _$_UserInitEvent value, $Res Function(_$_UserInitEvent) then) =
+      __$$_UserInitEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitEventCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$_InitEvent>
-    implements _$$_InitEventCopyWith<$Res> {
-  __$$_InitEventCopyWithImpl(
-      _$_InitEvent _value, $Res Function(_$_InitEvent) _then)
+class __$$_UserInitEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_UserInitEvent>
+    implements _$$_UserInitEventCopyWith<$Res> {
+  __$$_UserInitEventCopyWithImpl(
+      _$_UserInitEvent _value, $Res Function(_$_UserInitEvent) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_InitEvent implements _InitEvent {
-  const _$_InitEvent();
+class _$_UserInitEvent implements _UserInitEvent {
+  const _$_UserInitEvent();
 
   @override
   String toString() {
@@ -542,7 +359,7 @@ class _$_InitEvent implements _InitEvent {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InitEvent);
+        (other.runtimeType == runtimeType && other is _$_UserInitEvent);
   }
 
   @override
@@ -551,8 +368,7 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) register,
-    required TResult Function(String email, String password) logIn,
+    required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
     required TResult Function() init,
   }) {
@@ -562,8 +378,7 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? register,
-    TResult? Function(String email, String password)? logIn,
+    TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
     TResult? Function()? init,
   }) {
@@ -573,8 +388,7 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? register,
-    TResult Function(String email, String password)? logIn,
+    TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
     TResult Function()? init,
     required TResult orElse(),
@@ -588,10 +402,9 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RegisterEvent value) register,
-    required TResult Function(_LogInEvent value) logIn,
-    required TResult Function(_LogOutEvent value) logout,
-    required TResult Function(_InitEvent value) init,
+    required TResult Function(_UserFigureStateEvent value) figureCurrentState,
+    required TResult Function(_UserLogOutEvent value) logout,
+    required TResult Function(_UserInitEvent value) init,
   }) {
     return init(this);
   }
@@ -599,10 +412,9 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegisterEvent value)? register,
-    TResult? Function(_LogInEvent value)? logIn,
-    TResult? Function(_LogOutEvent value)? logout,
-    TResult? Function(_InitEvent value)? init,
+    TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult? Function(_UserLogOutEvent value)? logout,
+    TResult? Function(_UserInitEvent value)? init,
   }) {
     return init?.call(this);
   }
@@ -610,10 +422,9 @@ class _$_InitEvent implements _InitEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegisterEvent value)? register,
-    TResult Function(_LogInEvent value)? logIn,
-    TResult Function(_LogOutEvent value)? logout,
-    TResult Function(_InitEvent value)? init,
+    TResult Function(_UserFigureStateEvent value)? figureCurrentState,
+    TResult Function(_UserLogOutEvent value)? logout,
+    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -623,8 +434,8 @@ class _$_InitEvent implements _InitEvent {
   }
 }
 
-abstract class _InitEvent implements UserEvent {
-  const factory _InitEvent() = _$_InitEvent;
+abstract class _UserInitEvent implements UserEvent {
+  const factory _UserInitEvent() = _$_UserInitEvent;
 }
 
 /// @nodoc
@@ -656,26 +467,26 @@ mixin _$UserState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UnauthenticatedState value) unuthenticated,
-    required TResult Function(_LoadingState value) loading,
-    required TResult Function(_ErrorState value) error,
+    required TResult Function(AuthenticatedState value) authenticated,
+    required TResult Function(UnauthenticatedState value) unuthenticated,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UnauthenticatedState value)? unuthenticated,
-    TResult? Function(_LoadingState value)? loading,
-    TResult? Function(_ErrorState value)? error,
+    TResult? Function(AuthenticatedState value)? authenticated,
+    TResult? Function(UnauthenticatedState value)? unuthenticated,
+    TResult? Function(LoadingState value)? loading,
+    TResult? Function(ErrorState value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UnauthenticatedState value)? unuthenticated,
-    TResult Function(_LoadingState value)? loading,
-    TResult Function(_ErrorState value)? error,
+    TResult Function(AuthenticatedState value)? authenticated,
+    TResult Function(UnauthenticatedState value)? unuthenticated,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -699,20 +510,20 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
 }
 
 /// @nodoc
-abstract class _$$_AuthenticatedStateCopyWith<$Res> {
-  factory _$$_AuthenticatedStateCopyWith(_$_AuthenticatedState value,
-          $Res Function(_$_AuthenticatedState) then) =
-      __$$_AuthenticatedStateCopyWithImpl<$Res>;
+abstract class _$$AuthenticatedStateCopyWith<$Res> {
+  factory _$$AuthenticatedStateCopyWith(_$AuthenticatedState value,
+          $Res Function(_$AuthenticatedState) then) =
+      __$$AuthenticatedStateCopyWithImpl<$Res>;
   @useResult
   $Res call({User userInfo});
 }
 
 /// @nodoc
-class __$$_AuthenticatedStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_AuthenticatedState>
-    implements _$$_AuthenticatedStateCopyWith<$Res> {
-  __$$_AuthenticatedStateCopyWithImpl(
-      _$_AuthenticatedState _value, $Res Function(_$_AuthenticatedState) _then)
+class __$$AuthenticatedStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$AuthenticatedState>
+    implements _$$AuthenticatedStateCopyWith<$Res> {
+  __$$AuthenticatedStateCopyWithImpl(
+      _$AuthenticatedState _value, $Res Function(_$AuthenticatedState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -720,7 +531,7 @@ class __$$_AuthenticatedStateCopyWithImpl<$Res>
   $Res call({
     Object? userInfo = null,
   }) {
-    return _then(_$_AuthenticatedState(
+    return _then(_$AuthenticatedState(
       userInfo: null == userInfo
           ? _value.userInfo
           : userInfo // ignore: cast_nullable_to_non_nullable
@@ -731,8 +542,8 @@ class __$$_AuthenticatedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AuthenticatedState implements _AuthenticatedState {
-  const _$_AuthenticatedState({required this.userInfo});
+class _$AuthenticatedState implements AuthenticatedState {
+  const _$AuthenticatedState({required this.userInfo});
 
   @override
   final User userInfo;
@@ -746,7 +557,7 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AuthenticatedState &&
+            other is _$AuthenticatedState &&
             (identical(other.userInfo, userInfo) ||
                 other.userInfo == userInfo));
   }
@@ -757,8 +568,8 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
-      __$$_AuthenticatedStateCopyWithImpl<_$_AuthenticatedState>(
+  _$$AuthenticatedStateCopyWith<_$AuthenticatedState> get copyWith =>
+      __$$AuthenticatedStateCopyWithImpl<_$AuthenticatedState>(
           this, _$identity);
 
   @override
@@ -801,10 +612,10 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UnauthenticatedState value) unuthenticated,
-    required TResult Function(_LoadingState value) loading,
-    required TResult Function(_ErrorState value) error,
+    required TResult Function(AuthenticatedState value) authenticated,
+    required TResult Function(UnauthenticatedState value) unuthenticated,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(ErrorState value) error,
   }) {
     return authenticated(this);
   }
@@ -812,10 +623,10 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UnauthenticatedState value)? unuthenticated,
-    TResult? Function(_LoadingState value)? loading,
-    TResult? Function(_ErrorState value)? error,
+    TResult? Function(AuthenticatedState value)? authenticated,
+    TResult? Function(UnauthenticatedState value)? unuthenticated,
+    TResult? Function(LoadingState value)? loading,
+    TResult? Function(ErrorState value)? error,
   }) {
     return authenticated?.call(this);
   }
@@ -823,10 +634,10 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UnauthenticatedState value)? unuthenticated,
-    TResult Function(_LoadingState value)? loading,
-    TResult Function(_ErrorState value)? error,
+    TResult Function(AuthenticatedState value)? authenticated,
+    TResult Function(UnauthenticatedState value)? unuthenticated,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -836,36 +647,36 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   }
 }
 
-abstract class _AuthenticatedState implements UserState {
-  const factory _AuthenticatedState({required final User userInfo}) =
-      _$_AuthenticatedState;
+abstract class AuthenticatedState implements UserState {
+  const factory AuthenticatedState({required final User userInfo}) =
+      _$AuthenticatedState;
 
   User get userInfo;
   @JsonKey(ignore: true)
-  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
+  _$$AuthenticatedStateCopyWith<_$AuthenticatedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnauthenticatedStateCopyWith<$Res> {
-  factory _$$_UnauthenticatedStateCopyWith(_$_UnauthenticatedState value,
-          $Res Function(_$_UnauthenticatedState) then) =
-      __$$_UnauthenticatedStateCopyWithImpl<$Res>;
+abstract class _$$UnauthenticatedStateCopyWith<$Res> {
+  factory _$$UnauthenticatedStateCopyWith(_$UnauthenticatedState value,
+          $Res Function(_$UnauthenticatedState) then) =
+      __$$UnauthenticatedStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnauthenticatedStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_UnauthenticatedState>
-    implements _$$_UnauthenticatedStateCopyWith<$Res> {
-  __$$_UnauthenticatedStateCopyWithImpl(_$_UnauthenticatedState _value,
-      $Res Function(_$_UnauthenticatedState) _then)
+class __$$UnauthenticatedStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$UnauthenticatedState>
+    implements _$$UnauthenticatedStateCopyWith<$Res> {
+  __$$UnauthenticatedStateCopyWithImpl(_$UnauthenticatedState _value,
+      $Res Function(_$UnauthenticatedState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnauthenticatedState implements _UnauthenticatedState {
-  const _$_UnauthenticatedState();
+class _$UnauthenticatedState implements UnauthenticatedState {
+  const _$UnauthenticatedState();
 
   @override
   String toString() {
@@ -875,7 +686,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_UnauthenticatedState);
+        (other.runtimeType == runtimeType && other is _$UnauthenticatedState);
   }
 
   @override
@@ -921,10 +732,10 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UnauthenticatedState value) unuthenticated,
-    required TResult Function(_LoadingState value) loading,
-    required TResult Function(_ErrorState value) error,
+    required TResult Function(AuthenticatedState value) authenticated,
+    required TResult Function(UnauthenticatedState value) unuthenticated,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(ErrorState value) error,
   }) {
     return unuthenticated(this);
   }
@@ -932,10 +743,10 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UnauthenticatedState value)? unuthenticated,
-    TResult? Function(_LoadingState value)? loading,
-    TResult? Function(_ErrorState value)? error,
+    TResult? Function(AuthenticatedState value)? authenticated,
+    TResult? Function(UnauthenticatedState value)? unuthenticated,
+    TResult? Function(LoadingState value)? loading,
+    TResult? Function(ErrorState value)? error,
   }) {
     return unuthenticated?.call(this);
   }
@@ -943,10 +754,10 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UnauthenticatedState value)? unuthenticated,
-    TResult Function(_LoadingState value)? loading,
-    TResult Function(_ErrorState value)? error,
+    TResult Function(AuthenticatedState value)? authenticated,
+    TResult Function(UnauthenticatedState value)? unuthenticated,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
     if (unuthenticated != null) {
@@ -956,30 +767,30 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   }
 }
 
-abstract class _UnauthenticatedState implements UserState {
-  const factory _UnauthenticatedState() = _$_UnauthenticatedState;
+abstract class UnauthenticatedState implements UserState {
+  const factory UnauthenticatedState() = _$UnauthenticatedState;
 }
 
 /// @nodoc
-abstract class _$$_LoadingStateCopyWith<$Res> {
-  factory _$$_LoadingStateCopyWith(
-          _$_LoadingState value, $Res Function(_$_LoadingState) then) =
-      __$$_LoadingStateCopyWithImpl<$Res>;
+abstract class _$$LoadingStateCopyWith<$Res> {
+  factory _$$LoadingStateCopyWith(
+          _$LoadingState value, $Res Function(_$LoadingState) then) =
+      __$$LoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_LoadingState>
-    implements _$$_LoadingStateCopyWith<$Res> {
-  __$$_LoadingStateCopyWithImpl(
-      _$_LoadingState _value, $Res Function(_$_LoadingState) _then)
+class __$$LoadingStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$LoadingState>
+    implements _$$LoadingStateCopyWith<$Res> {
+  __$$LoadingStateCopyWithImpl(
+      _$LoadingState _value, $Res Function(_$LoadingState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LoadingState implements _LoadingState {
-  const _$_LoadingState();
+class _$LoadingState implements LoadingState {
+  const _$LoadingState();
 
   @override
   String toString() {
@@ -989,7 +800,7 @@ class _$_LoadingState implements _LoadingState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadingState);
+        (other.runtimeType == runtimeType && other is _$LoadingState);
   }
 
   @override
@@ -1035,10 +846,10 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UnauthenticatedState value) unuthenticated,
-    required TResult Function(_LoadingState value) loading,
-    required TResult Function(_ErrorState value) error,
+    required TResult Function(AuthenticatedState value) authenticated,
+    required TResult Function(UnauthenticatedState value) unuthenticated,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(ErrorState value) error,
   }) {
     return loading(this);
   }
@@ -1046,10 +857,10 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UnauthenticatedState value)? unuthenticated,
-    TResult? Function(_LoadingState value)? loading,
-    TResult? Function(_ErrorState value)? error,
+    TResult? Function(AuthenticatedState value)? authenticated,
+    TResult? Function(UnauthenticatedState value)? unuthenticated,
+    TResult? Function(LoadingState value)? loading,
+    TResult? Function(ErrorState value)? error,
   }) {
     return loading?.call(this);
   }
@@ -1057,10 +868,10 @@ class _$_LoadingState implements _LoadingState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UnauthenticatedState value)? unuthenticated,
-    TResult Function(_LoadingState value)? loading,
-    TResult Function(_ErrorState value)? error,
+    TResult Function(AuthenticatedState value)? authenticated,
+    TResult Function(UnauthenticatedState value)? unuthenticated,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1070,25 +881,25 @@ class _$_LoadingState implements _LoadingState {
   }
 }
 
-abstract class _LoadingState implements UserState {
-  const factory _LoadingState() = _$_LoadingState;
+abstract class LoadingState implements UserState {
+  const factory LoadingState() = _$LoadingState;
 }
 
 /// @nodoc
-abstract class _$$_ErrorStateCopyWith<$Res> {
-  factory _$$_ErrorStateCopyWith(
-          _$_ErrorState value, $Res Function(_$_ErrorState) then) =
-      __$$_ErrorStateCopyWithImpl<$Res>;
+abstract class _$$ErrorStateCopyWith<$Res> {
+  factory _$$ErrorStateCopyWith(
+          _$ErrorState value, $Res Function(_$ErrorState) then) =
+      __$$ErrorStateCopyWithImpl<$Res>;
   @useResult
   $Res call({AuthErrorEnum error});
 }
 
 /// @nodoc
-class __$$_ErrorStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_ErrorState>
-    implements _$$_ErrorStateCopyWith<$Res> {
-  __$$_ErrorStateCopyWithImpl(
-      _$_ErrorState _value, $Res Function(_$_ErrorState) _then)
+class __$$ErrorStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$ErrorState>
+    implements _$$ErrorStateCopyWith<$Res> {
+  __$$ErrorStateCopyWithImpl(
+      _$ErrorState _value, $Res Function(_$ErrorState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1096,7 +907,7 @@ class __$$_ErrorStateCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_ErrorState(
+    return _then(_$ErrorState(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1107,8 +918,8 @@ class __$$_ErrorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ErrorState implements _ErrorState {
-  const _$_ErrorState({required this.error});
+class _$ErrorState implements ErrorState {
+  const _$ErrorState({required this.error});
 
   @override
   final AuthErrorEnum error;
@@ -1122,7 +933,7 @@ class _$_ErrorState implements _ErrorState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ErrorState &&
+            other is _$ErrorState &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1132,8 +943,8 @@ class _$_ErrorState implements _ErrorState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ErrorStateCopyWith<_$_ErrorState> get copyWith =>
-      __$$_ErrorStateCopyWithImpl<_$_ErrorState>(this, _$identity);
+  _$$ErrorStateCopyWith<_$ErrorState> get copyWith =>
+      __$$ErrorStateCopyWithImpl<_$ErrorState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1175,10 +986,10 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UnauthenticatedState value) unuthenticated,
-    required TResult Function(_LoadingState value) loading,
-    required TResult Function(_ErrorState value) error,
+    required TResult Function(AuthenticatedState value) authenticated,
+    required TResult Function(UnauthenticatedState value) unuthenticated,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(ErrorState value) error,
   }) {
     return error(this);
   }
@@ -1186,10 +997,10 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UnauthenticatedState value)? unuthenticated,
-    TResult? Function(_LoadingState value)? loading,
-    TResult? Function(_ErrorState value)? error,
+    TResult? Function(AuthenticatedState value)? authenticated,
+    TResult? Function(UnauthenticatedState value)? unuthenticated,
+    TResult? Function(LoadingState value)? loading,
+    TResult? Function(ErrorState value)? error,
   }) {
     return error?.call(this);
   }
@@ -1197,10 +1008,10 @@ class _$_ErrorState implements _ErrorState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UnauthenticatedState value)? unuthenticated,
-    TResult Function(_LoadingState value)? loading,
-    TResult Function(_ErrorState value)? error,
+    TResult Function(AuthenticatedState value)? authenticated,
+    TResult Function(UnauthenticatedState value)? unuthenticated,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1210,12 +1021,11 @@ class _$_ErrorState implements _ErrorState {
   }
 }
 
-abstract class _ErrorState implements UserState {
-  const factory _ErrorState({required final AuthErrorEnum error}) =
-      _$_ErrorState;
+abstract class ErrorState implements UserState {
+  const factory ErrorState({required final AuthErrorEnum error}) = _$ErrorState;
 
   AuthErrorEnum get error;
   @JsonKey(ignore: true)
-  _$$_ErrorStateCopyWith<_$_ErrorState> get copyWith =>
+  _$$ErrorStateCopyWith<_$ErrorState> get copyWith =>
       throw _privateConstructorUsedError;
 }

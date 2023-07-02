@@ -27,8 +27,10 @@ class HomeScreen extends StatelessWidget {
                           .toString()),
                       ElevatedButton(
                         onPressed: () async {
+                          context
+                              .read<UserBloc>()
+                              .add(const UserEvent.logout());
                           context.router.replaceAll([const LoginRoute()]);
-                          await injector<AuthUseCase>().logOut();
                         },
                         child: const Text('LOGOUT'),
                       ),
@@ -42,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              unuthenticated: (state) => const ColoredBox(color: Colors.yellow),
+              unuthenticated: (state) => const Offstage(),
               loading: (state) => const LoadingSpinner(),
               error: (state) => const ColoredBox(color: Colors.red),
             );

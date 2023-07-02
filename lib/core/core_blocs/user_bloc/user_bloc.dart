@@ -19,39 +19,58 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   })  : _authUseCase = authUseCase,
         _preferncesService = preferncesService,
         super(const UserState.unuthenticated()) {
-    on<_LogOutEvent>(_onLogOutEvent);
-    on<_InitEvent>(_onInit);
+    on<_UserLogOutEvent>(_onLogOutEvent);
+    on<_UserInitEvent>(_onInit);
+    on<_UserFigureStateEvent>(_onUserFigureState);
   }
 
   Future<void> _onLogOutEvent(
-    _LogOutEvent event,
+    _UserLogOutEvent event,
     Emitter<UserState> emit,
   ) async {
     emit(const UserState.loading());
     final result = await _authUseCase.logOut();
-    emit(
-      result.fold(
-        (l) => const UserState.error(error: AuthErrorEnum.invalidEmail),
-        (r) => const UserState.unuthenticated(),
-      ),
+
+    result.fold(
+      (l) => emit(const UserState.error(error: AuthErrorEnum.invalidEmail)),
+      (r) async {
+        emit(const UserState.unuthenticated());
+        await _preferncesService.clearAll();
+      },
     );
   }
 
+  Future<void> _onUserFigureState(
+    _UserFigureStateEvent event,
+    Emitter<UserState> emit,
+  ) async {
+    if (event.showSpinner) {
+      emit(const UserState.loading());
+    }
+
+    if (_authUseCase.isLoggedIn) {
+      emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
+    } else {
+      emit(const UserState.unuthenticated());
+    }
+  }
+
   void _onInit(
-    _InitEvent event,
+    _UserInitEvent event,
     Emitter<UserState> emit,
   ) async {
     emit(const UserState.loading());
-    final k = _preferncesService.getLogin();
-    final b = _preferncesService.getPassword();
-    final c = _preferncesService.getIsRememberMe();
-    await Future.delayed(Duration(seconds: 10));
-    _authUseCase.logOut();
-
-    final result = _authUseCase.isLoggedIn;
-
-    if (result) {
-      emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
+    await Future.delayed(const Duration(seconds: 2));
+    if (_authUseCase.isLoggedIn) {
+      if (_preferncesService.getIsRememberMe() == true) {
+        emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
+      } else {
+        final result = await _authUseCase.logOut();
+        result.fold(
+          (l) => emit(const UserState.error(error: AuthErrorEnum.invalidEmail)),
+          (r) => emit(const UserState.unuthenticated()),
+        );
+      }
     } else {
       emit(const UserState.unuthenticated());
     }

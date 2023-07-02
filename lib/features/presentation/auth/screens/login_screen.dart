@@ -11,7 +11,24 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _LoginScreen();
+    return BlocConsumer<UserBloc, UserState>(
+      listener: (context, state) {
+        state.map(
+          authenticated: (state) => context.router.replace(const HomeRoute()),
+          unuthenticated: (state) => null,
+          loading: (state) => null,
+          error: (state) => null,
+        );
+      },
+      builder: (context, state) {
+        return state.map(
+          authenticated: (state) => const _LoginScreen(),
+          unuthenticated: (state) => const _LoginScreen(),
+          loading: (state) => const LoadingSpinner(),
+          error: (error) => Text(error.error.name),
+        );
+      },
+    );
   }
 }
 
@@ -104,11 +121,7 @@ class _LoginScreen extends StatelessWidget {
                                   );
                                 },
                                 builder: (context, state) {
-                                  return state.map(
-                                    (state) => _FieldsBody(currentState: state),
-                                    authSuccessful: (_) =>
-                                        const LoadingSpinner(),
-                                  );
+                                  return _FieldsBody(currentState: state);
                                 },
                               ),
                             ),
@@ -131,37 +144,39 @@ class _LoginScreen extends StatelessWidget {
     required AuthFieldsState state,
     required AppThemeData appTheme,
   }) {
-    if (state is AuthSuccessful) {
-      context.removeFocus();
-      context.router.replaceAll([const HomeRoute()]);
-    }
-    if (state is AuthFieldsNormalState) {
-      if (state.firebaseError != AuthErrorEnum.valid) {
-        UiUtils.showOverlaySnackBar(
-          context: context,
-          content: Text(
-            state.firebaseError.name,
-            style: appTheme.appTextStyles.login.copyWith(
-              decoration: TextDecoration.none,
+    state.map(
+      (state) {
+        if (state.firebaseError != AuthErrorEnum.valid) {
+          UiUtils.showOverlaySnackBar(
+            context: context,
+            content: Text(
+              state.firebaseError.name,
+              style: appTheme.appTextStyles.login.copyWith(
+                decoration: TextDecoration.none,
+              ),
             ),
-          ),
-        );
-      }
-      if (state.biometricsError != AuthErrorEnum.valid) {
-        showDialog(
-          context: context,
-          builder: (context) => StandartDialog.info(
-            label: AuthUtils.parseAuthErrors(state.biometricsError),
-          ),
-        );
-      }
-    }
+          );
+        }
+        if (state.biometricsError != AuthErrorEnum.valid) {
+          showDialog(
+            context: context,
+            builder: (context) => StandartDialog.info(
+              label: AuthUtils.parseAuthErrors(state.biometricsError),
+            ),
+          );
+        }
+      },
+      authSuccessful: (state) {
+        context.removeFocus();
+        context.read<UserBloc>().add(const UserEvent.figureCurrentState());
+      },
+    );
   }
 }
 
 class _FieldsBody extends StatelessWidget {
   const _FieldsBody({required this.currentState});
-  final AuthFieldsNormalState currentState;
+  final AuthFieldsState currentState;
 
   @override
   Widget build(BuildContext context) {
