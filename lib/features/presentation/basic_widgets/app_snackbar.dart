@@ -73,6 +73,7 @@ class CustomSnackBarState extends State<CustomSnackBar>
             // height: 60,
             margin: EdgeInsets.symmetric(
                 horizontal: 18, vertical: (widget.screenSize.height - 50) / 2),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: appTheme.appColors.authButtonFill,
