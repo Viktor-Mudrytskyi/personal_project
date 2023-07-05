@@ -1,4 +1,7 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "editor.formatOnSave": true,
+    "java.project.sourcePaths": [
+        "lib/features/presentation/basic_widgets"
+    ],
 }

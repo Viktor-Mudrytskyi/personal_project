@@ -34,7 +34,6 @@ class _LoginScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => injector<AuthFieldsCubit>(),
           child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverPadding(
                 padding: const EdgeInsets.symmetric(
@@ -98,33 +97,14 @@ class _LoginScreen extends StatelessWidget {
                               child: BlocConsumer<AuthFieldsCubit,
                                   AuthFieldsState>(
                                 listener: (context, state) {
-                                  if (state is AuthSuccessful) {
-                                    context.removeFocus();
-                                    context.router
-                                        .replaceAll([const HomeRoute()]);
-                                  }
-                                  if (state is AuthFieldsNormalState) {
-                                    if (state.firebaseError !=
-                                        AuthErrorEnum.valid) {
-                                      UiUtils.showOverlaySnackBar(
-                                        context: context,
-                                        content: Text(
-                                          state.firebaseError.name,
-                                          style: appTheme.appTextStyles.login
-                                              .copyWith(
-                                                  decoration:
-                                                      TextDecoration.none),
-                                        ),
-                                      );
-                                    }
-                                  }
+                                  _stateListener(
+                                    context: context,
+                                    state: state,
+                                    appTheme: appTheme,
+                                  );
                                 },
                                 builder: (context, state) {
-                                  return state.map(
-                                    (state) => _FieldsBody(currentState: state),
-                                    authSuccessful: (_) =>
-                                        const LoadingSpinner(),
-                                  );
+                                  return _FieldsBody(currentState: state);
                                 },
                               ),
                             ),
@@ -141,21 +121,51 @@ class _LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _stateListener({
+    required BuildContext context,
+    required AuthFieldsState state,
+    required AppThemeData appTheme,
+  }) {
+    if (state.firebaseError != AuthErrorEnum.valid) {
+      UiUtils.showOverlaySnackBar(
+        context: context,
+        content: Text(
+          state.firebaseError.name,
+          style: appTheme.appTextStyles.login.copyWith(
+            decoration: TextDecoration.none,
+          ),
+        ),
+      );
+    }
+    if (state.biometricsError != AuthErrorEnum.valid) {
+      showDialog(
+        context: context,
+        builder: (context) => StandartDialog.info(
+          label: AuthUtils.parseAuthErrors(state.biometricsError),
+        ),
+      );
+    }
+    if (state.isAuthSuccessful) {
+      context.removeAllFocus();
+      context.router.replace(const HomeRoute());
+    }
+  }
 }
 
 class _FieldsBody extends StatelessWidget {
   const _FieldsBody({required this.currentState});
-  final AuthFieldsNormalState currentState;
+  final AuthFieldsState currentState;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = context.appTheme;
-    final authFieldsCubit = context.read<AuthFieldsCubit>();
+    final authFieldsCubit = context.watch<AuthFieldsCubit>();
     return Column(
       children: [
         AppTextField(
-          enabled: !currentState.isValidating,
-          isError: currentState.validatingEnabled,
+          enabled: !authFieldsCubit.isCurrentlyValidating,
+          showError: authFieldsCubit.isValidatingEnabled,
           initialValue: currentState.email,
           errorText: AuthUtils.parseAuthErrors(currentState.emailError),
           hintText: 'Email Address',
@@ -166,11 +176,11 @@ class _FieldsBody extends StatelessWidget {
           onChanged: authFieldsCubit.onChangeEmail,
           keyboardType: TextInputType.emailAddress,
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 7),
         AppTextField(
           obscureText: true,
-          enabled: !currentState.isValidating,
-          isError: currentState.validatingEnabled,
+          enabled: !authFieldsCubit.isCurrentlyValidating,
+          showError: authFieldsCubit.isValidatingEnabled,
           errorText: AuthUtils.parseAuthErrors(currentState.passwordError),
           initialValue: currentState.password,
           hintText: 'Password',
@@ -181,20 +191,24 @@ class _FieldsBody extends StatelessWidget {
           onChanged: authFieldsCubit.onChangePassword,
           keyboardType: TextInputType.visiblePassword,
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 5),
         RememberPassCheckBox(
-          value: true,
-          onPressed: (val) {},
+          value: currentState.isRememberMe,
+          isActive: !authFieldsCubit.isCurrentlyValidating,
+          onPressed: (val) {
+            authFieldsCubit.onRememberMeChange(val!);
+          },
         ),
         const SizedBox(height: 81),
         Align(
-          alignment: Directionality.of(context) == TextDirection.ltr
+          alignment: context.isLeftToRight
               ? Alignment.centerRight
               : Alignment.centerLeft,
           child: InkWell(
             onTap: () async {
               await showModalBottomSheet(
                 context: context,
+                isScrollControlled: true,
                 builder: (modalContext) => const ResetPasswordBottomSheet(),
               );
             },
@@ -209,9 +223,9 @@ class _FieldsBody extends StatelessWidget {
           children: [
             Expanded(
               child: AuthButton.fill(
-                enabled: !currentState.isValidating,
+                enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
-                  context.removeFocus();
+                  context.removeAllFocus();
                   await authFieldsCubit.logInUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
@@ -223,9 +237,9 @@ class _FieldsBody extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: AuthButton.border(
-                enabled: !currentState.isValidating,
+                enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
-                  context.removeFocus();
+                  context.removeAllFocus();
                   await authFieldsCubit.registerUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
@@ -236,7 +250,25 @@ class _FieldsBody extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 230),
+        const SizedBox(height: 21),
+        Text(
+          'Login wit touch ID',
+          style: appTheme.appTextStyles.authSmall,
+        ),
+        const SizedBox(height: 18),
+        FingerPrintButton(
+          onTap: () async {
+            context.removeAllFocus();
+            await authFieldsCubit.attemptFingerprint();
+          },
+        ),
+        const SizedBox(height: 11),
+        Text(
+          'or connect with',
+          style: appTheme.appTextStyles.authSmall,
+        ),
+        const SizedBox(height: 61),
+        const SizedBox(height: 30),
       ],
     );
   }

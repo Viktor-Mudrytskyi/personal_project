@@ -11,7 +11,7 @@ class AppBlocObserver extends BlocObserver {
 
     logger.v('''${bloc.runtimeType} has changed state
     Previous: ${change.currentState.runtimeType}
-    Current: ${change.nextState.runtimeType}
+    Current: ${change.nextState.toString()}
     ''');
   }
 

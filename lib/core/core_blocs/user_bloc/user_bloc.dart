@@ -11,36 +11,43 @@ part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final AuthUseCase _authUseCase;
+  final PreferncesService _preferncesService;
 
-  UserBloc({required AuthUseCase authUseCase})
-      : _authUseCase = authUseCase,
+  UserBloc({
+    required AuthUseCase authUseCase,
+    required PreferncesService preferncesService,
+  })  : _authUseCase = authUseCase,
+        _preferncesService = preferncesService,
         super(const UserState.unuthenticated()) {
-    on<_LogOutEvent>(_onLogOutEvent);
-    on<_InitEvent>(_onInit);
+    on<_UserLogOutEvent>(_onLogOutEvent);
+    on<_UserFigureStateEvent>(_onUserFigureState);
   }
 
   Future<void> _onLogOutEvent(
-    _LogOutEvent event,
+    _UserLogOutEvent event,
     Emitter<UserState> emit,
   ) async {
     emit(const UserState.loading());
     final result = await _authUseCase.logOut();
-    emit(
-      result.fold(
-        (l) => const UserState.error(error: AuthErrorEnum.invalidEmail),
-        (r) => const UserState.unuthenticated(),
-      ),
+
+    result.fold(
+      (l) => emit(const UserState.error(error: AuthErrorEnum.invalidEmail)),
+      (r) async {
+        emit(const UserState.unuthenticated());
+        await _preferncesService.clearAll();
+      },
     );
   }
 
-  void _onInit(
-    _InitEvent event,
+  Future<void> _onUserFigureState(
+    _UserFigureStateEvent event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserState.loading());
-    final result = _authUseCase.isLoggedIn;
-    await Future.delayed(const Duration(milliseconds: 500));
-    if (result) {
+    if (event.showSpinner) {
+      emit(const UserState.loading());
+    }
+
+    if (_authUseCase.isLoggedIn) {
       emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
     } else {
       emit(const UserState.unuthenticated());

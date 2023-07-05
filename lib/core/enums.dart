@@ -12,4 +12,8 @@ enum AuthErrorEnum {
   missingIosBundle,
   invalidContinueUri,
   unauthorizedContinueUri,
+  fingerPrintError,
+  firstLoginFingerprint,
+  fingerPrintNotSupported,
+  passwordMayHaveBeenChanged,
 }

@@ -10,16 +10,8 @@ class MainApp extends StatelessWidget {
     ///Initialize bloc observer
     Bloc.observer = injector<AppBlocObserver>();
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) =>
-              injector<UserBloc>()..add(const UserEvent.init()),
-        ),
-        BlocProvider(
-          create: (context) => injector<AppOptionsCubit>(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => injector<AppOptionsCubit>(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig:

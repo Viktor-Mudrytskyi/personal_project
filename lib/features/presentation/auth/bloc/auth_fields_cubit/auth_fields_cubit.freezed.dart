@@ -16,67 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthFieldsState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)
-        $default, {
-    required TResult Function() authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult? Function()? authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult Function()? authSuccessful,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) =>
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+  AuthErrorEnum get emailError => throw _privateConstructorUsedError;
+  AuthErrorEnum get passwordError => throw _privateConstructorUsedError;
+  AuthErrorEnum get firebaseError => throw _privateConstructorUsedError;
+  AuthErrorEnum get biometricsError => throw _privateConstructorUsedError;
+  bool get isRememberMe => throw _privateConstructorUsedError;
+  bool get isAuthSuccessful => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AuthFieldsStateCopyWith<AuthFieldsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -85,6 +35,16 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
   factory $AuthFieldsStateCopyWith(
           AuthFieldsState value, $Res Function(AuthFieldsState) then) =
       _$AuthFieldsStateCopyWithImpl<$Res, AuthFieldsState>;
+  @useResult
+  $Res call(
+      {String email,
+      String password,
+      AuthErrorEnum emailError,
+      AuthErrorEnum passwordError,
+      AuthErrorEnum firebaseError,
+      AuthErrorEnum biometricsError,
+      bool isRememberMe,
+      bool isAuthSuccessful});
 }
 
 /// @nodoc
@@ -96,31 +56,6 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$AuthFieldsNormalStateCopyWith<$Res> {
-  factory _$$AuthFieldsNormalStateCopyWith(_$AuthFieldsNormalState value,
-          $Res Function(_$AuthFieldsNormalState) then) =
-      __$$AuthFieldsNormalStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {String email,
-      String password,
-      AuthErrorEnum emailError,
-      AuthErrorEnum passwordError,
-      AuthErrorEnum firebaseError,
-      bool isValidating,
-      bool validatingEnabled});
-}
-
-/// @nodoc
-class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthFieldsNormalState>
-    implements _$$AuthFieldsNormalStateCopyWith<$Res> {
-  __$$AuthFieldsNormalStateCopyWithImpl(_$AuthFieldsNormalState _value,
-      $Res Function(_$AuthFieldsNormalState) _then)
-      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -130,10 +65,11 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? emailError = null,
     Object? passwordError = null,
     Object? firebaseError = null,
-    Object? isValidating = null,
-    Object? validatingEnabled = null,
+    Object? biometricsError = null,
+    Object? isRememberMe = null,
+    Object? isAuthSuccessful = null,
   }) {
-    return _then(_$AuthFieldsNormalState(
+    return _then(_value.copyWith(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -154,13 +90,93 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
           ? _value.firebaseError
           : firebaseError // ignore: cast_nullable_to_non_nullable
               as AuthErrorEnum,
-      isValidating: null == isValidating
-          ? _value.isValidating
-          : isValidating // ignore: cast_nullable_to_non_nullable
+      biometricsError: null == biometricsError
+          ? _value.biometricsError
+          : biometricsError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      isRememberMe: null == isRememberMe
+          ? _value.isRememberMe
+          : isRememberMe // ignore: cast_nullable_to_non_nullable
               as bool,
-      validatingEnabled: null == validatingEnabled
-          ? _value.validatingEnabled
-          : validatingEnabled // ignore: cast_nullable_to_non_nullable
+      isAuthSuccessful: null == isAuthSuccessful
+          ? _value.isAuthSuccessful
+          : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_AuthFieldsNormalStateCopyWith<$Res>
+    implements $AuthFieldsStateCopyWith<$Res> {
+  factory _$$_AuthFieldsNormalStateCopyWith(_$_AuthFieldsNormalState value,
+          $Res Function(_$_AuthFieldsNormalState) then) =
+      __$$_AuthFieldsNormalStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String email,
+      String password,
+      AuthErrorEnum emailError,
+      AuthErrorEnum passwordError,
+      AuthErrorEnum firebaseError,
+      AuthErrorEnum biometricsError,
+      bool isRememberMe,
+      bool isAuthSuccessful});
+}
+
+/// @nodoc
+class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
+    extends _$AuthFieldsStateCopyWithImpl<$Res, _$_AuthFieldsNormalState>
+    implements _$$_AuthFieldsNormalStateCopyWith<$Res> {
+  __$$_AuthFieldsNormalStateCopyWithImpl(_$_AuthFieldsNormalState _value,
+      $Res Function(_$_AuthFieldsNormalState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+    Object? emailError = null,
+    Object? passwordError = null,
+    Object? firebaseError = null,
+    Object? biometricsError = null,
+    Object? isRememberMe = null,
+    Object? isAuthSuccessful = null,
+  }) {
+    return _then(_$_AuthFieldsNormalState(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      emailError: null == emailError
+          ? _value.emailError
+          : emailError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      passwordError: null == passwordError
+          ? _value.passwordError
+          : passwordError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      firebaseError: null == firebaseError
+          ? _value.firebaseError
+          : firebaseError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      biometricsError: null == biometricsError
+          ? _value.biometricsError
+          : biometricsError // ignore: cast_nullable_to_non_nullable
+              as AuthErrorEnum,
+      isRememberMe: null == isRememberMe
+          ? _value.isRememberMe
+          : isRememberMe // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAuthSuccessful: null == isAuthSuccessful
+          ? _value.isAuthSuccessful
+          : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -168,15 +184,16 @@ class __$$AuthFieldsNormalStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AuthFieldsNormalState implements AuthFieldsNormalState {
-  const _$AuthFieldsNormalState(
+class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
+  const _$_AuthFieldsNormalState(
       {required this.email,
       required this.password,
       required this.emailError,
       required this.passwordError,
       required this.firebaseError,
-      required this.isValidating,
-      required this.validatingEnabled});
+      required this.biometricsError,
+      required this.isRememberMe,
+      required this.isAuthSuccessful});
 
   @override
   final String email;
@@ -188,26 +205,23 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
   final AuthErrorEnum passwordError;
   @override
   final AuthErrorEnum firebaseError;
-
-  ///Is true when user clicked on login/register
-  ///and prevents user from clicking on them again and changing text fields
   @override
-  final bool isValidating;
-
-  ///Is true after user clicked on login/register
+  final AuthErrorEnum biometricsError;
   @override
-  final bool validatingEnabled;
+  final bool isRememberMe;
+  @override
+  final bool isAuthSuccessful;
 
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, isValidating: $isValidating, validatingEnabled: $validatingEnabled)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe, isAuthSuccessful: $isAuthSuccessful)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthFieldsNormalState &&
+            other is _$_AuthFieldsNormalState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -217,262 +231,63 @@ class _$AuthFieldsNormalState implements AuthFieldsNormalState {
                 other.passwordError == passwordError) &&
             (identical(other.firebaseError, firebaseError) ||
                 other.firebaseError == firebaseError) &&
-            (identical(other.isValidating, isValidating) ||
-                other.isValidating == isValidating) &&
-            (identical(other.validatingEnabled, validatingEnabled) ||
-                other.validatingEnabled == validatingEnabled));
+            (identical(other.biometricsError, biometricsError) ||
+                other.biometricsError == biometricsError) &&
+            (identical(other.isRememberMe, isRememberMe) ||
+                other.isRememberMe == isRememberMe) &&
+            (identical(other.isAuthSuccessful, isAuthSuccessful) ||
+                other.isAuthSuccessful == isAuthSuccessful));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, emailError,
-      passwordError, firebaseError, isValidating, validatingEnabled);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      password,
+      emailError,
+      passwordError,
+      firebaseError,
+      biometricsError,
+      isRememberMe,
+      isAuthSuccessful);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
-      __$$AuthFieldsNormalStateCopyWithImpl<_$AuthFieldsNormalState>(
+  _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
+      __$$_AuthFieldsNormalStateCopyWithImpl<_$_AuthFieldsNormalState>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)
-        $default, {
-    required TResult Function() authSuccessful,
-  }) {
-    return $default(email, password, emailError, passwordError, firebaseError,
-        isValidating, validatingEnabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult? Function()? authSuccessful,
-  }) {
-    return $default?.call(email, password, emailError, passwordError,
-        firebaseError, isValidating, validatingEnabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult Function()? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(email, password, emailError, passwordError, firebaseError,
-          isValidating, validatingEnabled);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class AuthFieldsNormalState implements AuthFieldsState {
-  const factory AuthFieldsNormalState(
+abstract class _AuthFieldsNormalState implements AuthFieldsState {
+  const factory _AuthFieldsNormalState(
       {required final String email,
       required final String password,
       required final AuthErrorEnum emailError,
       required final AuthErrorEnum passwordError,
       required final AuthErrorEnum firebaseError,
-      required final bool isValidating,
-      required final bool validatingEnabled}) = _$AuthFieldsNormalState;
+      required final AuthErrorEnum biometricsError,
+      required final bool isRememberMe,
+      required final bool isAuthSuccessful}) = _$_AuthFieldsNormalState;
 
+  @override
   String get email;
+  @override
   String get password;
+  @override
   AuthErrorEnum get emailError;
+  @override
   AuthErrorEnum get passwordError;
+  @override
   AuthErrorEnum get firebaseError;
-
-  ///Is true when user clicked on login/register
-  ///and prevents user from clicking on them again and changing text fields
-  bool get isValidating;
-
-  ///Is true after user clicked on login/register
-  bool get validatingEnabled;
+  @override
+  AuthErrorEnum get biometricsError;
+  @override
+  bool get isRememberMe;
+  @override
+  bool get isAuthSuccessful;
+  @override
   @JsonKey(ignore: true)
-  _$$AuthFieldsNormalStateCopyWith<_$AuthFieldsNormalState> get copyWith =>
+  _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthSuccessfulCopyWith<$Res> {
-  factory _$$AuthSuccessfulCopyWith(
-          _$AuthSuccessful value, $Res Function(_$AuthSuccessful) then) =
-      __$$AuthSuccessfulCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AuthSuccessfulCopyWithImpl<$Res>
-    extends _$AuthFieldsStateCopyWithImpl<$Res, _$AuthSuccessful>
-    implements _$$AuthSuccessfulCopyWith<$Res> {
-  __$$AuthSuccessfulCopyWithImpl(
-      _$AuthSuccessful _value, $Res Function(_$AuthSuccessful) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$AuthSuccessful implements AuthSuccessful {
-  const _$AuthSuccessful();
-
-  @override
-  String toString() {
-    return 'AuthFieldsState.authSuccessful()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthSuccessful);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)
-        $default, {
-    required TResult Function() authSuccessful,
-  }) {
-    return authSuccessful();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult? Function()? authSuccessful,
-  }) {
-    return authSuccessful?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String email,
-            String password,
-            AuthErrorEnum emailError,
-            AuthErrorEnum passwordError,
-            AuthErrorEnum firebaseError,
-            bool isValidating,
-            bool validatingEnabled)?
-        $default, {
-    TResult Function()? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if (authSuccessful != null) {
-      return authSuccessful();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value) $default, {
-    required TResult Function(AuthSuccessful value) authSuccessful,
-  }) {
-    return authSuccessful(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(AuthFieldsNormalState value)? $default, {
-    TResult? Function(AuthSuccessful value)? authSuccessful,
-  }) {
-    return authSuccessful?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(AuthFieldsNormalState value)? $default, {
-    TResult Function(AuthSuccessful value)? authSuccessful,
-    required TResult orElse(),
-  }) {
-    if (authSuccessful != null) {
-      return authSuccessful(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthSuccessful implements AuthFieldsState {
-  const factory AuthSuccessful() = _$AuthSuccessful;
 }

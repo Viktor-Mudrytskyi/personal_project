@@ -10,6 +10,8 @@ class AppTextStyles {
   final TextStyle register;
   final TextStyle hint;
   final TextStyle error;
+  final TextStyle authSmall;
+  final TextStyle dialogTitle;
 
   const AppTextStyles._({
     required this.authBody,
@@ -21,6 +23,8 @@ class AppTextStyles {
     required this.register,
     required this.hint,
     required this.error,
+    required this.authSmall,
+    required this.dialogTitle,
   });
 
   factory AppTextStyles.light() {
@@ -81,6 +85,18 @@ class AppTextStyles {
         fontWeight: FontWeight.w400,
         fontSize: 15,
         color: Color.fromARGB(255, 160, 25, 25),
+      ),
+      authSmall: TextStyle(
+        fontFamily: 'Trebuc',
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+        color: Color(0xFF6B5E5E),
+      ),
+      dialogTitle: TextStyle(
+        fontFamily: 'Trebuc',
+        fontWeight: FontWeight.w400,
+        fontSize: 22,
+        color: Color(0xFFFFFFFF),
       ),
     );
   }

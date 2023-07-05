@@ -2,14 +2,8 @@ part of 'user_bloc.dart';
 
 @freezed
 class UserEvent with _$UserEvent {
-  const factory UserEvent.register({
-    required String email,
-    required String password,
-  }) = _RegisterEvent;
-  const factory UserEvent.logIn({
-    required String email,
-    required String password,
-  }) = _LogInEvent;
-  const factory UserEvent.logout() = _LogOutEvent;
-  const factory UserEvent.init() = _InitEvent;
+  const factory UserEvent.figureCurrentState(
+      {@Default(true) bool showSpinner}) = _UserFigureStateEvent;
+  const factory UserEvent.logout() = _UserLogOutEvent;
+  const factory UserEvent.init() = _UserInitEvent;
 }

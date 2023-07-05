@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 
-class CustomSnackBar extends StatefulWidget {
-  const CustomSnackBar(
-      {super.key,
-      required this.child,
-      required this.screenSize,
-      required this.onClosedAnimation});
+class AppSnackBar extends StatefulWidget {
+  ///Lives for two seconds before closing, add callback to the closing animation
+  const AppSnackBar({
+    super.key,
+    required this.child,
+    required this.screenSize,
+    required this.onClosedAnimation,
+  });
   final Widget child;
   final Size screenSize;
   final Function() onClosedAnimation;
 
   @override
-  State<CustomSnackBar> createState() => CustomSnackBarState();
+  State<AppSnackBar> createState() => AppSnackBarState();
 }
 
-class CustomSnackBarState extends State<CustomSnackBar>
+class AppSnackBarState extends State<AppSnackBar>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _moveDown;
@@ -65,21 +67,24 @@ class CustomSnackBarState extends State<CustomSnackBar>
       },
       child: Theme(
         data: ThemeData.light(),
-        child: Builder(builder: (context) {
-          return Container(
-            //There is something inherently wrong with the set width and height.
-            //But margin works for some reason, well, anyway, its sunday
-            // width: widget.screenSize.width,
-            // height: 60,
-            margin: EdgeInsets.symmetric(
-                horizontal: 18, vertical: (widget.screenSize.height - 50) / 2),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: appTheme.appColors.authButtonFill,
-                boxShadow: [appTheme.appShadows.backgroundShadow]),
-            child: Center(child: widget.child),
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            return Container(
+              //There is something inherently wrong with the set width and height.
+              //But margin works for some reason, well, anyway, its Sunday
+              // width: widget.screenSize.width,
+              // height: 60,
+              margin: EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: (widget.screenSize.height - 50) / 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: appTheme.appColors.authButtonFill,
+                  boxShadow: [appTheme.appShadows.backgroundShadow]),
+              child: Center(child: widget.child),
+            );
+          },
+        ),
       ),
     );
   }

@@ -6,7 +6,12 @@ import 'core.dart';
 extension AppThemeFromContext on BuildContext {
   AppThemeData get appTheme => watch<AppOptionsCubit>().state.appTheme;
 
-  void removeFocus() {
+  TextDirection get textDirection => Directionality.of(this);
+
+  ///Shows if text direction [Directionality.of(context)] is [TextDirection.ltr]
+  bool get isLeftToRight => textDirection == TextDirection.ltr;
+
+  void removeAllFocus() {
     FocusScope.of(this).unfocus();
   }
 }

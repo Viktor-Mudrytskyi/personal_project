@@ -23,7 +23,7 @@ class AppThemeData {
   }
   factory AppThemeData.dark() {
     return AppThemeData(
-      appColors: AppColors.dark(),
+      appColors: AppColors.light(),
       appGradients: AppGradients.light(),
       appShadows: AppShadows.light(),
       appTextStyles: AppTextStyles.light(),

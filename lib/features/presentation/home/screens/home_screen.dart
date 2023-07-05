@@ -12,43 +12,59 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox.expand(
-        child: BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) {
-            return state.map(
-              authenticated: (state) => Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(FirebaseAuth.instance.currentUser!.email!),
-                      Text(FirebaseAuth.instance.currentUser!.emailVerified
-                          .toString()),
-                      ElevatedButton(
-                        onPressed: () async {
-                          context.router.replaceAll([const LoginRoute()]);
-                          await injector<AuthUseCase>().logOut();
-                        },
-                        child: const Text('LOGOUT'),
+    return BlocProvider(
+      create: (context) =>
+          injector<UserBloc>()..add(const UserEvent.figureCurrentState()),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          body: SizedBox.expand(
+            child: BlocConsumer<UserBloc, UserState>(
+              listener: (context, state) {
+                state.when(
+                  authenticated: (state) => null,
+                  unuthenticated: () =>
+                      context.router.replaceAll([const LoginRoute()]),
+                  loading: () => null,
+                  error: (state) => null,
+                );
+              },
+              builder: (context, state) {
+                return state.map(
+                  authenticated: (state) => Container(
+                    color: Colors.blue,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(FirebaseAuth.instance.currentUser!.email!),
+                          Text(FirebaseAuth.instance.currentUser!.emailVerified
+                              .toString()),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context
+                                  .read<UserBloc>()
+                                  .add(const UserEvent.logout());
+                            },
+                            child: const Text('LOGOUT'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await FirebaseAuth.instance.currentUser!.reload();
+                            },
+                            child: const Text('RELOAD'),
+                          ),
+                        ],
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await FirebaseAuth.instance.currentUser!.reload();
-                        },
-                        child: const Text('RELOAD'),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              unuthenticated: (state) => const ColoredBox(color: Colors.yellow),
-              loading: (state) => const LoadingSpinner(),
-              error: (state) => const ColoredBox(color: Colors.red),
-            );
-          },
-        ),
-      ),
+                  unuthenticated: (state) => const Offstage(),
+                  loading: (state) => const LoadingSpinner(),
+                  error: (state) => const ColoredBox(color: Colors.red),
+                );
+              },
+            ),
+          ),
+        );
+      }),
     );
   }
 }

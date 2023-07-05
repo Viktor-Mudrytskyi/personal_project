@@ -7,15 +7,22 @@ import 'core/core.dart';
 import 'environment/environment.dart';
 
 import 'app.dart';
+import 'features/domain/domain.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureSystemUI();
   await initInjector();
   await Firebase.initializeApp(options: EnvironmentConfig.firebaseOptions);
+  await _setUpAuth();
 
-  log(const String.fromEnvironment('FLAVOR'));
+  log(EnvironmentConfig.currentEnv.name);
+
   runApp(const MainApp());
+}
+
+Future<void> _setUpAuth() async {
+  await injector<AuthUseCase>().onAppInit();
 }
 
 Future<void> _configureSystemUI() async {
@@ -24,8 +31,9 @@ Future<void> _configureSystemUI() async {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: true,
     ),
   );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
       overlays: [SystemUiOverlay.top]);
 }
