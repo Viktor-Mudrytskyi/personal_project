@@ -25,6 +25,13 @@ mixin _$AuthFieldsState {
   bool get isRememberMe => throw _privateConstructorUsedError;
   bool get isAuthSuccessful => throw _privateConstructorUsedError;
 
+  ///Whether error is shown below text fields
+  bool get isValidatingEnabled => throw _privateConstructorUsedError;
+
+  ///Whether user clicked on login/register etc, in other words whether some async
+  ///check is happening
+  bool get isCurrentlyValidating => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $AuthFieldsStateCopyWith<AuthFieldsState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -44,7 +51,9 @@ abstract class $AuthFieldsStateCopyWith<$Res> {
       AuthErrorEnum firebaseError,
       AuthErrorEnum biometricsError,
       bool isRememberMe,
-      bool isAuthSuccessful});
+      bool isAuthSuccessful,
+      bool isValidatingEnabled,
+      bool isCurrentlyValidating});
 }
 
 /// @nodoc
@@ -68,6 +77,8 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
     Object? biometricsError = null,
     Object? isRememberMe = null,
     Object? isAuthSuccessful = null,
+    Object? isValidatingEnabled = null,
+    Object? isCurrentlyValidating = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -102,6 +113,14 @@ class _$AuthFieldsStateCopyWithImpl<$Res, $Val extends AuthFieldsState>
           ? _value.isAuthSuccessful
           : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
+      isValidatingEnabled: null == isValidatingEnabled
+          ? _value.isValidatingEnabled
+          : isValidatingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCurrentlyValidating: null == isCurrentlyValidating
+          ? _value.isCurrentlyValidating
+          : isCurrentlyValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -122,7 +141,9 @@ abstract class _$$_AuthFieldsNormalStateCopyWith<$Res>
       AuthErrorEnum firebaseError,
       AuthErrorEnum biometricsError,
       bool isRememberMe,
-      bool isAuthSuccessful});
+      bool isAuthSuccessful,
+      bool isValidatingEnabled,
+      bool isCurrentlyValidating});
 }
 
 /// @nodoc
@@ -144,6 +165,8 @@ class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
     Object? biometricsError = null,
     Object? isRememberMe = null,
     Object? isAuthSuccessful = null,
+    Object? isValidatingEnabled = null,
+    Object? isCurrentlyValidating = null,
   }) {
     return _then(_$_AuthFieldsNormalState(
       email: null == email
@@ -178,6 +201,14 @@ class __$$_AuthFieldsNormalStateCopyWithImpl<$Res>
           ? _value.isAuthSuccessful
           : isAuthSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
+      isValidatingEnabled: null == isValidatingEnabled
+          ? _value.isValidatingEnabled
+          : isValidatingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCurrentlyValidating: null == isCurrentlyValidating
+          ? _value.isCurrentlyValidating
+          : isCurrentlyValidating // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -193,7 +224,9 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
       required this.firebaseError,
       required this.biometricsError,
       required this.isRememberMe,
-      required this.isAuthSuccessful});
+      required this.isAuthSuccessful,
+      required this.isValidatingEnabled,
+      required this.isCurrentlyValidating});
 
   @override
   final String email;
@@ -212,9 +245,18 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
   @override
   final bool isAuthSuccessful;
 
+  ///Whether error is shown below text fields
+  @override
+  final bool isValidatingEnabled;
+
+  ///Whether user clicked on login/register etc, in other words whether some async
+  ///check is happening
+  @override
+  final bool isCurrentlyValidating;
+
   @override
   String toString() {
-    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe, isAuthSuccessful: $isAuthSuccessful)';
+    return 'AuthFieldsState(email: $email, password: $password, emailError: $emailError, passwordError: $passwordError, firebaseError: $firebaseError, biometricsError: $biometricsError, isRememberMe: $isRememberMe, isAuthSuccessful: $isAuthSuccessful, isValidatingEnabled: $isValidatingEnabled, isCurrentlyValidating: $isCurrentlyValidating)';
   }
 
   @override
@@ -236,7 +278,11 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
             (identical(other.isRememberMe, isRememberMe) ||
                 other.isRememberMe == isRememberMe) &&
             (identical(other.isAuthSuccessful, isAuthSuccessful) ||
-                other.isAuthSuccessful == isAuthSuccessful));
+                other.isAuthSuccessful == isAuthSuccessful) &&
+            (identical(other.isValidatingEnabled, isValidatingEnabled) ||
+                other.isValidatingEnabled == isValidatingEnabled) &&
+            (identical(other.isCurrentlyValidating, isCurrentlyValidating) ||
+                other.isCurrentlyValidating == isCurrentlyValidating));
   }
 
   @override
@@ -249,7 +295,9 @@ class _$_AuthFieldsNormalState implements _AuthFieldsNormalState {
       firebaseError,
       biometricsError,
       isRememberMe,
-      isAuthSuccessful);
+      isAuthSuccessful,
+      isValidatingEnabled,
+      isCurrentlyValidating);
 
   @JsonKey(ignore: true)
   @override
@@ -268,7 +316,9 @@ abstract class _AuthFieldsNormalState implements AuthFieldsState {
       required final AuthErrorEnum firebaseError,
       required final AuthErrorEnum biometricsError,
       required final bool isRememberMe,
-      required final bool isAuthSuccessful}) = _$_AuthFieldsNormalState;
+      required final bool isAuthSuccessful,
+      required final bool isValidatingEnabled,
+      required final bool isCurrentlyValidating}) = _$_AuthFieldsNormalState;
 
   @override
   String get email;
@@ -286,6 +336,15 @@ abstract class _AuthFieldsNormalState implements AuthFieldsState {
   bool get isRememberMe;
   @override
   bool get isAuthSuccessful;
+  @override
+
+  ///Whether error is shown below text fields
+  bool get isValidatingEnabled;
+  @override
+
+  ///Whether user clicked on login/register etc, in other words whether some async
+  ///check is happening
+  bool get isCurrentlyValidating;
   @override
   @JsonKey(ignore: true)
   _$$_AuthFieldsNormalStateCopyWith<_$_AuthFieldsNormalState> get copyWith =>

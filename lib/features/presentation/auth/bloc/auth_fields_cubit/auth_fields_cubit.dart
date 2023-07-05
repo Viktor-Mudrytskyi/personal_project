@@ -22,17 +22,6 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         _preferences = preferences,
         super(_empty);
 
-  bool _isValidatingEnabled = false;
-
-  bool _isCurrentlyValidating = false;
-
-  ///Whether error is shown below text fields
-  bool get isValidatingEnabled => _isValidatingEnabled;
-
-  ///Whether user clicked on login/register etc, in other words whether some async
-  ///check is happening
-  bool get isCurrentlyValidating => _isCurrentlyValidating;
-
   void onChangeEmail(String email) {
     emit(state.copyWith(
       email: email,
@@ -101,7 +90,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         (l) {
           _endLoading();
 
-          //This if is here for occasion when user resets password and logins
+          //This is here for occasion when user resets password and logins
           //via fingerprint
           if (password == _authUseCase.getPasswordFromPrefs) {
             emit(state.copyWith(
@@ -174,17 +163,15 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   void _emitLoading() {
-    _isCurrentlyValidating = true;
+    emit(state.copyWith(isCurrentlyValidating: true));
   }
 
   void _endLoading() {
-    _isCurrentlyValidating = false;
+    emit(state.copyWith(isCurrentlyValidating: false));
   }
 
   void _enableValidation() {
-    if (!isValidatingEnabled) {
-      _isValidatingEnabled = true;
-    }
+    emit(state.copyWith(isValidatingEnabled: true));
   }
 
   ///if state contains any error that is shown on snack bar,
@@ -214,5 +201,7 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
         biometricsError: AuthErrorEnum.valid,
         isRememberMe: false,
         isAuthSuccessful: false,
+        isCurrentlyValidating: false,
+        isValidatingEnabled: false,
       );
 }

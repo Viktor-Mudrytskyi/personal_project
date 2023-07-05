@@ -148,6 +148,7 @@ class _LoginScreen extends StatelessWidget {
     }
     if (state.isAuthSuccessful) {
       context.removeAllFocus();
+      context.read<UserBloc>().add(const UserEvent.figureCurrentState());
       context.router.replace(const HomeRoute());
     }
   }
@@ -160,12 +161,12 @@ class _FieldsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = context.appTheme;
-    final authFieldsCubit = context.watch<AuthFieldsCubit>();
+    final authFieldsCubit = context.read<AuthFieldsCubit>();
     return Column(
       children: [
         AppTextField(
-          enabled: !authFieldsCubit.isCurrentlyValidating,
-          showError: authFieldsCubit.isValidatingEnabled,
+          enabled: !currentState.isCurrentlyValidating,
+          showError: currentState.isValidatingEnabled,
           initialValue: currentState.email,
           errorText: AuthUtils.parseAuthErrors(currentState.emailError),
           hintText: 'Email Address',
@@ -179,8 +180,8 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 7),
         AppTextField(
           obscureText: true,
-          enabled: !authFieldsCubit.isCurrentlyValidating,
-          showError: authFieldsCubit.isValidatingEnabled,
+          enabled: !currentState.isCurrentlyValidating,
+          showError: currentState.isValidatingEnabled,
           errorText: AuthUtils.parseAuthErrors(currentState.passwordError),
           initialValue: currentState.password,
           hintText: 'Password',
@@ -194,7 +195,7 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 5),
         RememberPassCheckBox(
           value: currentState.isRememberMe,
-          isActive: !authFieldsCubit.isCurrentlyValidating,
+          isActive: !currentState.isCurrentlyValidating,
           onPressed: (val) {
             authFieldsCubit.onRememberMeChange(val!);
           },
@@ -223,7 +224,7 @@ class _FieldsBody extends StatelessWidget {
           children: [
             Expanded(
               child: AuthButton.fill(
-                enabled: !authFieldsCubit.isCurrentlyValidating,
+                enabled: !currentState.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeAllFocus();
                   await authFieldsCubit.logInUserWithEmailAndPassword(
@@ -237,7 +238,7 @@ class _FieldsBody extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: AuthButton.border(
-                enabled: !authFieldsCubit.isCurrentlyValidating,
+                enabled: !currentState.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeAllFocus();
                   await authFieldsCubit.registerUserWithEmailAndPassword(

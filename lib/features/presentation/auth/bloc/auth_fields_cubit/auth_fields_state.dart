@@ -11,5 +11,12 @@ class AuthFieldsState with _$AuthFieldsState {
     required AuthErrorEnum biometricsError,
     required bool isRememberMe,
     required bool isAuthSuccessful,
+
+    ///Whether error is shown below text fields
+    required bool isValidatingEnabled,
+
+    ///Whether user clicked on login/register etc, in other words whether some async
+    ///check is happening
+    required bool isCurrentlyValidating,
   }) = _AuthFieldsNormalState;
 }

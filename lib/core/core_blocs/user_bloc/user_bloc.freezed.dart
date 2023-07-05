@@ -20,21 +20,18 @@ mixin _$UserEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
-    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
-    TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
-    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,21 +39,18 @@ mixin _$UserEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UserFigureStateEvent value) figureCurrentState,
     required TResult Function(_UserLogOutEvent value) logout,
-    required TResult Function(_UserInitEvent value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult? Function(_UserLogOutEvent value)? logout,
-    TResult? Function(_UserInitEvent value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult Function(_UserLogOutEvent value)? logout,
-    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -148,7 +142,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
-    required TResult Function() init,
   }) {
     return figureCurrentState(showSpinner);
   }
@@ -158,7 +151,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
-    TResult? Function()? init,
   }) {
     return figureCurrentState?.call(showSpinner);
   }
@@ -168,7 +160,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
-    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (figureCurrentState != null) {
@@ -182,7 +173,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UserFigureStateEvent value) figureCurrentState,
     required TResult Function(_UserLogOutEvent value) logout,
-    required TResult Function(_UserInitEvent value) init,
   }) {
     return figureCurrentState(this);
   }
@@ -192,7 +182,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult? Function(_UserLogOutEvent value)? logout,
-    TResult? Function(_UserInitEvent value)? init,
   }) {
     return figureCurrentState?.call(this);
   }
@@ -202,7 +191,6 @@ class _$_UserFigureStateEvent implements _UserFigureStateEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult Function(_UserLogOutEvent value)? logout,
-    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) {
     if (figureCurrentState != null) {
@@ -262,7 +250,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool showSpinner) figureCurrentState,
     required TResult Function() logout,
-    required TResult Function() init,
   }) {
     return logout();
   }
@@ -272,7 +259,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool showSpinner)? figureCurrentState,
     TResult? Function()? logout,
-    TResult? Function()? init,
   }) {
     return logout?.call();
   }
@@ -282,7 +268,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool showSpinner)? figureCurrentState,
     TResult Function()? logout,
-    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -296,7 +281,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_UserFigureStateEvent value) figureCurrentState,
     required TResult Function(_UserLogOutEvent value) logout,
-    required TResult Function(_UserInitEvent value) init,
   }) {
     return logout(this);
   }
@@ -306,7 +290,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult? Function(_UserLogOutEvent value)? logout,
-    TResult? Function(_UserInitEvent value)? init,
   }) {
     return logout?.call(this);
   }
@@ -316,7 +299,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_UserFigureStateEvent value)? figureCurrentState,
     TResult Function(_UserLogOutEvent value)? logout,
-    TResult Function(_UserInitEvent value)? init,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -328,114 +310,6 @@ class _$_UserLogOutEvent implements _UserLogOutEvent {
 
 abstract class _UserLogOutEvent implements UserEvent {
   const factory _UserLogOutEvent() = _$_UserLogOutEvent;
-}
-
-/// @nodoc
-abstract class _$$_UserInitEventCopyWith<$Res> {
-  factory _$$_UserInitEventCopyWith(
-          _$_UserInitEvent value, $Res Function(_$_UserInitEvent) then) =
-      __$$_UserInitEventCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_UserInitEventCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$_UserInitEvent>
-    implements _$$_UserInitEventCopyWith<$Res> {
-  __$$_UserInitEventCopyWithImpl(
-      _$_UserInitEvent _value, $Res Function(_$_UserInitEvent) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_UserInitEvent implements _UserInitEvent {
-  const _$_UserInitEvent();
-
-  @override
-  String toString() {
-    return 'UserEvent.init()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_UserInitEvent);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool showSpinner) figureCurrentState,
-    required TResult Function() logout,
-    required TResult Function() init,
-  }) {
-    return init();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool showSpinner)? figureCurrentState,
-    TResult? Function()? logout,
-    TResult? Function()? init,
-  }) {
-    return init?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool showSpinner)? figureCurrentState,
-    TResult Function()? logout,
-    TResult Function()? init,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_UserFigureStateEvent value) figureCurrentState,
-    required TResult Function(_UserLogOutEvent value) logout,
-    required TResult Function(_UserInitEvent value) init,
-  }) {
-    return init(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_UserFigureStateEvent value)? figureCurrentState,
-    TResult? Function(_UserLogOutEvent value)? logout,
-    TResult? Function(_UserInitEvent value)? init,
-  }) {
-    return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_UserFigureStateEvent value)? figureCurrentState,
-    TResult Function(_UserLogOutEvent value)? logout,
-    TResult Function(_UserInitEvent value)? init,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UserInitEvent implements UserEvent {
-  const factory _UserInitEvent() = _$_UserInitEvent;
 }
 
 /// @nodoc
