@@ -39,12 +39,12 @@ class RouterObserver implements AutoRouterObserver {
 
   @override
   void didRemove(Route route, Route? previousRoute) {
-    _logger(route, previousRoute);
+    // _logger(route, previousRoute);
   }
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
-    _logger(newRoute, oldRoute);
+    // _logger(newRoute, oldRoute);
   }
 
   @override

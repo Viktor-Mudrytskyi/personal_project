@@ -16,12 +16,14 @@ class UiUtils {
     return entry;
   }
 
-  static void showOverlaySnackBar(
-      {required BuildContext context, required Widget content}) {
+  static void showOverlaySnackBar({
+    required BuildContext context,
+    required Widget content,
+  }) {
     OverlayEntry? entry;
     entry = UiUtils.showOverlay(
       context: context,
-      child: CustomSnackBar(
+      child: AppSnackBar(
         onClosedAnimation: () {
           entry!.remove();
         },

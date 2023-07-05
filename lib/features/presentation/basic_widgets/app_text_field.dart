@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 
+///Takes space to include error message(roughly 15 px)
 class AppTextField extends StatelessWidget {
+  ///Takes space to include error message(roughly 15 px)
   const AppTextField({
     super.key,
     this.hintText,
@@ -12,7 +14,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.enabled = true,
     this.errorText,
-    this.isError = false,
+    this.showError = false,
     this.keyboardType,
     this.obscureText = false,
   });
@@ -22,12 +24,11 @@ class AppTextField extends StatelessWidget {
   final bool enabled;
   final bool obscureText;
 
-  ///If false will not show [errorText]
-  final bool isError;
+  ///If false will not show [errorText] even id its provided
+  final bool showError;
   final String? initialValue;
 
-  ///If [null] does not show error text and does not take space
-  ///if EmptyString, takes space
+  ///Takes space
   final String? errorText;
   final Function(String value)? onChanged;
   final TextInputType? keyboardType;
@@ -80,14 +81,18 @@ class AppTextField extends StatelessWidget {
           onChanged: onChanged,
           keyboardType: keyboardType,
         ),
-        if (errorText != null && isError)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              errorText!,
-              style: appTheme.appTextStyles.error,
-            ),
-          ),
+        (errorText != null && showError)
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  errorText!,
+                  style: appTheme.appTextStyles.error,
+                ),
+              )
+            : Text(
+                '',
+                style: appTheme.appTextStyles.error,
+              ),
       ],
     );
   }

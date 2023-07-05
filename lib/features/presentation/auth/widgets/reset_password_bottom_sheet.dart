@@ -78,7 +78,7 @@ class _ModalBottomSheet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 AppTextField(
-                  isError: validatingEnabled,
+                  showError: validatingEnabled,
                   enabled: !isValidating,
                   errorText: AuthUtils.parseAuthErrors(emailError),
                   initialValue: email,
@@ -90,10 +90,10 @@ class _ModalBottomSheet extends StatelessWidget {
                   onChanged: cubit.onChangeEmail,
                   keyboardType: TextInputType.emailAddress,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 AuthButton.fill(
                   onPressed: () async {
-                    context.removeFocus();
+                    context.removeAllFocus();
                     await cubit.sendResetPasswordEmail(email);
                   },
                   text: 'Send password',

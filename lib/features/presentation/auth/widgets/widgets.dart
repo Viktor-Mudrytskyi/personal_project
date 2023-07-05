@@ -4,3 +4,4 @@ export 'custom_checkbox.dart';
 export 'auth_button.dart';
 export 'reset_password_bottom_sheet.dart';
 export 'error_dialog.dart';
+export 'fingerprint_button.dart';

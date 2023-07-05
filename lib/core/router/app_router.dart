@@ -8,13 +8,19 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        ///Auth guard ensures that logged in user is directed to home.
-        ///Otherwise to login screen
-        AutoRoute(
+        ///Is initial route, if user is not logged in, reroutes to login route.
+        ///Initial state of user authentication is decided in main.
+        CustomRoute(
           page: HomeRoute.page,
           guards: [injector<AuthGuard>()],
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 200,
           initial: true,
         ),
-        AutoRoute(page: LoginRoute.page),
+        CustomRoute(
+          page: LoginRoute.page,
+          transitionsBuilder: TransitionsBuilders.slideRight,
+          durationInMilliseconds: 200,
+        ),
       ];
 }

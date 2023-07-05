@@ -8,9 +8,12 @@ class LoadingSpinner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = context.appTheme;
-    return Center(
-      child: CircularProgressIndicator(
-        color: appTheme.appColors.spinner,
+    return ColoredBox(
+      color: appTheme.appColors.primaryBackground,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: appTheme.appColors.spinner,
+        ),
       ),
     );
   }

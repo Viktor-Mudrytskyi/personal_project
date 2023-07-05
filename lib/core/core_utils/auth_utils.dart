@@ -31,11 +31,11 @@ class AuthUtils {
       case 'user-not-found':
         return AuthErrorEnum.userNotFound;
       case 'email-already-in-use':
-        return AuthErrorEnum.invalidEmail;
+        return AuthErrorEnum.emailAlreadyInUse;
       case 'operation-not-allowed':
-        return AuthErrorEnum.invalidEmail;
+        return AuthErrorEnum.operationNotAllowed;
       case 'weak-password':
-        return AuthErrorEnum.invalidEmail;
+        return AuthErrorEnum.weakPassword;
       case 'auth/invalid-email':
         return AuthErrorEnum.invalidEmail;
       case 'auth/missing-android-pkg-name':
@@ -55,14 +55,22 @@ class AuthUtils {
     }
   }
 
-  static String? parseAuthErrors(AuthErrorEnum error) {
+  static String parseAuthErrors(AuthErrorEnum error) {
     switch (error) {
       case AuthErrorEnum.invalidEmail:
         return 'Invalid email';
       case AuthErrorEnum.weakPassword:
         return 'Password is too weak';
+      case AuthErrorEnum.fingerPrintError:
+        return 'Fingerprint some error';
+      case AuthErrorEnum.fingerPrintNotSupported:
+        return 'Fingerprint is not supporetd';
       case AuthErrorEnum.valid:
-        return null;
+        return '';
+      case AuthErrorEnum.firstLoginFingerprint:
+        return 'First log in to use fingerprint';
+      case AuthErrorEnum.passwordMayHaveBeenChanged:
+        return 'Password may have been changed, login with the new one';
       default:
         return 'Unknown error occured';
     }

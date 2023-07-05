@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 
-class CustomSnackBar extends StatefulWidget {
-  const CustomSnackBar(
-      {super.key,
-      required this.child,
-      required this.screenSize,
-      required this.onClosedAnimation});
+class AppSnackBar extends StatefulWidget {
+  ///Lives for two seconds before closing, add callback to the closing animation
+  const AppSnackBar({
+    super.key,
+    required this.child,
+    required this.screenSize,
+    required this.onClosedAnimation,
+  });
   final Widget child;
   final Size screenSize;
   final Function() onClosedAnimation;
 
   @override
-  State<CustomSnackBar> createState() => CustomSnackBarState();
+  State<AppSnackBar> createState() => AppSnackBarState();
 }
 
-class CustomSnackBarState extends State<CustomSnackBar>
+class AppSnackBarState extends State<AppSnackBar>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _moveDown;
