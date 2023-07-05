@@ -62,11 +62,15 @@ class AuthUtils {
       case AuthErrorEnum.weakPassword:
         return 'Password is too weak';
       case AuthErrorEnum.fingerPrintError:
-        return 'FingerPrintSomeError';
+        return 'Fingerprint some error';
+      case AuthErrorEnum.fingerPrintNotSupported:
+        return 'Fingerprint is not supporetd';
       case AuthErrorEnum.valid:
         return '';
       case AuthErrorEnum.firstLoginFingerprint:
         return 'First log in to use fingerprint';
+      case AuthErrorEnum.passwordMayHaveBeenChanged:
+        return 'Password may have been changed, login with the new one';
       default:
         return 'Unknown error occured';
     }

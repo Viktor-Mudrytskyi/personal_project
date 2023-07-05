@@ -30,6 +30,10 @@ abstract class AuthUseCase {
 
   bool get isLoggedIn;
 
+  bool get isAuthDataInPreferences;
+  String get getLoginFromPrefs;
+  String get getPasswordFromPrefs;
+
   User? get userInfo;
 
   ///Returns [false] if user is not logged in
@@ -128,4 +132,13 @@ class AuthUseCaseImpl implements AuthUseCase {
       }
     }
   }
+
+  @override
+  bool get isAuthDataInPreferences => _preferncesService.getLogin().isNotEmpty;
+
+  @override
+  String get getLoginFromPrefs => _preferncesService.getLogin();
+
+  @override
+  String get getPasswordFromPrefs => _preferncesService.getPassword();
 }

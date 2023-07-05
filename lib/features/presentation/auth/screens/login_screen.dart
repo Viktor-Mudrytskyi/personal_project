@@ -32,8 +32,7 @@ class _LoginScreen extends StatelessWidget {
           gradient: appTheme.appGradients.authBackgroundGradient,
         ),
         child: BlocProvider(
-          create: (context) =>
-              injector<AuthFieldsCubit>()..attemptFingerprint(),
+          create: (context) => injector<AuthFieldsCubit>(),
           child: CustomScrollView(
             slivers: [
               SliverPadding(
@@ -148,8 +147,7 @@ class _LoginScreen extends StatelessWidget {
       );
     }
     if (state.isAuthSuccessful) {
-      context.removeFocus();
-      context.read<UserBloc>().add(const UserEvent.figureCurrentState());
+      context.removeAllFocus();
       context.router.replace(const HomeRoute());
     }
   }
@@ -203,7 +201,7 @@ class _FieldsBody extends StatelessWidget {
         ),
         const SizedBox(height: 81),
         Align(
-          alignment: Directionality.of(context) == TextDirection.ltr
+          alignment: context.isLeftToRight
               ? Alignment.centerRight
               : Alignment.centerLeft,
           child: InkWell(
@@ -227,7 +225,7 @@ class _FieldsBody extends StatelessWidget {
               child: AuthButton.fill(
                 enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
-                  context.removeFocus();
+                  context.removeAllFocus();
                   await authFieldsCubit.logInUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
@@ -241,7 +239,7 @@ class _FieldsBody extends StatelessWidget {
               child: AuthButton.border(
                 enabled: !authFieldsCubit.isCurrentlyValidating,
                 onPressed: () async {
-                  context.removeFocus();
+                  context.removeAllFocus();
                   await authFieldsCubit.registerUserWithEmailAndPassword(
                     currentState.email,
                     currentState.password,
@@ -260,7 +258,7 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 18),
         FingerPrintButton(
           onTap: () async {
-            context.removeFocus();
+            context.removeAllFocus();
             await authFieldsCubit.attemptFingerprint();
           },
         ),

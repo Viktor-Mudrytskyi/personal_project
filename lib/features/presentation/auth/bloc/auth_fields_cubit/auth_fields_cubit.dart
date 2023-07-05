@@ -100,9 +100,19 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       result.fold(
         (l) {
           _endLoading();
-          emit(state.copyWith(
-            firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
-          ));
+
+          //This if is here for occasion when user resets password and logins
+          //via fingerprint
+          if (password == _authUseCase.getPasswordFromPrefs) {
+            emit(state.copyWith(
+              firebaseError: AuthErrorEnum.passwordMayHaveBeenChanged,
+            ));
+          } else {
+            emit(state.copyWith(
+              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
+            ));
+          }
+
           _removeErrors();
         },
         (r) async {
@@ -118,31 +128,37 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   }
 
   Future<void> attemptFingerprint() async {
-    if (_preferences.getLogin().isNotEmpty) {
-      _emitLoading();
+    if (await _biometricsService.canCheckFingerPrint) {
+      if (_authUseCase.isAuthDataInPreferences) {
+        _emitLoading();
 
-      try {
-        final result = await _biometricsService.authenticateWithFingerPrint();
-        if (result) {
+        try {
+          final result = await _biometricsService.authenticateWithFingerPrint();
+          if (result) {
+            final login = _authUseCase.getLoginFromPrefs;
+            final password = _authUseCase.getPasswordFromPrefs;
+            onChangeEmail(login);
+            onChangePassword(password);
+            await logInUserWithEmailAndPassword(login, password);
+          } else {
+            _endLoading();
+          }
+        } on PlatformException catch (_) {
           _endLoading();
-          final login = _preferences.getLogin();
-          final password = _preferences.getPassword();
-          onChangeEmail(login);
-          onChangePassword(password);
-          await logInUserWithEmailAndPassword(login, password);
-        } else {
-          _endLoading();
+          emit(state.copyWith(
+            biometricsError: AuthErrorEnum.fingerPrintError,
+          ));
+          _removeErrors();
         }
-      } on PlatformException catch (_) {
-        _endLoading();
+      } else {
         emit(state.copyWith(
-          biometricsError: AuthErrorEnum.fingerPrintError,
+          biometricsError: AuthErrorEnum.firstLoginFingerprint,
         ));
         _removeErrors();
       }
     } else {
       emit(state.copyWith(
-        biometricsError: AuthErrorEnum.firstLoginFingerprint,
+        biometricsError: AuthErrorEnum.fingerPrintNotSupported,
       ));
       _removeErrors();
     }

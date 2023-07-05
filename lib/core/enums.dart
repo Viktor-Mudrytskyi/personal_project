@@ -14,4 +14,6 @@ enum AuthErrorEnum {
   unauthorizedContinueUri,
   fingerPrintError,
   firstLoginFingerprint,
+  fingerPrintNotSupported,
+  passwordMayHaveBeenChanged,
 }

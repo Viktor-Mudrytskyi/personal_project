@@ -8,14 +8,17 @@ class BiometricsService {
   Future<List<BiometricType>> get getAvailableBiometrics async =>
       await _localAuthentication.getAvailableBiometrics();
 
-  Future<bool> get canUseFingerprint async =>
+  Future<bool> get canCheckFingerPrint async =>
+      await _localAuthentication.canCheckBiometrics;
+
+  ///To check whether there is local authentication available on this device or not,
+  ///call canCheckBiometrics (if you need biometrics support)
+  Future<bool> get isFingerPrintEnrolled async =>
       (await getAvailableBiometrics).contains(BiometricType.fingerprint);
 
+  ///if you just need some device-level authentication)
   Future<bool> get isDeviceSupported async =>
       await _localAuthentication.isDeviceSupported();
-
-  Future<bool> get canCheckBiometrics async =>
-      await _localAuthentication.canCheckBiometrics;
 
   Future<bool> authenticateWithFingerPrint() async {
     return await _localAuthentication.authenticate(

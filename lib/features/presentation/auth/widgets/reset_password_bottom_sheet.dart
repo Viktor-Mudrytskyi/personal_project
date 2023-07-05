@@ -93,7 +93,7 @@ class _ModalBottomSheet extends StatelessWidget {
                 const SizedBox(height: 5),
                 AuthButton.fill(
                   onPressed: () async {
-                    context.removeFocus();
+                    context.removeAllFocus();
                     await cubit.sendResetPasswordEmail(email);
                   },
                   text: 'Send password',
