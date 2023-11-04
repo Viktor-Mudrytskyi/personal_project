@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
@@ -12,12 +13,15 @@ final injector = GetIt.instance;
 
 ///Initializes [GetIt] [injector] variable
 Future<void> initInjector() async {
-  //Preferences
+  //Storages
   final pref = await SharedPreferences.getInstance();
   injector.registerLazySingleton<SharedPreferences>(() => pref);
 
+  const secureStorage = FlutterSecureStorage();
+  injector.registerLazySingleton<SecureStorageManager>(
+      () => SecureStorageManager(storage: secureStorage));
+
   //Core
-  injector.registerLazySingleton<ApiService>(() => ApiService());
   injector.registerLazySingleton<AppRouter>(() => AppRouter());
   injector.registerLazySingleton<Logger>(() => Logger());
   injector.registerLazySingleton<AppBlocObserver>(() => AppBlocObserver());
@@ -31,7 +35,7 @@ Future<void> initInjector() async {
       () => AuthRepositoryImpl(firebaseAuth: FirebaseAuth.instance));
 
   //UseCases
-  injector.registerLazySingleton<AuthUseCase>(() => AuthUseCaseImpl(
+  injector.registerLazySingleton<AuthUseCase>(() => AuthUseCase(
         authRepository: injector<AuthRepository>(),
         preferncesService: injector(),
       ));
@@ -49,12 +53,12 @@ Future<void> initInjector() async {
   injector.registerFactory<AppOptionsCubit>(() => AppOptionsCubit());
   injector.registerFactory<UserBloc>(() => UserBloc(
         authUseCase: injector(),
-        preferncesService: injector(),
+        storage: injector(),
       ));
   injector.registerFactory<AuthFieldsCubit>(() => AuthFieldsCubit(
         authUseCase: injector(),
         biometricsService: injector(),
-        preferences: injector(),
+        storage: injector(),
       ));
   injector.registerFactory<ResetPasswordCubit>(
       () => ResetPasswordCubit(authUseCase: injector()));

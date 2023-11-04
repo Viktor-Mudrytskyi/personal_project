@@ -1,72 +1,77 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../domain/domain.dart';
 
 part 'auth_fields_state.dart';
-part 'auth_fields_cubit.freezed.dart';
 
 class AuthFieldsCubit extends Cubit<AuthFieldsState> {
   final AuthUseCase _authUseCase;
   final BiometricsService _biometricsService;
-  final PreferncesService _preferences;
+  final SecureStorageManager _storage;
 
   AuthFieldsCubit({
     required AuthUseCase authUseCase,
     required BiometricsService biometricsService,
-    required PreferncesService preferences,
+    required SecureStorageManager storage,
   })  : _authUseCase = authUseCase,
         _biometricsService = biometricsService,
-        _preferences = preferences,
+        _storage = storage,
         super(_empty);
 
+  Future<void> onInit() async {
+    await attemptFingerprint(isInit: true);
+  }
+
   void onChangeEmail(String email) {
-    emit(state.copyWith(
-      email: email,
-      emailError: AuthUtils.isEmailValid(email),
-    ));
+    formState.emailValidator.update(email);
+    emit(
+      formState.copyWith(
+        email: email,
+      ),
+    );
   }
 
   void onChangePassword(String password) {
-    emit(state.copyWith(
+    formState.passwordValidator.update(password);
+    emit(formState.copyWith(
       password: password,
-      passwordError: AuthUtils.isPasswordValid(password),
     ));
   }
 
-  void onRememberMeChange(bool value) {
-    emit(state.copyWith(
-      isRememberMe: value,
-    ));
-  }
-
-  Future<void> registerUserWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<void> registerUserWithEmailAndPassword() async {
     if (_isLoginPasswordValid()) {
-      _emitLoading();
+      final oldFormState = formState;
+      emit(
+        DataSendingAuthFieldsState(
+          email: oldFormState.email,
+          password: oldFormState.password,
+          emailValidator: oldFormState.emailValidator,
+          passwordValidator: oldFormState.passwordValidator,
+          isValidatingEnabled: oldFormState.isValidatingEnabled,
+        ),
+      );
 
       final result = await _authUseCase.registerUserWEmailAndPassword(
-        email: email,
-        password: password,
+        email: oldFormState.email,
+        password: oldFormState.password,
       );
 
       result.fold(
         (l) {
-          _endLoading();
-          emit(state.copyWith(
-            firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
-          ));
-          _removeErrors();
+          emit(
+            ErrorAuthFieldsState(
+              errorMessage: FirebaseAuthExceptionParser().parse(l),
+            ),
+          );
+          emit(oldFormState);
         },
         (r) async {
-          _setDataInPrefs();
-          _endLoading();
-
-          emit(state.copyWith(isAuthSuccessful: true));
+          emit(SuccessAuthFieldsState());
+          await _writeToStorage(
+            oldFormState.email,
+            oldFormState.password,
+          );
           await _authUseCase.sendEmailVerification();
         },
       );
@@ -75,40 +80,39 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     }
   }
 
-  Future<void> logInUserWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<void> logInUserWithEmailAndPassword() async {
     if (_isLoginPasswordValid()) {
-      _emitLoading();
+      final oldFormState = formState;
+      emit(
+        DataSendingAuthFieldsState(
+          email: oldFormState.email,
+          password: oldFormState.password,
+          emailValidator: oldFormState.emailValidator,
+          passwordValidator: oldFormState.passwordValidator,
+          isValidatingEnabled: oldFormState.isValidatingEnabled,
+        ),
+      );
+
       final result = await _authUseCase.signInWEmailAndPassword(
-        email: email,
-        password: password,
+        email: oldFormState.email,
+        password: oldFormState.password,
       );
 
       result.fold(
         (l) {
-          _endLoading();
-
-          //This is here for occasion when user resets password and logins
-          //via fingerprint
-          if (password == _authUseCase.getPasswordFromPrefs) {
-            emit(state.copyWith(
-              firebaseError: AuthErrorEnum.passwordMayHaveBeenChanged,
-            ));
-          } else {
-            emit(state.copyWith(
-              firebaseError: AuthUtils.parseFirebaseAuthErrors(l.code),
-            ));
-          }
-
-          _removeErrors();
+          emit(
+            ErrorAuthFieldsState(
+              errorMessage: FirebaseAuthExceptionParser().parse(l),
+            ),
+          );
+          emit(oldFormState);
         },
         (r) async {
-          _setDataInPrefs();
-          _endLoading();
-
-          emit(state.copyWith(isAuthSuccessful: true));
+          emit(SuccessAuthFieldsState());
+          await _writeToStorage(
+            oldFormState.email,
+            oldFormState.password,
+          );
         },
       );
     } else {
@@ -116,92 +120,89 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
     }
   }
 
-  Future<void> attemptFingerprint() async {
-    if (await _biometricsService.canCheckFingerPrint) {
-      if (_authUseCase.isAuthDataInPreferences) {
-        _emitLoading();
+  Future<void> attemptFingerprint({bool isInit = false}) async {
+    final emailFromStorage = await _storage.readEmail();
+    final passwordFromStorage = await _storage.readPassword();
+    final oldFormState = formState;
 
-        try {
-          final result = await _biometricsService.authenticateWithFingerPrint();
-          if (result) {
-            final login = _authUseCase.getLoginFromPrefs;
-            final password = _authUseCase.getPasswordFromPrefs;
-            onChangeEmail(login);
-            onChangePassword(password);
-            await logInUserWithEmailAndPassword(login, password);
-          } else {
-            _endLoading();
-          }
-        } on PlatformException catch (_) {
-          _endLoading();
-          emit(state.copyWith(
-            biometricsError: AuthErrorEnum.fingerPrintError,
-          ));
-          _removeErrors();
-        }
-      } else {
-        emit(state.copyWith(
-          biometricsError: AuthErrorEnum.firstLoginFingerprint,
-        ));
-        _removeErrors();
+    if (emailFromStorage == null || passwordFromStorage == null) {
+      if (isInit) {
+        return;
       }
-    } else {
-      emit(state.copyWith(
-        biometricsError: AuthErrorEnum.fingerPrintNotSupported,
-      ));
-      _removeErrors();
+      emit(
+        BiometricErrorAuthFieldsState(
+            errorMessage: 'First login with email and password'),
+      );
+      emit(oldFormState);
+
+      return;
+    }
+
+    if (!(await _biometricsService.isDeviceSupported)) {
+      if (isInit) {
+        return;
+      }
+      emit(
+        BiometricErrorAuthFieldsState(
+            errorMessage: 'Biometrics is not supported'),
+      );
+      emit(oldFormState);
+      return;
+    }
+
+    // if (!(await _biometricsService.isFingerPrintEnrolled)) {
+    //   if (isInit) {
+    //     return;
+    //   }
+    //   emit(
+    //     BiometricErrorAuthFieldsState(
+    //         errorMessage: 'No fingerprint registered'),
+    //   );
+    //   emit(oldFormState);
+    //   return;
+    // }
+    try {
+      final res = await _biometricsService.authenticateWithFingerPrint();
+      onChangeEmail(emailFromStorage);
+      onChangePassword(passwordFromStorage);
+      if (res) {
+        await logInUserWithEmailAndPassword();
+      }
+    } catch (e) {
+      emit(
+        ErrorAuthFieldsState(errorMessage: 'Something went wrong'),
+      );
+      emit(oldFormState);
     }
   }
 
   bool _isLoginPasswordValid() {
-    if (state.emailError == AuthErrorEnum.valid &&
-        state.passwordError == AuthErrorEnum.valid) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void _emitLoading() {
-    emit(state.copyWith(isCurrentlyValidating: true));
-  }
-
-  void _endLoading() {
-    emit(state.copyWith(isCurrentlyValidating: false));
+    return formState.emailValidator.isValid &&
+        formState.passwordValidator.isValid;
   }
 
   void _enableValidation() {
-    emit(state.copyWith(isValidatingEnabled: true));
+    emit(formState.copyWith(isValidatingEnabled: true));
   }
 
-  ///if state contains any error that is shown on snack bar,
-  ///changes them to [AuthErrorEnum.valid]
-  void _removeErrors() {
-    if (state.biometricsError != AuthErrorEnum.valid ||
-        state.firebaseError != AuthErrorEnum.valid) {
-      emit(state.copyWith(
-        biometricsError: AuthErrorEnum.valid,
-        firebaseError: AuthErrorEnum.valid,
-      ));
-    }
+  Future<void> _writeToStorage(
+    String email,
+    String password,
+  ) async {
+    await _storage.writeEmail(email);
+    await _storage.writePassword(password);
   }
 
-  Future<void> _setDataInPrefs() async {
-    await _preferences.setLogin(state.email);
-    await _preferences.setPassword(state.password);
-    await _preferences.setIsRememberMe(state.isRememberMe);
-  }
-
-  static AuthFieldsState get _empty => const AuthFieldsState(
+  static AuthFieldsState get _empty => FormAuthFieldsState(
         email: '',
         password: '',
-        emailError: AuthErrorEnum.invalidEmail,
-        passwordError: AuthErrorEnum.weakPassword,
-        firebaseError: AuthErrorEnum.valid,
-        biometricsError: AuthErrorEnum.valid,
-        isRememberMe: false,
-        isAuthSuccessful: false,
-        isCurrentlyValidating: false,
+        emailValidator: EmailValidator(''),
+        passwordValidator: PasswordValidator(''),
         isValidatingEnabled: false,
+      );
+
+  FormAuthFieldsState get formState => state.maybeMap(
+        orElse: () => throw Exception('Current state is not form state'),
+        form: (form) => form,
       );
 }

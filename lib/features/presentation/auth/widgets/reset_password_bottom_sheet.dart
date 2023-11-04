@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,33 +11,37 @@ class ResetPasswordBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = context.appTheme;
     return BlocProvider(
       create: (context) => injector<ResetPasswordCubit>(),
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
-          if (state is ResetPasswordSuccessState) {
-            context.router.pop();
-          }
-          if (state is MyResetPasswordState) {
-            if (state.firebaseError != AuthErrorEnum.valid) {
-              UiUtils.showOverlaySnackBar(
-                context: context,
-                content: Text(
-                  state.firebaseError.name,
-                  style: appTheme.appTextStyles.login
-                      .copyWith(decoration: TextDecoration.none),
-                ),
-              );
-            }
-          }
+          state.mapOrNull();
         },
         builder: (context, state) {
-          return _ModalBottomSheet(
-            email: state.email,
-            isValidating: state.isValidating,
-            validatingEnabled: state.validatingEnabled,
-            emailError: state.emailError,
+          return state.maybeMap(
+            form: (form) => _ModalBottomSheet(
+              email: form.email,
+              validatingEnabled: form.validatingEnabled,
+              emailValidator: form.emailValidator,
+              isDataSending: false,
+            ),
+            dataSending: (dataSending) => Stack(
+              children: [
+                _ModalBottomSheet(
+                  email: dataSending.email,
+                  validatingEnabled: dataSending.validatingEnabled,
+                  emailValidator: dataSending.emailValidator,
+                  isDataSending: true,
+                ),
+                Positioned.fill(
+                  child: ColoredBox(
+                    color: Colors.black.withOpacity(.2),
+                    child: const LoadingSpinner(),
+                  ),
+                ),
+              ],
+            ),
+            orElse: () => const Offstage(),
           );
         },
       ),
@@ -49,15 +52,15 @@ class ResetPasswordBottomSheet extends StatelessWidget {
 class _ModalBottomSheet extends StatelessWidget {
   const _ModalBottomSheet({
     required this.email,
-    required this.isValidating,
     required this.validatingEnabled,
-    required this.emailError,
+    required this.emailValidator,
+    required this.isDataSending,
   });
 
   final String email;
-  final bool isValidating;
   final bool validatingEnabled;
-  final AuthErrorEnum emailError;
+  final EmailValidator emailValidator;
+  final bool isDataSending;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +82,8 @@ class _ModalBottomSheet extends StatelessWidget {
               children: [
                 AppTextField(
                   showError: validatingEnabled,
-                  enabled: !isValidating,
-                  errorText: AuthUtils.parseAuthErrors(emailError),
+                  enabled: isDataSending,
+                  errorText: emailValidator.getErrorText(),
                   initialValue: email,
                   hintText: 'Email',
                   suffixIcon: const Icon(
@@ -94,7 +97,7 @@ class _ModalBottomSheet extends StatelessWidget {
                 AuthButton.fill(
                   onPressed: () async {
                     context.removeAllFocus();
-                    await cubit.sendResetPasswordEmail(email);
+                    await cubit.sendResetPasswordEmail();
                   },
                   text: 'Send password',
                 ),

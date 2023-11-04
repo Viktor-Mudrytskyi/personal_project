@@ -12,17 +12,16 @@ import 'features/domain/domain.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureSystemUI();
-  await initInjector();
   await Firebase.initializeApp(options: EnvironmentConfig.firebaseOptions);
-  await _setUpAuth();
+  await initInjector();
+  //TODO do smt about it
+  if (injector<AuthUseCase>().isLoggedIn) {
+    await injector<AuthUseCase>().logOut();
+  }
 
   log(EnvironmentConfig.currentEnv.name);
 
   runApp(const MainApp());
-}
-
-Future<void> _setUpAuth() async {
-  await injector<AuthUseCase>().onAppInit();
 }
 
 Future<void> _configureSystemUI() async {

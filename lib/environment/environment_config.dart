@@ -8,14 +8,16 @@ enum EnvironmentEnum {
 }
 
 class EnvironmentConfig {
+  static const String _flavorKey = 'FLAVOR';
+
   static const String _prodName = 'prod';
 
   static const String _devName = 'dev';
 
-  static bool get isDev => currentEnv == EnvironmentEnum.dev ? true : false;
+  static bool get isDev => currentEnv == EnvironmentEnum.dev;
 
   static EnvironmentEnum get currentEnv {
-    switch (const String.fromEnvironment('FLAVOR')) {
+    switch (const String.fromEnvironment(_flavorKey)) {
       case _prodName:
         return EnvironmentEnum.prod;
       case _devName:
