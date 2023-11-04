@@ -1,8 +1,13 @@
 part of 'user_bloc.dart';
 
-@freezed
-class UserEvent with _$UserEvent {
-  const factory UserEvent.figureCurrentState(
-      {@Default(true) bool showSpinner}) = _UserFigureStateEvent;
-  const factory UserEvent.logout() = _UserLogOutEvent;
+class UserEvent {}
+
+class ResolveStateUserEvent extends UserEvent {
+  ResolveStateUserEvent();
+}
+
+class OnInitUserEvent extends UserEvent {}
+
+class LogOutUserEvent extends UserEvent {
+  LogOutUserEvent();
 }

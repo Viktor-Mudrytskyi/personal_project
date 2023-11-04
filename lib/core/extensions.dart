@@ -15,3 +15,21 @@ extension AppThemeFromContext on BuildContext {
     FocusScope.of(this).unfocus();
   }
 }
+
+extension NullOrEmptyString on String? {
+  bool isNullOrEmpty() {
+    return (this ?? '').isEmpty;
+  }
+
+  bool isNotNullOrEmpty() {
+    return (this ?? '').isNotEmpty;
+  }
+
+  bool isNullOrEmptyTrim() {
+    return (this ?? '').trim().isEmpty;
+  }
+
+  bool isNotNullOrEmptyTrim() {
+    return (this ?? '').trim().isNotEmpty;
+  }
+}

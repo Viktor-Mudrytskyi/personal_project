@@ -1,56 +1,68 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../features/features.dart';
 import '../../core.dart';
 
-part 'user_event.dart';
 part 'user_state.dart';
-part 'user_bloc.freezed.dart';
+part 'user_event.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final AuthUseCase _authUseCase;
-  final PreferncesService _preferncesService;
+  final SecureStorageManager _storage;
 
   UserBloc({
     required AuthUseCase authUseCase,
-    required PreferncesService preferncesService,
+    required SecureStorageManager storage,
   })  : _authUseCase = authUseCase,
-        _preferncesService = preferncesService,
-        super(const UserState.unuthenticated()) {
-    on<_UserLogOutEvent>(_onLogOutEvent);
-    on<_UserFigureStateEvent>(_onUserFigureState);
+        _storage = storage,
+        super(UnauthenticatedUserState()) {
+    on<LogOutUserEvent>(_onLogOut);
+    on<ResolveStateUserEvent>(_onResolveState);
+    on<OnInitUserEvent>(_onInit);
   }
 
-  Future<void> _onLogOutEvent(
-    _UserLogOutEvent event,
+  Future<void> _onLogOut(
+    LogOutUserEvent event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserState.loading());
+    emit(LoadingUserState());
     final result = await _authUseCase.logOut();
 
     result.fold(
-      (l) => emit(const UserState.error(error: AuthErrorEnum.invalidEmail)),
+      (l) => emit(ErrorUserState()),
       (r) async {
-        emit(const UserState.unuthenticated());
-        await _preferncesService.clearAll();
+        emit(UnauthenticatedUserState());
+        await _storage.deleteAll();
       },
     );
   }
 
-  Future<void> _onUserFigureState(
-    _UserFigureStateEvent event,
+  Future<void> _onInit(
+    OnInitUserEvent event,
     Emitter<UserState> emit,
   ) async {
-    if (event.showSpinner) {
-      emit(const UserState.loading());
-    }
-
-    if (_authUseCase.isLoggedIn) {
-      emit(UserState.authenticated(userInfo: _authUseCase.userInfo!));
+    emit(LoadingUserState());
+    if (!_authUseCase.isLoggedIn) {
+      emit(UnauthenticatedUserState());
     } else {
-      emit(const UserState.unuthenticated());
+      final res = await _authUseCase.logOut();
+      res.fold(
+        (l) => emit(ErrorUserState()),
+        (r) => emit(UnauthenticatedUserState()),
+      );
+    }
+  }
+
+  Future<void> _onResolveState(
+    ResolveStateUserEvent event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(LoadingUserState());
+    if (_authUseCase.isLoggedIn) {
+      emit(AuthenticatedUserState(userInfo: _authUseCase.userInfo!));
+    } else {
+      emit(UnauthenticatedUserState());
     }
   }
 }

@@ -24,139 +24,176 @@ class _LoginScreen extends StatelessWidget {
     const double kVerticalPadding = 26.0;
     const double kInnerHorizontalPadding = 26.0;
     final appTheme = context.appTheme;
-    return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: appTheme.appGradients.authBackgroundGradient,
+    return BlocProvider(
+      create: (context) => injector<AuthFieldsCubit>()..onInit(),
+      child: BlocConsumer<AuthFieldsCubit, AuthFieldsState>(
+        listener: (context, state) {
+          state.mapOrNull(
+            error: (error) => showAdaptiveDialog(
+              context: context,
+              builder: (context) => AlertDialog.adaptive(
+                content: Text(error.errorMessage),
+              ),
+            ),
+            biometricError: (biometricError) => showAdaptiveDialog(
+              context: context,
+              builder: (context) => AlertDialog.adaptive(
+                content: Text(biometricError.errorMessage),
+              ),
+            ),
+            success: (success) {
+              context.read<UserBloc>().add(ResolveStateUserEvent());
+              context.router.replaceAll([const HomeRoute()]);
+            },
+          );
+        },
+        buildWhen: (previous, current) => current.maybeMap(
+          orElse: () => false,
+          form: (form) => true,
+          dataSending: (dataSending) => true,
         ),
-        child: BlocProvider(
-          create: (context) => injector<AuthFieldsCubit>(),
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: kHorizontalPadding,
-                  vertical: kVerticalPadding,
-                ),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      CustomPaint(
-                        painter: CustomShape(
-                          shadow: appTheme.appShadows.backgroundShadow,
-                          color: appTheme.appColors.primaryBackground,
+        builder: (context, state) {
+          final isDataSending = state.maybeMap(
+            orElse: () => false,
+            dataSending: (dataSending) => true,
+          );
+          return Scaffold(
+            body: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: appTheme.appGradients.authBackgroundGradient,
+                  ),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kHorizontalPadding,
+                          vertical: kVerticalPadding,
                         ),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 13),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Image.asset(
-                                AppImages.kLoginImage,
-                                fit: BoxFit.contain,
-                                height: 147,
-                                width: double.infinity,
-                              ),
-                            ),
-                            const SizedBox(height: 18),
-                            SizedBox(
-                              height: 35,
-                              child: Text(
-                                'Welcome',
-                                style: appTheme.appTextStyles.authHeadline,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 66,
-                              child: Text.rich(
-                                TextSpan(
+                        sliver: SliverList(
+                          delegate: SliverChildListDelegate(
+                            [
+                              CustomPaint(
+                                painter: CustomShape(
+                                  shadow: appTheme.appShadows.backgroundShadow,
+                                  color: appTheme.appColors.primaryBackground,
+                                ),
+                                child: Column(
                                   children: [
-                                    TextSpan(
-                                      text:
-                                          'By signing in you are agreeing to our\n',
-                                      style: appTheme.appTextStyles.authBody,
+                                    const SizedBox(height: 13),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0,
+                                      ),
+                                      child: Image.asset(
+                                        AppImages.kLoginImage,
+                                        fit: BoxFit.contain,
+                                        height: 147,
+                                        width: double.infinity,
+                                      ),
                                     ),
-                                    TextSpan(
-                                      text: 'Term and privacy policy',
-                                      style:
-                                          appTheme.appTextStyles.authBodyBlue,
+                                    const SizedBox(height: 18),
+                                    SizedBox(
+                                      height: 35,
+                                      child: Text(
+                                        'Welcome',
+                                        style:
+                                            appTheme.appTextStyles.authHeadline,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 66,
+                                      child: Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  'By signing in you are agreeing to our\n',
+                                              style: appTheme
+                                                  .appTextStyles.authBody,
+                                            ),
+                                            TextSpan(
+                                              text: 'Term and privacy policy',
+                                              style: appTheme
+                                                  .appTextStyles.authBodyBlue,
+                                            ),
+                                          ],
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: kInnerHorizontalPadding,
+                                      ),
+                                      child: state.maybeMap(
+                                        form: (form) => _FieldsBody(
+                                          email: form.email,
+                                          emailValidator: form.emailValidator,
+                                          password: form.password,
+                                          passwordValidator:
+                                              form.passwordValidator,
+                                          isValidatingEnabled:
+                                              form.isValidatingEnabled,
+                                        ),
+                                        dataSending: (dataSending) =>
+                                            _FieldsBody(
+                                          email: dataSending.email,
+                                          emailValidator:
+                                              dataSending.emailValidator,
+                                          password: dataSending.password,
+                                          passwordValidator:
+                                              dataSending.passwordValidator,
+                                          isValidatingEnabled:
+                                              dataSending.isValidatingEnabled,
+                                        ),
+                                        orElse: () => const Offstage(),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            const SizedBox(height: 3),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: kInnerHorizontalPadding,
-                              ),
-                              child: BlocConsumer<AuthFieldsCubit,
-                                  AuthFieldsState>(
-                                listener: (context, state) {
-                                  _stateListener(
-                                    context: context,
-                                    state: state,
-                                    appTheme: appTheme,
-                                  );
-                                },
-                                builder: (context, state) {
-                                  return _FieldsBody(currentState: state);
-                                },
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
+                if (isDataSending)
+                  Positioned.fill(
+                    child: ColoredBox(
+                      color: Colors.black.withOpacity(.2),
+                      child: const LoadingSpinner(),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
-  }
-
-  void _stateListener({
-    required BuildContext context,
-    required AuthFieldsState state,
-    required AppThemeData appTheme,
-  }) {
-    if (state.firebaseError != AuthErrorEnum.valid) {
-      UiUtils.showOverlaySnackBar(
-        context: context,
-        content: Text(
-          state.firebaseError.name,
-          style: appTheme.appTextStyles.login.copyWith(
-            decoration: TextDecoration.none,
-          ),
-        ),
-      );
-    }
-    if (state.biometricsError != AuthErrorEnum.valid) {
-      showDialog(
-        context: context,
-        builder: (context) => StandartDialog.info(
-          label: AuthUtils.parseAuthErrors(state.biometricsError),
-        ),
-      );
-    }
-    if (state.isAuthSuccessful) {
-      context.removeAllFocus();
-      context.read<UserBloc>().add(const UserEvent.figureCurrentState());
-      context.router.replace(const HomeRoute());
-    }
   }
 }
 
 class _FieldsBody extends StatelessWidget {
-  const _FieldsBody({required this.currentState});
-  final AuthFieldsState currentState;
+  final String email;
+  final String password;
+  final EmailValidator emailValidator;
+  final PasswordValidator passwordValidator;
+  final bool isValidatingEnabled;
+
+  const _FieldsBody({
+    required this.email,
+    required this.password,
+    required this.emailValidator,
+    required this.passwordValidator,
+    required this.isValidatingEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -165,10 +202,9 @@ class _FieldsBody extends StatelessWidget {
     return Column(
       children: [
         AppTextField(
-          enabled: !currentState.isCurrentlyValidating,
-          showError: currentState.isValidatingEnabled,
-          initialValue: currentState.email,
-          errorText: AuthUtils.parseAuthErrors(currentState.emailError),
+          showError: isValidatingEnabled,
+          initialValue: email,
+          errorText: emailValidator.getErrorText(),
           hintText: 'Email Address',
           suffixIcon: const Icon(
             Icons.mail_outline,
@@ -180,10 +216,9 @@ class _FieldsBody extends StatelessWidget {
         const SizedBox(height: 7),
         AppTextField(
           obscureText: true,
-          enabled: !currentState.isCurrentlyValidating,
-          showError: currentState.isValidatingEnabled,
-          errorText: AuthUtils.parseAuthErrors(currentState.passwordError),
-          initialValue: currentState.password,
+          showError: isValidatingEnabled,
+          errorText: passwordValidator.getErrorText(),
+          initialValue: password,
           hintText: 'Password',
           suffixIcon: const Icon(
             Icons.lock_outline,
@@ -192,15 +227,7 @@ class _FieldsBody extends StatelessWidget {
           onChanged: authFieldsCubit.onChangePassword,
           keyboardType: TextInputType.visiblePassword,
         ),
-        const SizedBox(height: 5),
-        RememberPassCheckBox(
-          value: currentState.isRememberMe,
-          isActive: !currentState.isCurrentlyValidating,
-          onPressed: (val) {
-            authFieldsCubit.onRememberMeChange(val!);
-          },
-        ),
-        const SizedBox(height: 81),
+        const SizedBox(height: 100),
         Align(
           alignment: context.isLeftToRight
               ? Alignment.centerRight
@@ -224,13 +251,9 @@ class _FieldsBody extends StatelessWidget {
           children: [
             Expanded(
               child: AuthButton.fill(
-                enabled: !currentState.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeAllFocus();
-                  await authFieldsCubit.logInUserWithEmailAndPassword(
-                    currentState.email,
-                    currentState.password,
-                  );
+                  await authFieldsCubit.logInUserWithEmailAndPassword();
                 },
                 text: 'Login',
               ),
@@ -238,13 +261,9 @@ class _FieldsBody extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: AuthButton.border(
-                enabled: !currentState.isCurrentlyValidating,
                 onPressed: () async {
                   context.removeAllFocus();
-                  await authFieldsCubit.registerUserWithEmailAndPassword(
-                    currentState.email,
-                    currentState.password,
-                  );
+                  await authFieldsCubit.registerUserWithEmailAndPassword();
                 },
                 text: 'Register',
               ),
