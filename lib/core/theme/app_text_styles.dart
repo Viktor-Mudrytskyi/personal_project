@@ -12,6 +12,7 @@ class AppTextStyles {
   final TextStyle error;
   final TextStyle authSmall;
   final TextStyle dialogTitle;
+  final TextStyle todoTitle;
 
   const AppTextStyles._({
     required this.authBody,
@@ -25,6 +26,7 @@ class AppTextStyles {
     required this.error,
     required this.authSmall,
     required this.dialogTitle,
+    required this.todoTitle,
   });
 
   factory AppTextStyles.light() {
@@ -97,6 +99,12 @@ class AppTextStyles {
         fontWeight: FontWeight.w400,
         fontSize: 22,
         color: Color(0xFFFFFFFF),
+      ),
+      todoTitle: TextStyle(
+        fontFamily: 'Trebuc',
+        fontWeight: FontWeight.w500,
+        fontSize: 22,
+        color: Color(0xFF000000),
       ),
     );
   }

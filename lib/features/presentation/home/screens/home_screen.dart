@@ -35,6 +35,17 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: const Text('Logout'),
                     ),
+                    const Padding(
+                      padding: EdgeInsets.all(15),
+                      child: ToDoCard(
+                        toDoCardDto: ToDoCardDto(
+                          title: 'Kostya Clown',
+                          imgUrl:
+                              'https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg',
+                          isComplete: true,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 unauthenticated: (val) => const Text('Unauthenticated'),
