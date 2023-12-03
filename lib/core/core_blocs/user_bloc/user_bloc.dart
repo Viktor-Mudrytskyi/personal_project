@@ -46,11 +46,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (!_authUseCase.isLoggedIn) {
       emit(UnauthenticatedUserState());
     } else {
-      final res = await _authUseCase.logOut();
-      res.fold(
-        (l) => emit(ErrorUserState()),
-        (r) => emit(UnauthenticatedUserState()),
-      );
+      // final res = await _authUseCase.logOut();
+      // res.fold(
+      //   (l) => emit(ErrorUserState()),
+      //   (r) => emit(UnauthenticatedUserState()),
+      // );
+      emit(AuthenticatedUserState(userInfo: _authUseCase.userInfo!));
     }
   }
 

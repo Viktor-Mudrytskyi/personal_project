@@ -9,7 +9,7 @@ class AppBlocObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
 
-    logger.v('''${bloc.runtimeType} has changed state
+    logger.t('''${bloc.runtimeType} has changed state
     Previous: ${change.currentState.runtimeType}
     Current: ${change.nextState.toString()}
     ''');

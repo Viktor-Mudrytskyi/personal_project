@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,9 +16,9 @@ void main() async {
   await Firebase.initializeApp(options: EnvironmentConfig.firebaseOptions);
   await initInjector();
   //TODO do smt about it
-  if (injector<AuthUseCase>().isLoggedIn) {
-    await injector<AuthUseCase>().logOut();
-  }
+  // if (injector<AuthUseCase>().isLoggedIn) {
+  //   await injector<AuthUseCase>().logOut();
+  // }
 
   log(EnvironmentConfig.currentEnv.name);
 

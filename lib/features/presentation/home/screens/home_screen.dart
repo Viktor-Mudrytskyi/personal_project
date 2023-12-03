@@ -21,38 +21,12 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          body: SizedBox.expand(
-            child: Center(
-              child: state.map(
-                authenticated: (val) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('HI!'),
-                    Text(val.userInfo.email!),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<UserBloc>().add(LogOutUserEvent());
-                      },
-                      child: const Text('Logout'),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(15),
-                      child: ToDoCard(
-                        toDoCardDto: ToDoCardDto(
-                          title: 'Kostya Clown',
-                          imgUrl:
-                              'https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg',
-                          isComplete: true,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                unauthenticated: (val) => const Text('Unauthenticated'),
-                loading: (val) => const LoadingSpinner(),
-                error: (val) => const Text('error'),
-              ),
-            ),
+          appBar: AppBar(),
+          body: state.map(
+            authenticated: (val) => const AuthenticatedHome(),
+            unauthenticated: (val) => const Text('Unauthenticated'),
+            loading: (val) => const LoadingSpinner(),
+            error: (val) => const Text('error'),
           ),
         );
       },
