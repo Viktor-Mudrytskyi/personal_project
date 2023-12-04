@@ -150,17 +150,17 @@ class AuthFieldsCubit extends Cubit<AuthFieldsState> {
       return;
     }
 
-    // if (!(await _biometricsService.isFingerPrintEnrolled)) {
-    //   if (isInit) {
-    //     return;
-    //   }
-    //   emit(
-    //     BiometricErrorAuthFieldsState(
-    //         errorMessage: 'No fingerprint registered'),
-    //   );
-    //   emit(oldFormState);
-    //   return;
-    // }
+    if (!(await _biometricsService.isFingerPrintEnrolled)) {
+      if (isInit) {
+        return;
+      }
+      emit(
+        BiometricErrorAuthFieldsState(
+            errorMessage: 'No fingerprint registered'),
+      );
+      emit(oldFormState);
+      return;
+    }
     try {
       final res = await _biometricsService.authenticateWithFingerPrint();
       onChangeEmail(emailFromStorage);

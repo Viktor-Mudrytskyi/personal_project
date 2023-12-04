@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secure_application/secure_application.dart';
 import 'core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,6 +39,12 @@ class _MainAppState extends State<MainApp> {
           routerConfig: _appRouter.config(
             navigatorObservers: () => [RouterObserver()],
           ),
+          builder: (context, child) {
+            return SecureApplication(
+              nativeRemoveDelay: 800,
+              child: child!,
+            );
+          },
         ),
       ),
     );

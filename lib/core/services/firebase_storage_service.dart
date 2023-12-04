@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseStorageService {
@@ -13,10 +15,15 @@ class FirebaseStorageService {
     return _instance!;
   }
 
-  Future<String> getImage() async {
+  Future<String> uploadImage(File image) async {
+    final name = image.path.split('/').last;
+
     final storageRef = _storage.ref();
-    final fileRef = storageRef.child('2.png');
-    final link = await fileRef.getDownloadURL();
+
+    final imageRef = storageRef.child(name);
+
+    await imageRef.putFile(image);
+    final link = await imageRef.getDownloadURL();
     return link;
   }
 }

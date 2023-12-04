@@ -21,4 +21,12 @@ class FirebaseFirestoreService {
         data.docs.map((e) => e.data() as Map<String, dynamic>).toList();
     return jsonList;
   }
+
+  Future<void> createToDo(String title, String? imageUrl) async {
+    final CollectionReference todos = _firestore.collection('To-Dos');
+    await todos.add({
+      'title': title,
+      'imageUrl': imageUrl,
+    });
+  }
 }

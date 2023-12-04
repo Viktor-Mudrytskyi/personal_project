@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 import '../../features/features.dart';
+import '../../features/presentation/home/widgets/create_to_do.dart';
 import '../core.dart';
 part 'app_router.gr.dart';
 
@@ -22,5 +26,6 @@ class AppRouter extends _$AppRouter {
           transitionsBuilder: TransitionsBuilders.slideRight,
           durationInMilliseconds: 200,
         ),
+        AutoRoute(page: CameraRoute.page)
       ];
 }
